@@ -1,0 +1,91 @@
+@import "variables";
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,500;1,500&family=Oswald:wght@500&display=swap');
+
+a{
+  color: $black;
+  text-decoration: none;
+}
+
+p a, li a{
+  text-decoration: underline;
+}
+
+.headline{
+  font-size: $headline;
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.title{
+  font-size: $subtitle;
+  font-family: 'Oswald', sans-serif;
+  line-height: 1;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.subtitle{
+  font-size: $subtitle;
+  font-family: 'Oswald', sans-serif;
+  line-height: 1;
+  font-weight: 500;
+}
+
+.large-body{
+  font-size: $large-body;
+  font-family: "shift", serif;
+}
+
+.body{
+  font-size: $body;
+  font-family: "shift", serif;
+}
+
+.captions, .wp-caption-text, figcaption{
+  font-size: $captions;
+  font-family: 'IBM Plex Mono', monospace;
+  margin-top: 0;
+  margin-left: 100px;
+  margin-bottom: 24px;
+  width: 70%;
+  line-height: 1.2;
+}
+
+
+.category{
+  font-size: 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase;
+  width: fit-content;
+  background-color: $black;
+  padding: 5px 15px;
+  color: $white;
+  border-radius: 25px;
+  margin: 0 auto 10px auto;
+  line-height: 1.2;
+  letter-spacing: 0px;
+  font-weight: 500;
+}
+
+.button{
+  font-size: $button;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+body{
+  background-color: $white;
+  color: $black;
+  font-family: "shift", serif;
+  font-size: $body;
+  line-height: 1.5;
+}
+
+h1, h2{
+  margin: 10px 0 0 0;
+  padding: 0;
+}
+
+h1{
+  font-family: 'Oswald', sans-serif;
+}

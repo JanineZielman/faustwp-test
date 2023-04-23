@@ -1,0 +1,236 @@
+// CSS for use on every page. Added with normalize.css in pages/_app.tsx.
+
+@import "variables";
+@import "typography";
+
+.flex{
+  display: flex;
+  flex-wrap: wrap;
+  .column1{
+    width: 35vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    p{
+      width: 85%;
+      margin: auto;
+      font-family: "shift", serif;
+      text-transform: none; 
+      line-height: 1.2;
+      font-size: $large-body;
+      font-weight: 300;
+    }
+  }
+}
+
+.logo-container{
+  width: 60%;
+  // margin-top: 4vw;
+  margin: 4vw 0;
+}
+
+.logo{
+  display: block;
+  background-color: white;
+  border-radius: 50%;
+  // border: 1px solid black;
+}
+
+svg g path{
+  fill: black!important;
+}
+
+.post-highlight-item{
+  width: 55vw;
+  margin-left: 5vw;
+  height: 100%;
+  padding: 14px 0;
+  margin-top: 2vw;
+  img{
+    width: 100%;
+    height: 100%;
+    max-height: 60vh;
+    object-fit: contain;
+  }
+  text-align: center;
+}
+
+.grid{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top: 48px;
+  .row{
+    width: 30vw;
+  }
+  .post-item{
+    width: 100%;
+    border-top: 2px solid $black;
+    padding: 14px 0;
+    img{
+      height: auto;
+      width: auto;
+      max-width: 80%;
+      max-height: 500px;
+      min-width: 20vw;
+      object-fit: contain;
+    }
+    text-align: center;
+  }
+}
+
+.article{
+  .headline{
+    max-width: 900px;
+    margin: auto;
+    padding-left: 150px;
+    box-sizing: border-box;
+    margin-bottom: 48px;
+  }
+  .wrap{
+    width: 900px;
+    margin: auto;
+    img, figure, div{
+      width: 100%!important;
+      height: auto!important;
+      margin: auto 0;
+    }
+  }
+}
+
+.info-bar{
+  width: 900px;
+  margin: 24px auto;
+  font-size: $captions;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 150px;
+  box-sizing: border-box;
+  .date{
+    width: 30%;
+    .field{
+      text-transform: capitalize;
+      border-bottom: 1px solid $black;
+      opacity: 0.8;
+    }
+    .data{
+      margin-top: 5px;
+    }
+  }
+}
+
+
+.post-item{
+  .placeholder{
+    width: 80%;
+    height: 15vw;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+    .blob1{
+      width: 600px;
+      height: 600px;
+      left: -200px;
+      top: -100px;
+    }
+    .blob2{
+      width: 600px;
+      height: 600px;
+      right: 0;
+    }
+    .blob3{
+      width: 800px;
+      height: 800px;
+      left: 20%;
+      bottom: 0;
+    }
+    .blob{
+      position: absolute;
+      z-index: -1;
+      filter: grayscale(0.9);
+      // mix-blend-mode: overlay;
+      &.blue{
+        background: radial-gradient(circle, rgba(191,226,225, 1) 0%, rgba(255,255,255,0) 60%, rgba(255,255,255,0) 90%);
+      }
+      &.yellow{
+        background: radial-gradient(circle, rgba(254,238,166,1) 0%, rgba(255,255,255,0) 60%, rgba(255,255,255,0) 100%);
+      }
+      &.pink{
+        background: radial-gradient(circle, rgba(248,200,215,1) 0%, rgba(255,255,255,0) 60%, rgba(255,255,255,0) 90%);
+      }
+    }
+  }
+}
+
+
+.background-animation{
+  position: fixed;
+  z-index: -1;
+  opacity: 0.7;
+  .bg-blob1{
+    width: 100vw;
+    height: 100vw;
+    left: -50vw;
+    top: -50vw;
+    position: absolute;
+    background: radial-gradient(circle, rgba(248,200,215,1) 0%, rgba(255,255,255,0) 60%, rgba(255,255,255,0) 90%);
+    animation: move 100s ease infinite alternate;
+  }
+  
+  .bg-blob2{
+    width: 100vw;
+    height: 100vw;
+    position: absolute;
+    right: 0;
+    left: 50vw;
+    top: -20vh;
+    bottom: auto;
+    background: radial-gradient(circle, rgba(254,238,166,1) 0%, rgba(255,255,255,0) 60%, rgba(255,255,255,0) 100%);
+    animation: move 100s ease infinite alternate-reverse;
+  }
+  
+  .bg-blob3{
+    width: 100vw;
+    height: 100vw;
+    position: absolute;
+    top: -20vw;
+    left: -50vw;
+    background: radial-gradient(circle, rgba(191,226,225, 1) 0%, rgba(255,255,255,0) 60%, rgba(255,255,255,0) 90%);
+    animation: move 100s ease infinite alternate;
+  }
+  
+  @keyframes move {
+    0% {
+      transform: scale(1) translate(10px, -30px);
+    }
+    38% {
+      transform: scale(0.8, 1) translate(60%, 30%) rotate(160deg);
+    }
+    40% {
+      transform: scale(0.8, 1) translate(60%, 30%) rotate(160deg);
+    }
+    78% {
+      transform: scale(1.3) translate(0%, 50%) rotate(-20deg);
+    }
+    80% {
+      transform: scale(1.3) translate(0%, 50%) rotate(-20deg);
+    }
+    100% {
+      transform: scale(1) translate(10px, -30px);
+    }
+  }
+}
+
+.about.article{
+  .wrap{
+    position: relative;
+    img{
+      border-radius: 50%;
+      width: 200px!important;
+      height: auto!important;
+    }
+  }
+  
+}
