@@ -16,8 +16,6 @@ import {
 export default function Component(props) {
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
-  const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
-  const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
   const { name, posts } = props.data.nodeByUri;
 
   return (
@@ -26,7 +24,7 @@ export default function Component(props) {
       <Header
         title={siteTitle}
         description={siteDescription}
-        menuItems={primaryMenu}
+        // menuItems={primaryMenu}
       />
       <Main>
         <>
@@ -56,8 +54,6 @@ Component.query = gql`
   ${FeaturedImage.fragments.entry}
   query GetTagPage(
     $uri: String!
-    $headerLocation: MenuLocationEnum
-    $footerLocation: MenuLocationEnum
   ) {
     nodeByUri(uri: $uri) {
       ... on Tag {
@@ -84,23 +80,11 @@ Component.query = gql`
     generalSettings {
       ...BlogInfoFragment
     }
-    headerMenuItems: menuItems(where: { location: $headerLocation }) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    footerMenuItems: menuItems(where: { location: $footerLocation }) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
   }
 `;
 
 Component.variables = ({ uri }) => {
   return {
     uri,
-    headerLocation: MENUS.PRIMARY_LOCATION,
-    footerLocation: MENUS.FOOTER_LOCATION,
   };
 };
