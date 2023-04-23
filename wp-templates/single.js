@@ -21,8 +21,6 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
-  const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
-  const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
   const { title, content, featuredImage, date, author } = props.data.post;
 
   return (
@@ -35,34 +33,39 @@ export default function Component(props) {
       <Header
         title={siteTitle}
         description={siteDescription}
-        menuItems={primaryMenu}
+        // menuItems={primaryMenu}
       />
-      <Main>
-        <>
-          <EntryHeader
-            title={title}
-            image={featuredImage?.node}
-            date={date}
-            author={author?.node?.name}
-          />
-          <Container>
-            <ContentWrapper content={content} />
-          </Container>
-        </>
-      </Main>
-      <Footer title={siteTitle} menuItems={footerMenu} />
+      <main className="article">
+        <div className='info-bar'>
+          <div className='date'>
+            <div className='field'>DATE</div>
+            <div className='data'>{date}</div>
+          </div>
+          <div className='date'>
+            <div className='field'>Published in</div>
+            <div className='data'>{date}</div>
+          </div>
+          <div className='date'>
+            <div className='field'>DOI</div>
+            <div className='data'>{date}</div>
+          </div>
+        </div>
+        <h1 className='headline'>{title}</h1>
+        {/* <img src={post.featuredImage?.node.mediaItemUrl}/> */}
+        <div className="wrap">
+          <div dangerouslySetInnerHTML={{ __html: content ?? '' }} />
+        </div>
+      </main>
+      {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}
     </>
   );
 }
 
 Component.query = gql`
   ${BlogInfoFragment}
-  ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
   query GetPost(
     $databaseId: ID!
-    $headerLocation: MenuLocationEnum
-    $footerLocation: MenuLocationEnum
     $asPreview: Boolean = false
   ) {
     post(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
@@ -79,24 +82,12 @@ Component.query = gql`
     generalSettings {
       ...BlogInfoFragment
     }
-    headerMenuItems: menuItems(where: { location: $headerLocation }) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
-    footerMenuItems: menuItems(where: { location: $footerLocation }) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
   }
 `;
 
 Component.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
-    headerLocation: MENUS.PRIMARY_LOCATION,
-    footerLocation: MENUS.FOOTER_LOCATION,
     asPreview: ctx?.asPreview,
   };
 };

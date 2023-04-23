@@ -1,0 +1,1 @@
+{"c":["pages/_app","webpack"],"r":["pages/posts/[...wordpressNode]"],"m":["./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?absolutePagePath=%2FUsers%2Fjaninezielman%2FDocuments%2FSites%2FWordpress%2Ffaustwp-getting-started%2Fpages%2Fposts%2F%5B...wordpressNode%5D.js&page=%2Fposts%2F%5B...wordpressNode%5D!","./pages/posts/[...wordpressNode].js"]}

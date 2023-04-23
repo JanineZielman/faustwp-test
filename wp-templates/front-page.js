@@ -26,11 +26,11 @@ export default function Component() {
   return (
     <>
       <SEO title={siteTitle} description={siteDescription} />
-      {/* <Header
+      <Header
         title={siteTitle}
         description={siteDescription}
-        menuItems={primaryMenu}
-      /> */}
+        // menuItems={primaryMenu}
+      />
       <Main>
         <Container>
         <div className='flex'>

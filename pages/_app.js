@@ -10,7 +10,14 @@ export default function MyApp({ Component, pageProps }) {
 
   return (
     <FaustProvider pageProps={pageProps}>
+      <header>
+          <script src="planck.min.js"></script>
+          <script src="d3.min.js"></script>
+          <script src="balancetext.min.js"></script>
+          <link rel="stylesheet" href="https://use.typekit.net/iiw5mea.css"></link>
+      </header>
       <Component {...pageProps} key={router.asPath} />
+      <script src="java.js"></script>
     </FaustProvider>
   );
 }
