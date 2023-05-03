@@ -14,12 +14,30 @@ body{
   box-sizing: border-box;
 }
 
+.front-page{
+  .navbar{
+    .logo-container{
+      display: none;
+    }
+  }
+}
+
 .navbar{
   display: flex;
   justify-content: flex-end;
   position: fixed;
   z-index: 999;
   right: 14px;
+  .logo-container{
+    position: fixed;
+    top: -6vw;
+    width: 10vw;
+    height: 10vw;
+    left: 10vw;
+    margin: 0;
+    filter: invert(1);
+    z-index: 999;
+  }
   .nav-toggle{
     cursor: pointer;
     position: fixed;
@@ -39,8 +57,9 @@ body{
     position: fixed;
     width: 100vw;
     left: 0;
-    top: 0;
+    top: -200px;
     font-size: 24px;
+    transition: top 0.4s ease-in-out;
     background: transparent linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 72%, #FFFFFF00 100%) 0% 0% no-repeat padding-box;
     .menu{
       display: flex;
@@ -58,6 +77,7 @@ body{
     &.show{
       visibility: visible;
       opacity: 1;
+      top: 0;
     }
   }
 }
@@ -154,7 +174,7 @@ svg g path{
   }
   .wrap{
     width: 100%;
-    max-width: 900px;
+    max-width: 50vw;
     margin: auto;
     padding: 0 10px;
     img, figure, div{

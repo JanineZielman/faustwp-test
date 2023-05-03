@@ -18,6 +18,11 @@ export default function Header({
           <div className="bg-blob3"></div>
         </div>
         <div className={'navbar'}>
+          <div className="logo-container">
+            <a href="/" className="logo">
+              <svg className="apria_logo" width="100%" height="100%" viewBox="0 0 100 100"><circle cx="50%" cy="50%" r="50"></circle></svg>
+            </a>
+          </div>
           <div
             type="button"
             className={`nav-toggle ${isNavShown ? 'active' : ''} `}

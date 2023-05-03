@@ -25,11 +25,13 @@ export default function Component() {
   return (
     <>
       <SEO title={siteTitle} description={siteDescription} />
-      <Header
-        title={siteTitle}
-        description={siteDescription}
-        menuItems={primaryMenu}
-      />
+      <div  className={'front-page'}>
+        <Header
+          title={siteTitle}
+          description={siteDescription}
+          menuItems={primaryMenu}
+        />
+      </div>
       <Main>
         <Container>
         <div className='flex'>
