@@ -25,8 +25,8 @@ export default function Component(props) {
   const footnotes = content.match(regexMdLinks);
 
 
-  const regexMdLinks2 = /(?<=\[footnote)(.*?)(?=\[\/footnote])/gm;
-  const test = content.match(regexMdLinks2);
+  // const regexMdLinks2 = /(?<=\[footnote)(.*?)(?=\[\/footnote])/gm;
+  // const test = content.match(regexMdLinks2);
   
   // const [newContent, setNewContent] = useState('');
 
@@ -36,11 +36,11 @@ export default function Component(props) {
   //   }
   // })
 
-  console.log('links', test[0].split(']')[0])
+  // console.log('links', test[0].split(']')[0])
 
-  for (let i = 0; i < footnotes.length; i++) { 
-    console.log(test[i].split(']')[0])
-  }
+  // for (let i = 0; i < footnotes.length; i++) { 
+  //   console.log(test[i].split(']')[0])
+  // }
 
 
   return (
@@ -78,15 +78,17 @@ export default function Component(props) {
         {/* <img src={post.featuredImage?.node.mediaItemUrl}/> */}
         <div className="wrap">
           <div dangerouslySetInnerHTML={{ __html: content ?? '' }} />
-          <Collapsible trigger="Footnotes" idname={'footnotes'}>
-            <ul className='footnotes'>
-              {footnotes.map((item, i) => {
-                return(
-                  <li dangerouslySetInnerHTML={{ __html: item.replaceAll(/[0-9]/g, '').replaceAll(']', '').replaceAll('about:blank', '#') ?? '' }}/>
-                )
-              })}
-            </ul>
-          </Collapsible>
+          {footnotes && 
+            <Collapsible trigger="Footnotes" idname={'footnotes'}>
+              <ul className='footnotes'>
+                {footnotes.map((item, i) => {
+                  return(
+                    <li dangerouslySetInnerHTML={{ __html: item.replaceAll(/[0-9]/g, '').replaceAll(']', '').replaceAll('about:blank', '#') ?? '' }}/>
+                  )
+                })}
+              </ul>
+            </Collapsible>
+          }
         </div>
       </main>
       {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}
