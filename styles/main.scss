@@ -10,6 +10,10 @@ body{
   overflow-x: hidden;
 }
 
+main{
+  padding: 0 10px;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -130,7 +134,7 @@ svg g path{
   img{
     width: 100%;
     height: 100%;
-    max-height: 60vh;
+    max-height: 70vh;
     object-fit: contain;
   }
   text-align: center;
@@ -165,19 +169,16 @@ svg g path{
   width: 100%;
   overflow-x: hidden;
   .headline{
-    width: 100%;
-    max-width: 900px;
+    width: 50vw;
     margin: auto;
     padding-left: 150px;
     box-sizing: border-box;
     margin-bottom: 48px;
   }
   .wrap{
-    width: 100%;
-    max-width: 50vw;
+    width: 50vw;
     margin: auto;
-    padding: 0 10px;
-    img, figure, div{
+    img, figure, div, video{
       width: 100%!important;
       height: auto!important;
       margin: auto 0;
@@ -185,9 +186,12 @@ svg g path{
   }
 }
 
+.page{
+  margin-top: 70px;
+}
+
 .info-bar{
-  width: 100%;
-  max-width: 900px;
+  width: 50vw;
   margin: 24px auto;
   font-size: $captions;
   display: flex;

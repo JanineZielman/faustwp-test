@@ -36,14 +36,11 @@ export default function Component(props) {
         description={siteDescription}
         menuItems={primaryMenu}
       />
-      <Main>
-        <>
-          <EntryHeader title={title} image={featuredImage?.node} />
-          <Container>
-            <ContentWrapper content={content} />
-          </Container>
-        </>
-      </Main>
+      <main className="article page">
+        <div className="wrap">
+          <div dangerouslySetInnerHTML={{ __html: content ?? '' }} />
+        </div>
+       </main>
       {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}
     </>
   );
@@ -70,6 +67,7 @@ Component.query = gql`
         nodes {
           label
           url
+          uri
         }
       }
     }

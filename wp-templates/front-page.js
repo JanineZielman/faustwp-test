@@ -83,6 +83,7 @@ Component.query = gql`
         nodes {
           label
           url
+          uri
         }
       }
     }

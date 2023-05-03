@@ -12,6 +12,7 @@ import {
   FeaturedImage,
   SEO,
 } from '../components';
+import Moment from 'moment';
 
 export default function Component(props) {
   // Loading state for previews
@@ -21,8 +22,10 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
-  const { title, content, featuredImage, date, author } = props.data.post;
+  const { title, content, featuredImage, date, author, articleTop } = props.data.post;
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
+
+  console.log(props)
 
   return (
     <>
@@ -38,18 +41,22 @@ export default function Component(props) {
       />
       <main className="article">
         <div className='info-bar'>
-          <div className='date'>
-            <div className='field'>DATE</div>
-            <div className='data'>{date}</div>
-          </div>
+          {date &&
+            <div className='date'>
+              <div className='field'>DATE</div>
+              <div className='data'>{Moment(date).format("DD-MM-YYYY")}</div>
+            </div>
+          }
           <div className='date'>
             <div className='field'>Published in</div>
-            <div className='data'>{date}</div>
+            <div className='data'>Name</div>
           </div>
-          <div className='date'>
-            <div className='field'>DOI</div>
-            <div className='data'>{date}</div>
-          </div>
+          {articleTop.doi &&
+            <div className='date'>
+              <div className='field'>DOI</div>
+              <div className='data'>{articleTop.doi}</div>
+            </div>
+          }
         </div>
         <h1 className='headline'>{title}</h1>
         {/* <img src={post.featuredImage?.node.mediaItemUrl}/> */}
@@ -74,6 +81,7 @@ Component.query = gql`
         nodes {
           label
           url
+          uri
         }
       }
     }
@@ -85,6 +93,11 @@ Component.query = gql`
         node {
           name
         }
+      }
+      articleTop {
+        doi
+        previewText
+        subtitle
       }
       ...FeaturedImageFragment
     }

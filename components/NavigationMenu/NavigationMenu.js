@@ -12,7 +12,7 @@ export default function NavigationMenu({ menuItems, className }) {
       aria-label={`${menuItems[0]?.menu?.node?.name} menu`}>
       <ul className='menu'>
         {menuItems.map((item) => {
-          const { id, url, label } = item;
+          const { id, uri, label } = item;
 
           if (!item.hasOwnProperty('__typename')) {
             return null;
@@ -20,7 +20,7 @@ export default function NavigationMenu({ menuItems, className }) {
 
           return (
             <li key={id} className='menu-link'>
-              <Link href={url.replace('https://apria.artez.nl', '') ?? ''}>{label ?? ''}</Link>
+              <Link href={uri ?? '/'}>{label ?? ''}</Link>
             </li>
           );
         })}
