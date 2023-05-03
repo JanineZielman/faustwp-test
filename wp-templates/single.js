@@ -1,18 +1,13 @@
 import { gql } from '@apollo/client';
-import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import {
   Header,
-  Footer,
-  Main,
-  Container,
-  EntryHeader,
-  NavigationMenu,
-  ContentWrapper,
   FeaturedImage,
   SEO,
+  Collapsible
 } from '../components';
 import Moment from 'moment';
+import React, {useEffect, useState} from 'react';
 
 export default function Component(props) {
   // Loading state for previews
@@ -25,7 +20,28 @@ export default function Component(props) {
   const { title, content, featuredImage, date, author, articleTop } = props.data.post;
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
 
-  console.log(props)
+
+  const regexMdLinks = /(?<=\[footnote)(.*?)(?=\[\/footnote])/gm;
+  const footnotes = content.match(regexMdLinks);
+
+
+  const regexMdLinks2 = /(?<=\[footnote)(.*?)(?=\[\/footnote])/gm;
+  const test = content.match(regexMdLinks2);
+  
+  // const [newContent, setNewContent] = useState('');
+
+  // useEffect(() => {
+  //   for (let i = 0; i < footnotes.length; i++) { 
+  //     setNewContent(content.replace(footnotes[i], footnotes[i].split(']')[0]))
+  //   }
+  // })
+
+  console.log('links', test[0].split(']')[0])
+
+  for (let i = 0; i < footnotes.length; i++) { 
+    console.log(test[i].split(']')[0])
+  }
+
 
   return (
     <>
@@ -62,6 +78,15 @@ export default function Component(props) {
         {/* <img src={post.featuredImage?.node.mediaItemUrl}/> */}
         <div className="wrap">
           <div dangerouslySetInnerHTML={{ __html: content ?? '' }} />
+          <Collapsible trigger="Footnotes" idname={'footnotes'}>
+            <ul className='footnotes'>
+              {footnotes.map((item, i) => {
+                return(
+                  <li dangerouslySetInnerHTML={{ __html: item.replaceAll(/[0-9]/g, '').replaceAll(']', '').replaceAll('about:blank', '#') ?? '' }}/>
+                )
+              })}
+            </ul>
+          </Collapsible>
         </div>
       </main>
       {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}

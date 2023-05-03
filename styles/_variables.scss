@@ -14,3 +14,30 @@ $button: 12px;
 .DN--play-btn{
   color: black;
 }
+
+.footnotes{
+  list-style-type: decimal;
+  margin-top: 24px;
+  li{
+    margin-top: 10px;
+  }
+}
+
+.article .wrap .collapsible{
+  margin-top: 48px;
+  .trigger{
+    width: 100%;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+  }
+  .collapsible-content{
+    height: 0!important;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 1s ease;
+    &.open{
+      height: auto!important;
+      opacity: 1;
+    }
+  }
+}
