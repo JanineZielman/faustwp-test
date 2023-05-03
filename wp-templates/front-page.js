@@ -18,10 +18,9 @@ export default function Component() {
 
   const { title: siteTitle, description: siteDescription } =
     data?.generalSettings;
-  // const primaryMenu = data?.headerMenuItems?.nodes ?? [];
+  const primaryMenu = data?.menu?.menuItems?.nodes ?? [];
   // const footerMenu = data?.footerMenuItems?.nodes ?? [];
   const posts = data?.posts?.nodes ?? [];
-  console.log(posts)
 
   return (
     <>
@@ -29,7 +28,7 @@ export default function Component() {
       <Header
         title={siteTitle}
         description={siteDescription}
-        // menuItems={primaryMenu}
+        menuItems={primaryMenu}
       />
       <Main>
         <Container>
@@ -76,6 +75,14 @@ Component.query = gql`
   query GetPageData {
     generalSettings {
       ...BlogInfoFragment
+    }
+    menu(id: "dGVybToxMQ==") {
+      menuItems {
+        nodes {
+          label
+          url
+        }
+      }
     }
     posts(first: 100)  {
       nodes {

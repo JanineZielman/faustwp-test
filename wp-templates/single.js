@@ -22,6 +22,7 @@ export default function Component(props) {
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
   const { title, content, featuredImage, date, author } = props.data.post;
+  const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
 
   return (
     <>
@@ -33,7 +34,7 @@ export default function Component(props) {
       <Header
         title={siteTitle}
         description={siteDescription}
-        // menuItems={primaryMenu}
+        menuItems={primaryMenu}
       />
       <main className="article">
         <div className='info-bar'>
@@ -68,6 +69,14 @@ Component.query = gql`
     $databaseId: ID!
     $asPreview: Boolean = false
   ) {
+    menu(id: "dGVybToxMQ==") {
+      menuItems {
+        nodes {
+          label
+          url
+        }
+      }
+    }
     post(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
       content

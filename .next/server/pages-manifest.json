@@ -1,12 +1,7 @@
 {
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
-  "/api/faust/[[...route]]": "pages/api/faust/[[...route]].js",
-  "/[...wordpressNode]": "pages/[...wordpressNode].js",
-  "/posts/[...wordpressNode]": "pages/posts/[...wordpressNode].js",
-  "/": "pages/index.js",
   "/_document": "pages/_document.js",
-  "/en/404": "pages/en/404.html",
-  "/en/500": "pages/en/500.html",
-  "/en/preview": "pages/en/preview.html"
+  "/posts/[...wordpressNode]": "pages/posts/[...wordpressNode].js",
+  "/[...wordpressNode]": "pages/[...wordpressNode].js"
 }

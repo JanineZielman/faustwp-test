@@ -3,6 +3,65 @@
 @import "variables";
 @import "typography";
 
+body{
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.navbar{
+  display: flex;
+  justify-content: flex-end;
+  position: fixed;
+  z-index: 999;
+  right: 14px;
+  .nav-toggle{
+    cursor: pointer;
+    position: fixed;
+    z-index: 999;
+    font-size: 40px;
+    top: 10px;
+    line-height: 1;
+    &.active{
+      font-size: 30px;
+      top: 16px;
+      right: 20px;
+    }
+  }
+  .primary-navigation{
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    width: 100vw;
+    left: 0;
+    top: 0;
+    font-size: 24px;
+    background: transparent linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 72%, #FFFFFF00 100%) 0% 0% no-repeat padding-box;
+    .menu{
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin-right: 100px;
+      margin-left: auto;
+    }
+    .menu-link{
+      margin-right: 48px;
+      a{
+        text-decoration: none;
+      }
+    }
+    &.show{
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
 .flex{
   display: flex;
   flex-wrap: wrap;
@@ -82,7 +141,11 @@ svg g path{
 }
 
 .article{
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
   .headline{
+    width: 100%;
     max-width: 900px;
     margin: auto;
     padding-left: 150px;
@@ -90,8 +153,10 @@ svg g path{
     margin-bottom: 48px;
   }
   .wrap{
-    width: 900px;
+    width: 100%;
+    max-width: 900px;
     margin: auto;
+    padding: 0 10px;
     img, figure, div{
       width: 100%!important;
       height: auto!important;
@@ -101,7 +166,8 @@ svg g path{
 }
 
 .info-bar{
-  width: 900px;
+  width: 100%;
+  max-width: 900px;
   margin: 24px auto;
   font-size: $captions;
   display: flex;

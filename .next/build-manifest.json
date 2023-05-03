@@ -1,51 +1,39 @@
 {
   "polyfillFiles": [
-    "static/chunks/polyfills-c67a75d1b6f99dc8.js"
+    "static/chunks/polyfills.js"
   ],
-  "devFiles": [],
-  "ampDevFiles": [],
+  "devFiles": [
+    "static/chunks/react-refresh.js"
+  ],
+  "ampDevFiles": [
+    "static/chunks/webpack.js",
+    "static/chunks/amp.js"
+  ],
   "lowPriorityFiles": [
-    "static/gtX1Su4jVZyw1UWZwkNsC/_buildManifest.js",
-    "static/gtX1Su4jVZyw1UWZwkNsC/_ssgManifest.js"
+    "static/development/_buildManifest.js",
+    "static/development/_ssgManifest.js"
   ],
   "rootMainFiles": [],
   "pages": {
-    "/": [
-      "static/chunks/webpack-9b0e45c24ba97727.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-b4ff5a1cb5948ab7.js",
-      "static/chunks/pages/index-35daf3ff2013fb27.js"
-    ],
     "/[...wordpressNode]": [
-      "static/chunks/webpack-9b0e45c24ba97727.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-b4ff5a1cb5948ab7.js",
-      "static/chunks/pages/[...wordpressNode]-1530522e0efe25f0.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/[...wordpressNode].js"
     ],
     "/_app": [
-      "static/chunks/webpack-9b0e45c24ba97727.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-b4ff5a1cb5948ab7.js",
-      "static/css/9a1aecaf9f1460da.css",
-      "static/chunks/pages/_app-67f20846fb176f64.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/_app.js"
     ],
     "/_error": [
-      "static/chunks/webpack-9b0e45c24ba97727.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-b4ff5a1cb5948ab7.js",
-      "static/chunks/pages/_error-a4ba2246ff8fb532.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/_error.js"
     ],
     "/posts/[...wordpressNode]": [
-      "static/chunks/webpack-9b0e45c24ba97727.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-b4ff5a1cb5948ab7.js",
-      "static/chunks/pages/posts/[...wordpressNode]-031ceb9a1521d21a.js"
-    ],
-    "/preview": [
-      "static/chunks/webpack-9b0e45c24ba97727.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-b4ff5a1cb5948ab7.js",
-      "static/chunks/pages/preview-8a77c8756f2517bb.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/posts/[...wordpressNode].js"
     ]
   },
   "ampFirstPages": []

@@ -50,7 +50,6 @@ export default function Component(props) {
 
 Component.query = gql`
   ${BlogInfoFragment}
-  ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
   query GetTagPage(
     $uri: String!

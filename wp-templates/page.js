@@ -22,6 +22,7 @@ export default function Component(props) {
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
   const { title, content, featuredImage } = props?.data?.page ?? { title: '' };
+  const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
 
   return (
     <>
@@ -33,7 +34,7 @@ export default function Component(props) {
       <Header
         title={siteTitle}
         description={siteDescription}
-        // menuItems={primaryMenu}
+        menuItems={primaryMenu}
       />
       <Main>
         <>
@@ -43,7 +44,7 @@ export default function Component(props) {
           </Container>
         </>
       </Main>
-      <Footer title={siteTitle} menuItems={footerMenu} />
+      {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}
     </>
   );
 }
@@ -59,12 +60,19 @@ Component.variables = ({ databaseId }, ctx) => {
 
 Component.query = gql`
   ${BlogInfoFragment}
-  ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
   query GetPageData(
     $databaseId: ID!
     $asPreview: Boolean = false
   ) {
+    menu(id: "dGVybToxMQ==") {
+      menuItems {
+        nodes {
+          label
+          url
+        }
+      }
+    }
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
       content

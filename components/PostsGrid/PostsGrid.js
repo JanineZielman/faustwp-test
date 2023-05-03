@@ -26,7 +26,6 @@ export default function Posts({ posts, id }){
       <div className="grid">
         <div className='row'>
           {posts.map((post, i) => {
-            console.log(post)
             return(
               <>
               {i %amount==0 &&
