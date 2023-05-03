@@ -195,11 +195,11 @@ svg g path{
   margin: 24px auto;
   font-size: $captions;
   display: flex;
-  justify-content: space-between;
   padding-left: 150px;
   box-sizing: border-box;
   .date{
     width: 30%;
+    margin-right: 3%;
     .field{
       text-transform: capitalize;
       border-bottom: 1px solid $black;
