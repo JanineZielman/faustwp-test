@@ -21,8 +21,10 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
-  const { title, content, featuredImage } = props?.data?.page ?? { title: '' };
+  const { title, content, featuredImage, intro, sidebar } = props?.data?.page ?? { title: '' };
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
+
+  console.log(sidebar)
 
   return (
     <>
@@ -37,8 +39,15 @@ export default function Component(props) {
         menuItems={primaryMenu}
       />
       <main className="article page">
+        <div className='left-sidebar'></div>
         <div className="wrap">
+          <h1 className='title main-title'>{title}</h1>
+          <p className='intro'>{intro.intro}</p>
+          {intro.embed && <iframe className='big-image' src={intro.embed}/>}
           <div dangerouslySetInnerHTML={{ __html: content ?? '' }} />
+        </div>
+        <div className='right-sidebar'>
+          <div dangerouslySetInnerHTML={{ __html: sidebar.sidebarText ?? '' }} />
         </div>
        </main>
       {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}
@@ -75,6 +84,16 @@ Component.query = gql`
       title
       content
       ...FeaturedImageFragment
+      intro {
+        intro
+        embed
+        bigImage {
+          sourceUrl
+        }
+      }
+      sidebar{
+        sidebarText
+      }
     }
     generalSettings {
       ...BlogInfoFragment

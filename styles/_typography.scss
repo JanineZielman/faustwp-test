@@ -10,6 +10,25 @@ p a, li a{
   text-decoration: underline;
 }
 
+h1,h2,h3,h4,h5{
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+h6{
+  font-family: "shift", serif;
+  font-size: $captions;
+  margin: 10px 0;
+}
+
+blockquote{
+  font-size: $large-body;
+  p{
+    margin: 0;
+  }
+}
+
 .headline{
   font-size: $headline;
   font-family: 'Oswald', sans-serif;
@@ -30,6 +49,10 @@ p a, li a{
   font-family: 'Oswald', sans-serif;
   line-height: 1;
   font-weight: 500;
+}
+
+.intro{
+  font-size: $large-body;
 }
 
 .large-body{

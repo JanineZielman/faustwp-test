@@ -3,5 +3,6 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/[...wordpressNode]": "pages/[...wordpressNode].js",
-  "/posts/[...wordpressNode]": "pages/posts/[...wordpressNode].js"
+  "/api/faust/[[...route]]": "pages/api/faust/[[...route]].js",
+  "/": "pages/index.js"
 }

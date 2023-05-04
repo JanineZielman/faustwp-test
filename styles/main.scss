@@ -19,6 +19,12 @@ main{
   box-sizing: border-box;
 }
 
+iframe{
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+}
+
 .front-page{
   .navbar{
     .logo-container{
@@ -33,6 +39,8 @@ main{
   position: fixed;
   z-index: 999;
   right: 14px;
+  text-transform: uppercase;
+  font-family: 'Oswald', sans-serif;
   .logo-container{
     position: fixed;
     top: -6vw;
@@ -85,6 +93,12 @@ main{
       top: 0;
     }
   }
+}
+
+.big-image{
+  width: 95vw;
+  margin-left: -24.5vw;
+  border: none;
 }
 
 .flex{
@@ -165,10 +179,27 @@ svg g path{
   }
 }
 
+.main-title{
+  width: 50vw;
+  padding-left: 150px;
+}
+
+.right-sidebar{
+  width: 20vw;
+  padding-right: 2vw;
+  margin-top: 54px;
+}
+
+.left-sidebar{
+  width: 24vw;
+  padding-left: 2vw;
+}
+
 .article{
   position: relative;
   width: 100%;
   overflow-x: hidden;
+  display: flex;
   .headline{
     width: 50vw;
     margin: auto;
@@ -178,7 +209,7 @@ svg g path{
   }
   .wrap{
     width: 50vw;
-    margin: auto;
+    margin: 0 auto;
     img, figure, div, video{
       width: 100%!important;
       height: auto!important;
