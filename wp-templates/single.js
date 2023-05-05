@@ -56,27 +56,27 @@ export default function Component(props) {
         menuItems={primaryMenu}
       />
       <main className="article">
-        <div className='info-bar'>
-          {date &&
-            <div className='date'>
-              <div className='field'>DATE</div>
-              <div className='data'>{Moment(date).format("DD-MM-YYYY")}</div>
-            </div>
-          }
-          <div className='date'>
-            <div className='field'>Published in</div>
-            <div className='data'>Name</div>
-          </div>
-          {articleTop.doi &&
-            <div className='date'>
-              <div className='field'>DOI</div>
-              <div className='data'>{articleTop.doi}</div>
-            </div>
-          }
-        </div>
-        <h1 className='headline'>{title}</h1>
         {/* <img src={post.featuredImage?.node.mediaItemUrl}/> */}
         <div className="wrap">
+          <div className='info-bar'>
+            {date &&
+              <div className='date'>
+                <div className='field'>DATE</div>
+                <div className='data'>{Moment(date).format("DD-MM-YYYY")}</div>
+              </div>
+            }
+            <div className='date'>
+              <div className='field'>Published in</div>
+              <div className='data'>Name</div>
+            </div>
+            {articleTop.doi &&
+              <div className='date'>
+                <div className='field'>DOI</div>
+                <div className='data'>{articleTop.doi}</div>
+              </div>
+            }
+          </div>
+          <h1 className='headline'>{title}</h1>
           <div dangerouslySetInnerHTML={{ __html: content ?? '' }} />
           {footnotes && 
             <Collapsible trigger="Footnotes" idname={'footnotes'}>

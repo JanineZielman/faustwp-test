@@ -2,7 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/[...wordpressNode]": "pages/[...wordpressNode].js",
+  "/posts/[...wordpressNode]": "pages/posts/[...wordpressNode].js",
+  "/": "pages/index.js",
   "/api/faust/[[...route]]": "pages/api/faust/[[...route]].js",
-  "/": "pages/index.js"
+  "/[...wordpressNode]": "pages/[...wordpressNode].js"
 }

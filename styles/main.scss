@@ -218,30 +218,30 @@ svg g path{
   }
 }
 
-.page{
+.article{
   margin-top: 70px;
-}
-
-.info-bar{
-  width: 50vw;
-  margin: 24px auto;
-  font-size: $captions;
-  display: flex;
-  padding-left: 150px;
-  box-sizing: border-box;
-  .date{
-    width: 30%;
-    margin-right: 3%;
-    .field{
-      text-transform: capitalize;
-      border-bottom: 1px solid $black;
-      opacity: 0.8;
-    }
-    .data{
-      margin-top: 5px;
+  .info-bar{
+    width: 50vw;
+    margin: 24px auto;
+    font-size: $captions;
+    display: flex;
+    padding-left: 150px;
+    box-sizing: border-box;
+    .date{
+      width: 30%;
+      margin-right: 3%;
+      .field{
+        text-transform: capitalize;
+        border-bottom: 1px solid $black;
+        opacity: 0.8;
+      }
+      .data{
+        margin-top: 5px;
+      }
     }
   }
 }
+
 
 
 .post-item{
