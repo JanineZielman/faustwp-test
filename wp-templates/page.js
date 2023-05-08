@@ -4,13 +4,9 @@ import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import {
   Header,
   Footer,
-  Main,
-  Container,
-  ContentWrapper,
-  EntryHeader,
-  NavigationMenu,
   FeaturedImage,
   SEO,
+  LinkedItems
 } from '../components';
 
 export default function Component(props) {
@@ -21,10 +17,9 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
-  const { title, content, featuredImage, intro, sidebar } = props?.data?.page ?? { title: '' };
+  const { title, content, featuredImage, intro, sidebar, linkedItems } = props?.data?.page ?? { title: '' };
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
 
-  console.log(sidebar)
 
   return (
     <>
@@ -38,18 +33,23 @@ export default function Component(props) {
         description={siteDescription}
         menuItems={primaryMenu}
       />
-      <main className="article page">
-        <div className='left-sidebar'></div>
-        <div className="wrap">
-          <h1 className='title main-title'>{title}</h1>
-          <p className='intro'>{intro.intro}</p>
-          {intro.embed && <iframe className='big-image' src={intro.embed}/>}
-          <div dangerouslySetInnerHTML={{ __html: content ?? '' }} />
-        </div>
-        <div className='right-sidebar'>
-          <div dangerouslySetInnerHTML={{ __html: sidebar.sidebarText ?? '' }} />
-        </div>
-       </main>
+        <main className="article page">
+          <div className='left-sidebar'>
+            
+          </div>
+          <div className="wrap">
+            <h1 className='title main-title'>{title}</h1>
+            <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
+            {intro.embed && <iframe className='big-image' src={intro.embed}/>}
+            {linkedItems.linkedItems &&
+              <LinkedItems props={linkedItems.linkedItems}/>
+            }
+            <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
+          </div>
+          <div className='right-sidebar'>
+            <div dangerouslySetInnerHTML={{ __html: sidebar.sidebarText ?? '' }} />
+          </div>
+        </main>
       {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}
     </>
   );
@@ -93,6 +93,25 @@ Component.query = gql`
       }
       sidebar{
         sidebarText
+      }
+      linkedItems {
+        linkedItems {
+          ... on Post {
+            id
+            title
+            slug
+            featuredImage{
+              node{
+                mediaItemUrl
+              }
+            }
+            categories{
+              nodes{
+                name
+              }
+            }
+          }
+        }
       }
     }
     generalSettings {

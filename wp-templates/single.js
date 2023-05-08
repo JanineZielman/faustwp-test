@@ -4,7 +4,8 @@ import {
   Header,
   FeaturedImage,
   SEO,
-  Collapsible
+  Collapsible,
+  LinkedItems
 } from '../components';
 import Moment from 'moment';
 import React, {useEffect, useState} from 'react';
@@ -17,12 +18,12 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
-  const { title, content, featuredImage, date, author, articleTop } = props.data.post;
+  const { title, content, featuredImage, date, author, articleTop, intro, linkedItems } = props.data.post;
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
 
 
   const regexMdLinks = /(?<=\[footnote)(.*?)(?=\[\/footnote])/gm;
-  const footnotes = content.match(regexMdLinks);
+  const footnotes = content?.match(regexMdLinks);
 
 
   // const regexMdLinks2 = /(?<=\[footnote)(.*?)(?=\[\/footnote])/gm;
@@ -57,6 +58,9 @@ export default function Component(props) {
       />
       <main className="article">
         {/* <img src={post.featuredImage?.node.mediaItemUrl}/> */}
+        <div className='left-sidebar'>
+          <img src="/filter.svg"/>
+        </div>
         <div className="wrap">
           <div className='info-bar'>
             {date &&
@@ -77,7 +81,9 @@ export default function Component(props) {
             }
           </div>
           <h1 className='headline'>{title}</h1>
-          <div dangerouslySetInnerHTML={{ __html: content ?? '' }} />
+          <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
+          {intro.embed && <iframe className='big-image' src={intro.embed}/>}
+          <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
           {footnotes && 
             <Collapsible trigger="Footnotes" idname={'footnotes'}>
               <ul className='footnotes'>
@@ -88,6 +94,11 @@ export default function Component(props) {
                 })}
               </ul>
             </Collapsible>
+          }
+        </div>
+        <div className='right-sidebar'>
+          {linkedItems &&
+            <LinkedItems props={linkedItems.linkedItems}/>
           }
         </div>
       </main>
@@ -125,6 +136,22 @@ Component.query = gql`
         doi
         previewText
         subtitle
+      }
+      intro {
+        intro
+        embed
+        bigImage {
+          sourceUrl
+        }
+      }
+      linkedItems {
+        linkedItems {
+          ... on Post {
+            id
+            title
+            slug
+          }
+        }
       }
       ...FeaturedImageFragment
     }
