@@ -56,3 +56,15 @@
     white-space: normal;
   }
 }
+
+@media only screen and (max-width: 1800px){
+  .grid{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 48px;
+    .row{
+      width: 22vw;
+    }
+  }
+}

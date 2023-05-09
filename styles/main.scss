@@ -161,7 +161,7 @@ svg g path{
   justify-content: space-evenly;
   margin-top: 48px;
   .row{
-    width: 30vw;
+    width: 15vw;
   }
   .post-item{
     width: 100%;
@@ -171,8 +171,8 @@ svg g path{
       height: auto;
       width: auto;
       max-width: 80%;
-      max-height: 400px;
-      min-width: 20vw;
+      max-height: 500px;
+      min-width: 15vw;
       object-fit: contain;
     }
     text-align: center;
@@ -185,9 +185,7 @@ main.article .wrap{
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: start;
-    margin-top: 48px;
-    width: 95vw;
-    margin-left: -24.5vw;
+    width: 100%;
     margin-bottom: 48px;
     .category{
       margin-bottom: 14px;
@@ -216,11 +214,10 @@ main.article .wrap{
 .right-sidebar{
   width: 18vw;
   padding-right: 2vw;
-  margin-top: 54px;
   font-size: $captions;
   .linked-items{
     .linked-item{
-      margin-bottom: 36px;
+      margin-bottom: 0px;
     }
   }
 }
@@ -228,12 +225,11 @@ main.article .wrap{
 .left-sidebar{
   width: 24vw;
   padding-left: 2vw;
-  position: relative;
+  margin-top: 24px;
   img{
-    width: 22vw;
+    width: 24vw;
+    max-width: 400px;
     position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
   }
 }
 
@@ -241,28 +237,6 @@ main.article .wrap{
   position: relative;
   width: 100%;
   overflow-x: hidden;
-  display: flex;
-  .headline{
-    width: 50vw;
-    margin: auto;
-    padding-left: 150px;
-    box-sizing: border-box;
-    margin-bottom: 48px;
-  }
-  .wrap{
-    width: 50vw;
-    margin: 0 auto;
-    .content{
-      img, figure, div, video{
-        width: 100%!important;
-        height: auto!important;
-        margin: auto 0;
-      }
-    }
-  }
-}
-
-.article{
   margin-top: 70px;
   .info-bar{
     width: 50vw;
@@ -271,6 +245,7 @@ main.article .wrap{
     display: flex;
     padding-left: 150px;
     box-sizing: border-box;
+    margin-left: 27.5vw;
     .date{
       width: 30%;
       margin-right: 3%;
@@ -284,8 +259,36 @@ main.article .wrap{
       }
     }
   }
+  .headline{
+    width: 50vw;
+    margin: auto;
+    padding-left: 150px;
+    box-sizing: border-box;
+    margin-bottom: 48px;
+    margin-left: 27.5vw;
+  }
+  .intro{
+    width: 50vw;
+    margin-left: 27.5vw;
+    margin-bottom: 24px;
+  }
+  .wrap{
+    .main-wrapper{
+      display: flex;
+    }
+    .content-wrapper{
+      width: 50vw;
+      margin: 0 auto;
+    }
+    .content{
+      img, figure, div, video{
+        width: 100%!important;
+        height: auto!important;
+        margin: auto 0;
+      }
+    }
+  }
 }
-
 
 
 .post-item{

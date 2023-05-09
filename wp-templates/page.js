@@ -34,20 +34,24 @@ export default function Component(props) {
         menuItems={primaryMenu}
       />
         <main className="article page">
-          <div className='left-sidebar'>
-            
-          </div>
           <div className="wrap">
-            <h1 className='title main-title'>{title}</h1>
+            <h1 className='headline'>{title}</h1>
             <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
             {intro.embed && <iframe className='big-image' src={intro.embed}/>}
             {linkedItems.linkedItems &&
               <LinkedItems props={linkedItems.linkedItems}/>
             }
-            <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
-          </div>
-          <div className='right-sidebar'>
-            <div dangerouslySetInnerHTML={{ __html: sidebar.sidebarText ?? '' }} />
+            <div className='main-wrapper'>
+              <div className='left-sidebar'>
+              
+              </div>
+              <div className='content-wrapper'>
+                <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
+              </div>
+              <div className='right-sidebar'>
+                <div dangerouslySetInnerHTML={{ __html: sidebar.sidebarText ?? '' }} />
+              </div>
+            </div>
           </div>
         </main>
       {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}

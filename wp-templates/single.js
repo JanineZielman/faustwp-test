@@ -18,7 +18,7 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
-  const { title, content, featuredImage, date, author, articleTop, intro, linkedItems } = props.data.post;
+  const { title, content, featuredImage, date, author, articleTop, intro, linkedItems, linkedJournal } = props.data.post;
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
 
 
@@ -43,6 +43,8 @@ export default function Component(props) {
   //   console.log(test[i].split(']')[0])
   // }
 
+  console.log(linkedJournal)
+
 
   return (
     <>
@@ -57,10 +59,6 @@ export default function Component(props) {
         menuItems={primaryMenu}
       />
       <main className="article">
-        {/* <img src={post.featuredImage?.node.mediaItemUrl}/> */}
-        <div className='left-sidebar'>
-          <img src="/filter.svg"/>
-        </div>
         <div className="wrap">
           <div className='info-bar'>
             {date &&
@@ -69,10 +67,12 @@ export default function Component(props) {
                 <div className='data'>{Moment(date).format("DD-MM-YYYY")}</div>
               </div>
             }
-            <div className='date'>
-              <div className='field'>Published in</div>
-              <div className='data'>Name</div>
-            </div>
+            {linkedJournal.linkedJournal &&
+              <div className='date'>
+                <div className='field'>Published in</div>
+                <div className='data'>{linkedJournal.linkedJournal.title}</div>
+              </div>
+            }
             {articleTop.doi &&
               <div className='date'>
                 <div className='field'>DOI</div>
@@ -83,23 +83,33 @@ export default function Component(props) {
           <h1 className='headline'>{title}</h1>
           <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
           {intro.embed && <iframe className='big-image' src={intro.embed}/>}
-          <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
-          {footnotes && 
-            <Collapsible trigger="Footnotes" idname={'footnotes'}>
-              <ul className='footnotes'>
-                {footnotes.map((item, i) => {
-                  return(
-                    <li dangerouslySetInnerHTML={{ __html: item.replaceAll(/[0-9]/g, '').replaceAll(']', '').replaceAll('about:blank', '#') ?? '' }}/>
-                  )
-                })}
-              </ul>
-            </Collapsible>
-          }
-        </div>
-        <div className='right-sidebar'>
-          {linkedItems &&
-            <LinkedItems props={linkedItems.linkedItems}/>
-          }
+          <div className='main-wrapper'>
+              <div className='left-sidebar'>
+                <img src="/filter.svg"/>
+              </div>
+              <div className='content-wrapper'>
+                <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
+                {footnotes && 
+                  <Collapsible trigger="Footnotes" idname={'footnotes'}>
+                    <ul className='footnotes'>
+                      {footnotes.map((item, i) => {
+                        return(
+                          <li dangerouslySetInnerHTML={{ __html: item.replaceAll(/[0-9]/g, '').replaceAll(']', '').replaceAll('about:blank', '#') ?? '' }}/>
+                        )
+                      })}
+                    </ul>
+                  </Collapsible>
+                }
+              </div>
+              <div className='right-sidebar'>
+                {linkedItems &&
+                  <LinkedItems props={linkedItems.linkedItems}/>
+                }
+                {linkedJournal &&
+                  <LinkedItems props={linkedJournal.linkedJournal?.linkedItems.linkedItems}/>
+                }
+              </div>
+          </div>
         </div>
       </main>
       {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}
@@ -150,6 +160,23 @@ Component.query = gql`
             id
             title
             slug
+          }
+        }
+      }
+      linkedJournal {
+        linkedJournal {
+          ... on Post {
+            id
+            title
+            linkedItems {
+              linkedItems {
+                ... on Post {
+                  id
+                  title
+                  slug
+                }
+              }
+            }
           }
         }
       }

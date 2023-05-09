@@ -81,14 +81,19 @@ blockquote{
   font-family: 'IBM Plex Mono', monospace;
   text-transform: uppercase;
   width: fit-content!important;
-  background-color: $black;
-  padding: 5px 15px;
-  color: $white;
+  background-color: transparent;
+  border: 2px solid black;
+  padding: 3px 10px;
+  color: $black;
   border-radius: 25px;
   margin: 0 auto 10px auto;
   line-height: 1.2;
   letter-spacing: 0px;
   font-weight: 500;
+}
+
+.linked-items .category{
+  margin-left: 0;
 }
 
 .button{
