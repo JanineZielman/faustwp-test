@@ -1,13 +1,11 @@
 export { Container } from './Container';
 export { ContentWrapper } from './ContentWrapper';
-export { EntryHeader } from './EntryHeader';
 export { FeaturedImage } from './FeaturedImage';
 export { Footer } from './Footer';
 export { Header } from './Header';
 export { Main } from './Main';
 export { NavigationMenu } from './NavigationMenu';
 export { PostInfo } from './PostInfo';
-export { Hero } from './Hero';
 export { Post } from './Post';
 export { SEO } from './SEO';
 export { PostsGrid } from './PostsGrid';
