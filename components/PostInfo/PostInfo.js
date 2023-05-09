@@ -1,5 +1,3 @@
-import { FormatDate } from '../../components';
-
 export default function PostInfo({ date, author, className }) {
   if (!date && !author) {
     return null;
@@ -9,7 +7,7 @@ export default function PostInfo({ date, author, className }) {
     <div className={className}>
       {date && (
         <time dateTime={date}>
-          <FormatDate date={date} />
+          {date}
         </time>
       )}
       {date && author && <>&nbsp;</>}
