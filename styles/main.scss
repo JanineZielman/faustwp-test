@@ -76,10 +76,11 @@ iframe{
     transition: top 0.4s ease-in-out;
     background: transparent linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 72%, #FFFFFF00 100%) 0% 0% no-repeat padding-box;
     .menu{
-      display: flex;
+      // display: flex;
+      column-count: 4;
       flex-wrap: wrap;
-      max-width: 900px;
-      margin-right: 100px;
+      max-width: 700px;
+      // margin-right: 100px;
       margin-left: auto;
     }
     .menu-link{
@@ -166,6 +167,15 @@ svg g path{
   text-align: center;
 }
 
+.related{
+  width: 100%;
+  display: block;
+  margin: auto;
+  padding-bottom: 10px;
+  border-bottom: 2px solid black;
+  margin-bottom: 24px;
+}
+
 .grid{
   display: flex;
   flex-wrap: wrap;
@@ -187,6 +197,16 @@ svg g path{
       object-fit: contain;
     }
     text-align: center;
+  }
+}
+
+.related-grid{
+  width: 95%;
+  margin: auto;
+  justify-content: space-between;
+  .post-item{
+    border-top: none;
+    border-bottom: 2px solid $black;
   }
 }
 
@@ -240,7 +260,7 @@ main.article .wrap{
   img{
     width: 24vw;
     max-width: 400px;
-    position: fixed;
+    // position: fixed;
   }
 }
 

@@ -11,3 +11,4 @@ export { SEO } from './SEO';
 export { PostsGrid } from './PostsGrid';
 export { Collapsible } from './Collapsible';
 export { LinkedItems } from './LinkedItems';
+export { RelatedGrid } from './RelatedGrid';

@@ -5,7 +5,8 @@ import {
   FeaturedImage,
   SEO,
   Collapsible,
-  LinkedItems
+  LinkedItems,
+  RelatedGrid
 } from '../components';
 import Moment from 'moment';
 import React, {useEffect, useState} from 'react';
@@ -43,7 +44,7 @@ export default function Component(props) {
   //   console.log(test[i].split(']')[0])
   // }
 
-  console.log(linkedJournal)
+  console.log(props)
 
 
   return (
@@ -110,6 +111,9 @@ export default function Component(props) {
                 }
               </div>
           </div>
+          <RelatedGrid
+            posts={props.data.posts.nodes}
+          />
         </div>
       </main>
       {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}
@@ -181,6 +185,23 @@ Component.query = gql`
         }
       }
       ...FeaturedImageFragment
+    }
+    posts(first: 12)  {
+      nodes {
+        id
+        title
+        slug
+        featuredImage{
+          node{
+            mediaItemUrl
+          }
+        }
+        categories{
+          nodes{
+            name
+          }
+        }
+      }
     }
     generalSettings {
       ...BlogInfoFragment
