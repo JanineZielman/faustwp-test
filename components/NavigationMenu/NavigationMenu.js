@@ -10,7 +10,7 @@ export default function NavigationMenu({ menuItems, className }) {
       className={className}
       role="navigation"
       aria-label={`${menuItems[0]?.menu?.node?.name} menu`}>
-      <ul className='menu'>
+      <div className='menu'>
         {menuItems.map((item) => {
           const { id, uri, label } = item;
 
@@ -19,12 +19,12 @@ export default function NavigationMenu({ menuItems, className }) {
           }
 
           return (
-            <li key={id} className='menu-link'>
+            <div key={id} className='menu-link'>
               <Link href={uri ?? '/'}>{label ?? ''}</Link>
-            </li>
+            </div>
           );
         })}
-      </ul>
+      </div>
     </nav>
   );
 }
