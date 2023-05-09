@@ -34,7 +34,7 @@ export default function Component() {
       </div>
       <Main>
         <Container>
-        <div className='flex'>
+        <div className='flex align-center'>
         <div className='column1'>
           <div className="logo-container">
             <a href="/" className="logo">
@@ -59,6 +59,7 @@ export default function Component() {
             </a>
           </Link>
         </div>
+
       </div>
 
 
