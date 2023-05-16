@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 export default function LinkedItems({ props }) {
-  console.log(props)
   return (
     <div className='linked-items'>
       {props?.map((post, i) => {

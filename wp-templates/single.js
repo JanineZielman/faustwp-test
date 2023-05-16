@@ -19,7 +19,7 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
-  const { title, content, featuredImage, date, author, articleTop, intro, linkedItems, linkedJournal } = props.data.post;
+  const { title, content, featuredImage, date, author, articleTop, intro, linkedItems, linkedCollection } = props.data.post;
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
 
 
@@ -68,10 +68,10 @@ export default function Component(props) {
                 <div className='data'>{Moment(date).format("DD-MM-YYYY")}</div>
               </div>
             }
-            {linkedJournal.linkedJournal &&
+            {linkedCollection.linkedCollection &&
               <div className='date'>
                 <div className='field'>Published in</div>
-                <div className='data'>{linkedJournal.linkedJournal.title}</div>
+                <div className='data'>{linkedCollection.linkedCollection.title}</div>
               </div>
             }
             {articleTop.doi &&
@@ -106,8 +106,8 @@ export default function Component(props) {
                 {linkedItems &&
                   <LinkedItems props={linkedItems.linkedItems}/>
                 }
-                {linkedJournal &&
-                  <LinkedItems props={linkedJournal.linkedJournal?.linkedItems.linkedItems}/>
+                {linkedCollection &&
+                  <LinkedItems props={linkedCollection.linkedCollection?.linkedItems.linkedItems}/>
                 }
               </div>
           </div>
@@ -167,8 +167,8 @@ Component.query = gql`
           }
         }
       }
-      linkedJournal {
-        linkedJournal {
+      linkedCollection {
+        linkedCollection {
           ... on Post {
             id
             title

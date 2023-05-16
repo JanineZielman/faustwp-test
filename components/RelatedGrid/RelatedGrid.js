@@ -26,8 +26,6 @@ export default function RelatedGrid({ posts, id }){
 		window.addEventListener('resize', handleResize)
   }, [])
 
-  console.log(posts)
-
 	
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading

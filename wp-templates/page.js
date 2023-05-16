@@ -17,9 +17,8 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
-  const { title, content, featuredImage, intro, sidebar, linkedItems } = props?.data?.page ?? { title: '' };
+  const { title, content, featuredImage, intro, sidebar} = props?.data?.page ?? { title: '' };
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
-
 
   return (
     <>
@@ -38,8 +37,8 @@ export default function Component(props) {
             <h1 className='headline'>{title}</h1>
             <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
             {intro.embed && <iframe className='big-image' src={intro.embed}/>}
-            {linkedItems.linkedItems &&
-              <LinkedItems props={linkedItems.linkedItems}/>
+            {props.data.posts &&
+               <LinkedItems props={props.data.posts.nodes}/>
             }
             <div className='main-wrapper'>
               <div className='left-sidebar'>
@@ -59,9 +58,10 @@ export default function Component(props) {
   );
 }
 
-Component.variables = ({ databaseId }, ctx) => {
+Component.variables = ({ databaseId, slug }, ctx) => {
   return {
     databaseId,
+    slug,
     headerLocation: MENUS.PRIMARY_LOCATION,
     footerLocation: MENUS.FOOTER_LOCATION,
     asPreview: ctx?.asPreview,
@@ -73,6 +73,7 @@ Component.query = gql`
   ${FeaturedImage.fragments.entry}
   query GetPageData(
     $databaseId: ID!
+    $slug:  String!
     $asPreview: Boolean = false
   ) {
     menu(id: "dGVybToxMQ==") {
@@ -81,6 +82,23 @@ Component.query = gql`
           label
           url
           uri
+        }
+      }
+    }
+    posts(where: {categoryName: $slug, tag: "collection"}) {
+      nodes {
+        id
+        title
+        slug
+        featuredImage{
+          node{
+            mediaItemUrl
+          }
+        }
+        categories{
+          nodes{
+            name
+          }
         }
       }
     }
@@ -97,25 +115,6 @@ Component.query = gql`
       }
       sidebar{
         sidebarText
-      }
-      linkedItems {
-        linkedItems {
-          ... on Post {
-            id
-            title
-            slug
-            featuredImage{
-              node{
-                mediaItemUrl
-              }
-            }
-            categories{
-              nodes{
-                name
-              }
-            }
-          }
-        }
       }
     }
     generalSettings {
