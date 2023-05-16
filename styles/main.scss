@@ -203,8 +203,10 @@ svg g path{
 }
 
 .related-grid{
-  width: 95%;
+  width: 70vw;
   margin: auto;
+  margin-right: 2vw;
+  margin-top: 48px;
   justify-content: space-between;
   .post-item{
     border-top: none;
@@ -259,10 +261,9 @@ main.article .wrap{
   width: 24vw;
   padding-left: 2vw;
   margin-top: 24px;
-  img{
-    width: 24vw;
-    max-width: 400px;
-    // position: fixed;
+  .filter{
+    position: fixed;
+    width: 23vw;
   }
 }
 

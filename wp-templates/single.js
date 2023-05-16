@@ -19,7 +19,7 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
-  const { title, content, featuredImage, date, author, articleTop, intro, linkedItems, linkedCollection } = props.data.post;
+  const { title, content, featuredImage, date, author, articleTop, intro, linkedItems, linkedCollection, tags } = props.data.post;
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
 
 
@@ -86,7 +86,29 @@ export default function Component(props) {
           {intro.embed && <iframe className='big-image' src={intro.embed}/>}
           <div className='main-wrapper'>
               <div className='left-sidebar'>
-                <img src="/filter.svg"/>
+                <div className='filter'>
+                  <div className='filter-cat'>
+                    <div className='small-title'>Jane Doe</div>
+                  </div>
+                  <div className='filter-cat'>
+                    <div className='small-title'>Teaching Art</div>
+                  </div>
+                  <div className='filter-cat'>
+                    <div className='category left'>
+                      Series
+                    </div>
+                  </div>
+                  <div className='filter-cat'>
+                    <div className='small-title'>2023</div>
+                  </div>
+                  <div className='filter-cat'>
+                    {tags.nodes.map((tag, i) => {
+                      return(
+                        <div className='tag'>{tag.name}</div>
+                      )
+                    })}
+                  </div>
+                </div>
               </div>
               <div className='content-wrapper'>
                 <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
@@ -146,6 +168,11 @@ Component.query = gql`
           name
         }
       }
+      tags {
+        nodes {
+          name
+        }
+      }
       articleTop {
         doi
         previewText
@@ -186,7 +213,7 @@ Component.query = gql`
       }
       ...FeaturedImageFragment
     }
-    posts(first: 12)  {
+    posts(filter: {tag: {name: {like: "art"}}})  {
       nodes {
         id
         title
@@ -209,8 +236,9 @@ Component.query = gql`
   }
 `;
 
-Component.variables = ({ databaseId }, ctx) => {
+Component.variables = ({ databaseId, slug }, ctx) => {
   return {
+    slug,
     databaseId,
     asPreview: ctx?.asPreview,
   };
