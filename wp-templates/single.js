@@ -125,10 +125,10 @@ export default function Component(props) {
                 }
               </div>
               <div className='right-sidebar'>
-                {linkedItems &&
+                {linkedItems?.linkedItems &&
                   <LinkedItems props={linkedItems.linkedItems}/>
                 }
-                {linkedCollection &&
+                {linkedCollection?.linkedCollection &&
                   <LinkedItems props={linkedCollection.linkedCollection?.linkedItems.linkedItems}/>
                 }
               </div>
