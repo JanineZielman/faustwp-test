@@ -190,6 +190,9 @@ svg g path{
     width: 100%;
     border-top: 2px solid $black;
     padding: 14px 0;
+    &.non-active{
+			display: none;
+		}
     img{
       height: auto;
       width: auto;

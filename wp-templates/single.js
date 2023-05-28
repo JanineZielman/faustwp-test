@@ -10,6 +10,7 @@ import {
 } from '../components';
 import Moment from 'moment';
 import React, {useEffect, useState} from 'react';
+import { useRouter } from 'next/router';
 
 export default function Component(props) {
   // Loading state for previews
@@ -45,6 +46,19 @@ export default function Component(props) {
   // }
 
   console.log(props)
+
+  useEffect(() => {
+    filterObject()
+  }, [router.query])
+
+  function filterObject(){
+    if (router.query.year){
+      const elements = document.querySelectorAll(`:not(.${router.query.year})`);
+      elements.forEach((element) => {
+        element.classList.add('non-active');
+      });
+    }
+  }
 
 
   return (
@@ -90,16 +104,18 @@ export default function Component(props) {
                   <div className='filter-cat'>
                     <div className='small-title'>Jane Doe</div>
                   </div>
-                  <div className='filter-cat'>
-                    <div className='small-title'>Teaching Art</div>
-                  </div>
+                  {linkedCollection.linkedCollection?.title &&
+                    <div className='filter-cat'>
+                      <div className='small-title'>{linkedCollection.linkedCollection?.title}</div>
+                    </div>
+                  } 
                   <div className='filter-cat'>
                     <div className='category left'>
-                      Series
+                      {props.data.post.categories.nodes[0].name}
                     </div>
                   </div>
                   <div className='filter-cat'>
-                    <div className='small-title'>2023</div>
+                    <div className='small-title'>{Moment(date).format("YYYY")}</div>
                   </div>
                   <div className='filter-cat'>
                     {tags.nodes.map((tag, i) => {
@@ -168,6 +184,11 @@ Component.query = gql`
           name
         }
       }
+      categories {
+        nodes {
+          name
+        }
+      }
       tags {
         nodes {
           name
@@ -213,7 +234,7 @@ Component.query = gql`
       }
       ...FeaturedImageFragment
     }
-    posts(filter: {tag: {name: {like: "art"}}})  {
+    posts(first: 100)  {
       nodes {
         id
         title

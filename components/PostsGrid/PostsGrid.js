@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
+import { PostItem } from '../PostItem';
 
 export default function Posts({ posts, id }){
-
-  const colors = ['blue', 'yellow', 'pink'];
 
   const [amount, setAmount] = useState(5);
 	
@@ -35,27 +34,7 @@ export default function Posts({ posts, id }){
             return(
               <>
               {i %amount==0 &&
-                <div
-                  className="post-item"
-                  key={post.id ?? ''}
-                  id={`post-${post.id}`}
-                >
-                  <Link href={`/posts/${post.slug}`}>
-                    <a>
-                      <div className='category'>{post.categories.nodes[0].name}</div>
-                      {post.featuredImage ?
-                        <img src={post.featuredImage?.node.mediaItemUrl}/>
-                        :
-                        <div className={`placeholder placeholder-${Math.floor(Math.random() * 5)}`}>
-                          <div className={`blob blob1 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-                          <div className={`blob blob2 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-                          <div className={`blob blob3 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-                        </div>
-                      }
-                      <h1 className='title'>{post.title}</h1>
-                    </a>
-                  </Link>
-                </div>
+                <PostItem post={post}/>
               }
               </>
             )
@@ -67,27 +46,7 @@ export default function Posts({ posts, id }){
               return(
                 <>
                 {i %amount==1 &&
-                  <div
-                    className="post-item"
-                    key={post.id ?? ''}
-                    id={`post-${post.id}`}
-                  >
-                    <Link href={`/posts/${post.slug}`}>
-                      <a>
-                        <div className='category'>{post.categories.nodes[0].name}</div>
-                        {post.featuredImage ?
-                          <img src={post.featuredImage?.node.mediaItemUrl}/>
-                          :
-                          <div className={`placeholder placeholder-${Math.floor(Math.random() * 5)}`}>
-                            <div className={`blob blob1 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-                            <div className={`blob blob2 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-                            <div className={`blob blob3 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-                          </div>
-                        }
-                        <h1 className='title'>{post.title}</h1>
-                      </a>
-                    </Link>
-                  </div>
+                  <PostItem post={post}/>
                 }
                 </>
               )
@@ -100,27 +59,7 @@ export default function Posts({ posts, id }){
               return(
                 <>
                 {i %amount==2 &&
-                  <div
-                    className="post-item"
-                    key={post.id ?? ''}
-                    id={`post-${post.id}`}
-                  >
-                    <Link href={`/posts/${post.slug}`}>
-                      <a>
-                        <div className='category'>{post.categories.nodes[0].name}</div>
-                        {post.featuredImage ?
-                          <img src={post.featuredImage?.node.mediaItemUrl}/>
-                          :
-                          <div className={`placeholder placeholder-${Math.floor(Math.random() * 5)}`}>
-                            <div className={`blob blob1 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-                            <div className={`blob blob2 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-                            <div className={`blob blob3 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-                          </div>
-                        }
-                        <h1 className='title'>{post.title}</h1>
-                      </a>
-                    </Link>
-                  </div>
+                  <PostItem post={post}/>
                 }
                 </>
               )
@@ -133,27 +72,7 @@ export default function Posts({ posts, id }){
               return(
                 <>
                 {i %amount==3 &&
-                  <div
-                    className="post-item"
-                    key={post.id ?? ''}
-                    id={`post-${post.id}`}
-                  >
-                    <Link href={`/posts/${post.slug}`}>
-                      <a>
-                        <div className='category'>{post.categories.nodes[0].name}</div>
-                        {post.featuredImage ?
-                          <img src={post.featuredImage?.node.mediaItemUrl}/>
-                          :
-                          <div className={`placeholder placeholder-${Math.floor(Math.random() * 5)}`}>
-                            <div className={`blob blob1 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-                            <div className={`blob blob2 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-                            <div className={`blob blob3 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-                          </div>
-                        }
-                        <h1 className='title'>{post.title}</h1>
-                      </a>
-                    </Link>
-                  </div>
+                  <PostItem post={post}/>
                 }
                 </>
               )
@@ -166,27 +85,7 @@ export default function Posts({ posts, id }){
               return(
                 <>
                 {i %amount==4 &&
-                  <div
-                    className="post-item"
-                    key={post.id ?? ''}
-                    id={`post-${post.id}`}
-                  >
-                    <Link href={`/posts/${post.slug}`}>
-                      <a>
-                        <div className='category'>{post.categories.nodes[0].name}</div>
-                        {post.featuredImage ?
-                          <img src={post.featuredImage?.node.mediaItemUrl}/>
-                          :
-                          <div className={`placeholder placeholder-${Math.floor(Math.random() * 5)}`}>
-                            <div className={`blob blob1 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-                            <div className={`blob blob2 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-                            <div className={`blob blob3 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-                          </div>
-                        }
-                        <h1 className='title'>{post.title}</h1>
-                      </a>
-                    </Link>
-                  </div>
+                  <PostItem post={post}/>
                 }
                 </>
               )
