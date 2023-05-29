@@ -115,6 +115,16 @@ blockquote{
   }
 }
 
+.left-sidebar{
+  .category{
+    display: inline-block;
+    margin-right: 5px;
+  }
+  .small-title{
+    display: block;
+  }
+}
+
 .tag{
   font-size: 14px;
   font-family: 'IBM Plex Mono', monospace;

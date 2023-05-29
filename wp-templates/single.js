@@ -18,6 +18,8 @@ export default function Component(props) {
     return <>Loading...</>;
   }
 
+  const router = useRouter();
+
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
   const { title, content, featuredImage, date, author, articleTop, intro, linkedItems, linkedCollection, tags } = props.data.post;

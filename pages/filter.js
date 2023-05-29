@@ -25,9 +25,11 @@ export default function Component(props) {
     props?.__TEMPLATE_QUERY_DATA__?.generalSettings;
   const primaryMenu = props.__TEMPLATE_QUERY_DATA__?.menu?.menuItems?.nodes ?? [];
   const posts = props.__TEMPLATE_QUERY_DATA__.posts.nodes
+  const categories = props.__TEMPLATE_QUERY_DATA__.categories.nodes
 
 
-  console.log(router)
+
+  console.log(Array.isArray(router.query.category))
 
   useEffect(() => {
     filterObject()
@@ -35,10 +37,19 @@ export default function Component(props) {
 
   function filterObject(){
     if (router.query.category){
-      const elements = document.querySelectorAll(`:not(.${router.query.category})`);
-      elements.forEach((element) => {
-        element.classList.add('non-active');
-      });
+      if (Array.isArray(router.query.category)){
+        router.query.category.forEach((element) => {
+          const elements = document.querySelectorAll(`.${element}`);
+          elements.forEach((element) => {
+            element.classList.add('visible');
+          });
+        });
+      } else{
+        const elements = document.querySelectorAll(`.${router.query.category}`);
+        elements.forEach((element) => {
+          element.classList.add('visible');
+        });
+      }
     }
   }
 
@@ -66,12 +77,32 @@ export default function Component(props) {
           </div>
           <div className='filter-cat'>
             {router.query.category ?
+              <>
+              {Array.isArray(router.query.category) ?
+              <>
+                {router.query.category?.map((item, i) => {
+                  return(
+                    <div className='category left'>
+                      {item} <a href={`${router.asPath.replace(`category=${item}`, '')}`}>x</a>
+                    </div>
+                  )
+                })}
+              </>
+              :
               <div className='category left'>
-                {router.query.category}
+                {router.query.category} <a href={`${router.asPath.replace(`category=${router.query.category}`, '')}`}>x</a>
               </div>
+              }
+              </>
+          
             :
-              <div className='small-title'>Category</div>
+              <div className='small-title'>Category</div>        
             }
+            {categories.map((category, i) => {
+              return(
+                <a href={`${router.asPath}&category=${category.name.toLowerCase().replace(' ', '-')}`} className='small-title'>{category.name}</a>
+              )
+            })}
           </div>
           <div className='filter-cat'>
             <div className='small-title'>Year</div>
@@ -81,101 +112,20 @@ export default function Component(props) {
           </div>
         </div>
       </div>
+      <div className='filtered'>
         <RelatedGrid
           posts={posts}
         />
+      </div>
       </main>
       {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}
     </>
   );
 }
 
-Component.query = gql`
-  ${BlogInfoFragment}
-  ${FeaturedImage.fragments.entry}
-  query GetPost(
-    $databaseId: ID!
-    $asPreview: Boolean = false
-  ) {
-    menu(id: "dGVybToxMQ==") {
-      menuItems {
-        nodes {
-          label
-          url
-          uri
-        }
-      }
-    }
-    posts(first: 100)  {
-      nodes {
-        title
-        content
-        date
-        author {
-          node {
-            name
-          }
-        }
-        categories {
-          nodes {
-            name
-          }
-        }
-        tags {
-          nodes {
-            name
-          }
-        }
-        articleTop {
-          doi
-          previewText
-          subtitle
-        }
-        intro {
-          intro
-          embed
-          bigImage {
-            sourceUrl
-          }
-        }
-        linkedItems {
-          linkedItems {
-            ... on Post {
-              id
-              title
-              slug
-            }
-          }
-        }
-        linkedCollection {
-          linkedCollection {
-            ... on Post {
-              id
-              title
-              linkedItems {
-                linkedItems {
-                  ... on Post {
-                    id
-                    title
-                    slug
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    generalSettings {
-      ...BlogInfoFragment
-    }
-  }
-`;
 
-Component.variables = ({ databaseId, slug }, ctx) => {
+Component.variables = (ctx) => {
   return {
-    slug,
-    databaseId,
     asPreview: ctx?.asPreview,
   };
 };

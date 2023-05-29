@@ -190,9 +190,6 @@ svg g path{
     width: 100%;
     border-top: 2px solid $black;
     padding: 14px 0;
-    &.non-active{
-			display: none;
-		}
     img{
       height: auto;
       width: auto;
@@ -209,7 +206,7 @@ svg g path{
   width: 70vw;
   margin: auto;
   margin-right: 2vw;
-  margin-top: 48px;
+  margin-top: 0px;
   justify-content: space-between;
   .post-item{
     border-top: none;
@@ -448,5 +445,19 @@ main.article .wrap{
   }
   100% {
     transform: rotate(-360deg);
+  }
+}
+
+
+
+
+// filter
+
+.filtered{
+  .post-item{
+    display: none;
+    &.visible{
+      display: block;
+    }
   }
 }
