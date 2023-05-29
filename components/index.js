@@ -13,3 +13,4 @@ export { Collapsible } from './Collapsible';
 export { LinkedItems } from './LinkedItems';
 export { RelatedGrid } from './RelatedGrid';
 export { PostItem } from './PostItem'
+export { Filter } from './Filter'

@@ -5,9 +5,9 @@ import {
   Header,
   FeaturedImage,
   SEO,
-  Collapsible,
   LinkedItems,
-  RelatedGrid
+  RelatedGrid,
+  Filter
 } from '../components';
 import Moment from 'moment';
 import React, {useEffect, useState} from 'react';
@@ -68,49 +68,7 @@ export default function Component(props) {
       />
       <main className="article">
       <div className='left-sidebar'>
-        <div className='filter'>
-          <div className='filter-cat'>
-            <div className='small-title'>Jane Doe</div>
-          </div>
-          <div className='filter-cat'>
-            <div className='small-title'>Subject</div>
-          </div>
-          <div className='filter-cat'>
-            {router.query.category ?
-              <>
-              {Array.isArray(router.query.category) ?
-              <>
-                {router.query.category?.map((item, i) => {
-                  return(
-                    <div className='category left'>
-                      {item} <a href={`${router.asPath.replace(`&category=${item}`, '')}`}>x</a>
-                    </div>
-                  )
-                })}
-              </>
-              :
-              <div className='category left'>
-                {router.query.category} <a href={`${router.asPath.replace(`&category=${router.query.category}`, '')}`}>x</a>
-              </div>
-              }
-              </>
-          
-            :
-              <div className='small-title'>Category</div>        
-            }
-            {categories.map((category, i) => {
-              return(
-                <a className={`small-title ${category.name.toLowerCase().replace(' ', '-')}`} href={`${router.asPath}&category=${category.name.toLowerCase().replace(' ', '-')}`}>{category.name}</a>
-              )
-            })}
-          </div>
-          <div className='filter-cat'>
-            <div className='small-title'>Year</div>
-          </div>
-          <div className='filter-cat'>
-            <div className='small-title'>Tags</div>
-          </div>
-        </div>
+        <Filter categories={categories} category={router.query.category} path={router.asPath}/>
       </div>
       <div className='filtered'>
         <RelatedGrid

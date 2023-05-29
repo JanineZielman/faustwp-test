@@ -25,6 +25,9 @@ $button: 12px;
 
 .article .wrap .collapsible{
   margin-top: 48px;
+}
+
+.collapsible{
   .trigger{
     width: 100%;
     border-bottom: 1px solid black;
@@ -38,6 +41,42 @@ $button: 12px;
     &.open{
       height: auto!important;
       opacity: 1;
+    }
+  }
+}
+
+.left-sidebar, .article .wrap .left-sidebar{
+  .collapsible{
+    margin-top: 0;
+    .trigger{
+      border: none;
+      font-size: $body;
+      font-family: 'IBM Plex Mono', monospace;
+      margin-top: 0;
+      width: 100%;
+      line-height: 1.2;
+      text-transform: uppercase;
+      &.active{
+        &:after{
+          transform: rotate(90deg);
+        }
+      }
+      &:after{
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        right: 0;
+        background-image: url(./arrow.svg);
+        background-repeat: no-repeat;
+        transition: all 0.4s ease;
+      }
+    }
+    .collapsible-content{
+      margin-top: 10px;
+      &.open{
+        margin-bottom: 5px;
+      }
     }
   }
 }

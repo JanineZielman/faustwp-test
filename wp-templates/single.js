@@ -6,7 +6,8 @@ import {
   SEO,
   Collapsible,
   LinkedItems,
-  RelatedGrid
+  RelatedGrid,
+  Filter
 } from '../components';
 import Moment from 'moment';
 import React, {useEffect, useState} from 'react';
@@ -24,6 +25,7 @@ export default function Component(props) {
     props?.data?.generalSettings;
   const { title, content, featuredImage, date, author, articleTop, intro, linkedItems, linkedCollection, tags } = props.data.post;
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
+  const categories = props.data.categories.nodes;
 
 
   const regexMdLinks = /(?<=\[footnote)(.*?)(?=\[\/footnote])/gm;
@@ -47,7 +49,9 @@ export default function Component(props) {
   //   console.log(test[i].split(']')[0])
   // }
 
-  console.log(props)
+  useEffect(() => {
+
+  }, [])
 
   useEffect(() => {
     filterObject()
@@ -102,31 +106,7 @@ export default function Component(props) {
           {intro.embed && <iframe className='big-image' src={intro.embed}/>}
           <div className='main-wrapper'>
               <div className='left-sidebar'>
-                <div className='filter'>
-                  <div className='filter-cat'>
-                    <div className='small-title'>Jane Doe</div>
-                  </div>
-                  {linkedCollection.linkedCollection?.title &&
-                    <div className='filter-cat'>
-                      <div className='small-title'>{linkedCollection.linkedCollection?.title}</div>
-                    </div>
-                  } 
-                  <div className='filter-cat'>
-                    <div className='category left'>
-                      {props.data.post.categories.nodes[0].name}
-                    </div>
-                  </div>
-                  <div className='filter-cat'>
-                    <div className='small-title'>{Moment(date).format("YYYY")}</div>
-                  </div>
-                  <div className='filter-cat'>
-                    {tags.nodes.map((tag, i) => {
-                      return(
-                        <div className='tag'>{tag.name}</div>
-                      )
-                    })}
-                  </div>
-                </div>
+                <Filter categories={categories} category={router.query.category} path={router.asPath.replace(/^.+\?/,'/filter?')}/>
               </div>
               <div className='content-wrapper'>
                 <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
@@ -179,6 +159,11 @@ Component.query = gql`
           url
           uri
         }
+      }
+    }
+    categories{
+      nodes{
+        name
       }
     }
     post(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
