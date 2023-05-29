@@ -1,6 +1,6 @@
 import { Collapsible } from "../Collapsible";
 
-export default function Filter({ path, categories, category, subject, year}) {
+export default function Filter({ path, categories, category, tags, tag, subject, year}) {
 
   function generateYearsBetween(startYear = 2019, endYear) {
     const endDate = endYear || new Date().getFullYear();
@@ -62,18 +62,56 @@ export default function Filter({ path, categories, category, subject, year}) {
         <Collapsible trigger="Year" idname={'year'}>
           {yearsArray.map((year, i) => {
             return(
-              <a className={`small-title year${year}`} href={`${path}&year=year${year}`}>{year}</a>
+              <a className={`small-title year${year}`} href={`${path}&year=${year}`}>{year}</a>
             )
           })}
         </Collapsible>
-        {year &&
-          <div className='small-title'>
-            <div className="text">{year.replace('year', '')}</div> <a href={`${path.replace(`&year=${year}`, '')}`}>x</a>
-          </div>
+    
+        {Array.isArray(year) ?
+            year.map((item,i) => {
+              return(
+                <div className='small-title'>
+                  <div className="text">{item}</div> <a href={`${path.replace(`&year=${item}`, '')}`}>x</a>
+                </div>
+              )
+            })
+          :
+          <>
+          {year &&
+            <div className='small-title'>
+              <div className="text">{year}</div> <a href={`${path.replace(`&year=${year}`, '')}`}>x</a>
+            </div>
+          }
+          </>
         }
       </div>
       <div className='filter-cat'>
-        <div className='small-title'>Tags</div>
+        <Collapsible trigger="Tags" idname={'tags'}>
+          {tags?.map((tag, i) => {
+            return(
+              <a className={`small-title ${tag.name.toLowerCase().replace(' ', '-')}`} href={`${path}&tag=${tag.name.toLowerCase().replace(' ', '-')}`}>{tag.name}</a>
+            )
+          })}
+        </Collapsible>
+        {tag &&
+          <>
+          {Array.isArray(tag) ?
+          <>
+            {tag?.map((item, i) => {
+              return(
+                <div className='tag'>
+                  {item} <a href={`${path.replace(`&tag=${item}`, '')}`}>x</a>
+                </div>
+              )
+            })}
+          </>
+          :
+          <div className='tag'>
+            {tag} <a href={`${path.replace(`&tag=${tag}`, '')}`}>x</a>
+          </div>
+          }
+          </>   
+        }
       </div>
     </div>
   );

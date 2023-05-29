@@ -93,7 +93,7 @@ Component.query = gql`
         name
       }
     }
-    posts(first: 100)  {
+    posts(filter: {category: {name: {like: ""}}})  {
       nodes {
         id
         title

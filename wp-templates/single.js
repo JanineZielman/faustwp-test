@@ -31,6 +31,8 @@ export default function Component(props) {
   const regexMdLinks = /(?<=\[footnote)(.*?)(?=\[\/footnote])/gm;
   const footnotes = content?.match(regexMdLinks);
 
+  console.log(linkedCollection)
+
 
   // const regexMdLinks2 = /(?<=\[footnote)(.*?)(?=\[\/footnote])/gm;
   // const test = content.match(regexMdLinks2);
@@ -53,18 +55,18 @@ export default function Component(props) {
 
   }, [])
 
-  useEffect(() => {
-    filterObject()
-  }, [router.query])
+  // useEffect(() => {
+  //   filterObject()
+  // }, [router.query])
 
-  function filterObject(){
-    if (router.query.year){
-      const elements = document.querySelectorAll(`:not(.${router.query.year})`);
-      elements.forEach((element) => {
-        element.classList.add('non-active');
-      });
-    }
-  }
+  // function filterObject(){
+  //   if (router.query.year){
+  //     const elements = document.querySelectorAll(`:not(.${router.query.year})`);
+  //     elements.forEach((element) => {
+  //       element.classList.add('non-active');
+  //     });
+  //   }
+  // }
 
 
   return (
@@ -91,7 +93,7 @@ export default function Component(props) {
             {linkedCollection.linkedCollection &&
               <div className='date'>
                 <div className='field'>Published in</div>
-                <div className='data'>{linkedCollection.linkedCollection.title}</div>
+                <div className='data'>{linkedCollection.linkedCollection?.title}</div>
               </div>
             }
             {articleTop.doi &&
@@ -106,7 +108,7 @@ export default function Component(props) {
           {intro.embed && <iframe className='big-image' src={intro.embed}/>}
           <div className='main-wrapper'>
               <div className='left-sidebar'>
-                <Filter categories={categories} subject={linkedCollection.linkedCollection.title} category={router.query.category} year={Moment(date).format("YYYY")} path={router.asPath.replace(/^.+\?/,'/filter?')}/>
+                <Filter categories={categories} subject={linkedCollection.linkedCollection?.title} category={router.query.category} year={Moment(date).format("YYYY")} path={router.asPath.replace(/^.+\?/,'/filter?')}/>
               </div>
               <div className='content-wrapper'>
                 <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
@@ -124,10 +126,10 @@ export default function Component(props) {
               </div>
               <div className='right-sidebar'>
                 {linkedItems?.linkedItems &&
-                  <LinkedItems props={linkedItems.linkedItems} subject={linkedCollection.linkedCollection.title}/>
+                  <LinkedItems props={linkedItems.linkedItems} subject={title} year={Moment(date).format("YYYY")} />
                 }
                 {linkedCollection?.linkedCollection &&
-                  <LinkedItems props={linkedCollection.linkedCollection?.linkedItems.linkedItems} subject={linkedCollection.linkedCollection.title}/>
+                  <LinkedItems props={linkedCollection.linkedCollection?.linkedItems.linkedItems} subject={linkedCollection.linkedCollection?.title} year={Moment(date).format("YYYY")}/>
                 }
               </div>
           </div>
@@ -235,7 +237,7 @@ Component.query = gql`
       }
       ...FeaturedImageFragment
     }
-    posts(first: 100)  {
+    posts(first: 25)  {
       nodes {
         id
         title

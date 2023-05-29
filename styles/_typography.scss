@@ -156,6 +156,9 @@ blockquote{
   text-overflow: ellipsis;
   max-width: 300px;
   cursor: pointer;
+  a{
+    color: white;
+  }
 }
 
 .linked-items .category{
