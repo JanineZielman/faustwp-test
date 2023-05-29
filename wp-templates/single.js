@@ -106,7 +106,7 @@ export default function Component(props) {
           {intro.embed && <iframe className='big-image' src={intro.embed}/>}
           <div className='main-wrapper'>
               <div className='left-sidebar'>
-                <Filter categories={categories} category={router.query.category} path={router.asPath.replace(/^.+\?/,'/filter?')}/>
+                <Filter categories={categories} subject={linkedCollection.linkedCollection.title} category={router.query.category} year={Moment(date).format("YYYY")} path={router.asPath.replace(/^.+\?/,'/filter?')}/>
               </div>
               <div className='content-wrapper'>
                 <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
@@ -124,10 +124,10 @@ export default function Component(props) {
               </div>
               <div className='right-sidebar'>
                 {linkedItems?.linkedItems &&
-                  <LinkedItems props={linkedItems.linkedItems}/>
+                  <LinkedItems props={linkedItems.linkedItems} subject={linkedCollection.linkedCollection.title}/>
                 }
                 {linkedCollection?.linkedCollection &&
-                  <LinkedItems props={linkedCollection.linkedCollection?.linkedItems.linkedItems}/>
+                  <LinkedItems props={linkedCollection.linkedCollection?.linkedItems.linkedItems} subject={linkedCollection.linkedCollection.title}/>
                 }
               </div>
           </div>
@@ -203,6 +203,11 @@ Component.query = gql`
             id
             title
             slug
+            categories {
+              nodes {
+                name
+              }
+            }
           }
         }
       }
@@ -217,6 +222,11 @@ Component.query = gql`
                   id
                   title
                   slug
+                  categories {
+                    nodes {
+                      name
+                    }
+                  }
                 }
               }
             }
@@ -225,7 +235,7 @@ Component.query = gql`
       }
       ...FeaturedImageFragment
     }
-    posts(first: 25)  {
+    posts(first: 100)  {
       nodes {
         id
         title

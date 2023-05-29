@@ -93,7 +93,7 @@ Component.query = gql`
         name
       }
     }
-    posts(first: 25)  {
+    posts(first: 100)  {
       nodes {
         id
         title

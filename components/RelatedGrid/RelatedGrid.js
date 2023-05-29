@@ -30,7 +30,6 @@ export default function RelatedGrid({ posts, id }){
     // eslint-disable-next-line react/jsx-props-no-spreading
     <section {...(id && { id })}>
       <div className="grid related-grid">
-        {/* <h2 className='title related'>Related content</h2> */}
         <div className='row'>
           {posts.map((post, i) => {
             return(

@@ -121,7 +121,15 @@ blockquote{
     margin-right: 5px;
   }
   .small-title{
-    display: block;
+    display: flex;
+    .text{
+      text-overflow: ellipsis;
+      max-width: 90%;
+      overflow: hidden;
+      white-space: nowrap;
+      display: inline-block;
+      margin-right: 5%;
+    }
     &.visible{
       display: none;
     }

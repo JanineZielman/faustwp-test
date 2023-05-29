@@ -28,29 +28,60 @@ export default function Component(props) {
   const categories = props.__TEMPLATE_QUERY_DATA__.categories.nodes
 
 
-
-  console.log(Array.isArray(router.query.category))
-
   useEffect(() => {
     filterObject()
   }, [router.query])
 
   function filterObject(){
-    if (router.query.category){
-      if (Array.isArray(router.query.category)){
-        router.query.category.forEach((element) => {
-          const elements = document.querySelectorAll(`.${element}`);
-          elements.forEach((element) => {
-            element.classList.add('visible');
-          });
-        });
-      } else{
-        const elements = document.querySelectorAll(`.${router.query.category}`);
-        elements.forEach((element) => {
-          element.classList.add('visible');
-        });
-      }
+    console.log(Object.keys(router.query).length)
+    if (Object.keys(router.query).length > 0){
+      const category = router.query.category || ''
+      const year = router.query.year || ''
+      const elements = document.querySelectorAll(`${category && '.' + category}${year && '.' + year}`);
+      console.log(elements)
+      elements.forEach((element) => {
+        element.classList.add('visible');
+      });
+      // Object.keys(router.query).forEach((filter) => {
+      //   const filterTag = router.query[filter]
+      //   console.log(filterTag)
+      //   const elements = document.querySelectorAll(`.${filterTag}`);
+      //   // console.log(elements)
+      //   elements.forEach((element) => {
+      //     element.classList.add('visible');
+      //   });
+      // });
     }
+    // if (router.query.category){
+    //   if (Array.isArray(router.query.category)){
+    //     router.query.category.forEach((element) => {
+    //       const elements = document.querySelectorAll(`.${element}`);
+    //       elements.forEach((element) => {
+    //         element.classList.add('visible');
+    //       });
+    //     });
+    //   } else{
+    //     const elements = document.querySelectorAll(`.${router.query.category}`);
+    //     elements.forEach((element) => {
+    //       element.classList.add('visible');
+    //     });
+    //   }
+    // }
+    // if (router.query.year){
+    //   if (Array.isArray(router.query.year)){
+    //     router.query.year.forEach((element) => {
+    //       const elements = document.querySelectorAll(`.year${element}`);
+    //       elements.forEach((element) => {
+    //         element.classList.add('visible');
+    //       });
+    //     });
+    //   } else{
+    //     const elements = document.querySelectorAll(`.year${router.query.year}`);
+    //     elements.forEach((element) => {
+    //       element.classList.add('visible');
+    //     });
+    //   }
+    // }
   }
 
 
@@ -68,7 +99,7 @@ export default function Component(props) {
       />
       <main className="article">
       <div className='left-sidebar'>
-        <Filter categories={categories} category={router.query.category} path={router.asPath}/>
+        <Filter categories={categories} category={router.query.category} path={router.asPath} subject={router.query.subject} year={router.query.year}/>
       </div>
       <div className='filtered'>
         <RelatedGrid

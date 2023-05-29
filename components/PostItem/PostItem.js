@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
+import Moment from 'moment';
 
 export default function PostItem({ post }){
 	const colors = ['blue', 'yellow', 'pink'];
   
   return (
     <div
-      className={`post-item ${post.categories.nodes[0].name.toLowerCase().replace(' ', '_')}`}
+      className={`post-item ${post.categories.nodes[0].name.toLowerCase().replace(' ', '_')} year${Moment(post.date).format("YYYY")}`}
       key={post.id ?? ''}
       id={`post-${post.id}`}
     >
