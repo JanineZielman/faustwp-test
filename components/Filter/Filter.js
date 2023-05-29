@@ -26,7 +26,7 @@ export default function Filter({ path, categories, category, tags, tag, subject,
         </Collapsible>
         {subject &&
           <div className='small-title'>
-            <div className="text">{subject}</div> <a href={`${path.replace(`&subject=${subject.toLowerCase().replaceAll(' ', '_')}`, '')}`}>x</a>
+            <div className="text">{subject}</div> <a href={`${path.replace(`&subject=${subject.toLowerCase()}`, '')}`}>x</a>
           </div>
         }
       </div>

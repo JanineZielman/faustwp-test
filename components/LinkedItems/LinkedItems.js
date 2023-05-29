@@ -7,7 +7,7 @@ export default function LinkedItems({ props, subject, year }) {
         const category = post.categories?.nodes[0].name.toLowerCase().replaceAll(' ', '_')
         return(
           <div className="linked-item">
-            <Link href={`/posts/${post.slug}?&category=${category}&year=${year}&subject=${subject?.toLowerCase().replaceAll(' ', '_')}`}>
+            <Link href={`/posts/${post.slug}?&category=${category}&year=${year}&subject=${subject?.toLowerCase()}`}>
               <a>
                 {/* {post.categories &&<div className='category'>{post.categories.nodes[0].name}</div>} */}
                 {post.featuredImage &&
