@@ -122,6 +122,9 @@ blockquote{
   }
   .small-title{
     display: block;
+    &.visible{
+      display: none;
+    }
   }
 }
 

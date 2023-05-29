@@ -151,6 +151,10 @@ export default function Component(props) {
                 }
               </div>
           </div>
+          <br/><br/>
+          <div className='related-grid'>
+            <h2 className='title related'>Related content</h2> 
+          </div>
           <RelatedGrid
             posts={props.data.posts.nodes}
           />
@@ -236,7 +240,7 @@ Component.query = gql`
       }
       ...FeaturedImageFragment
     }
-    posts(first: 100)  {
+    posts(first: 25)  {
       nodes {
         id
         title

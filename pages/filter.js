@@ -83,14 +83,14 @@ export default function Component(props) {
                 {router.query.category?.map((item, i) => {
                   return(
                     <div className='category left'>
-                      {item} <a href={`${router.asPath.replace(`category=${item}`, '')}`}>x</a>
+                      {item} <a href={`${router.asPath.replace(`&category=${item}`, '')}`}>x</a>
                     </div>
                   )
                 })}
               </>
               :
               <div className='category left'>
-                {router.query.category} <a href={`${router.asPath.replace(`category=${router.query.category}`, '')}`}>x</a>
+                {router.query.category} <a href={`${router.asPath.replace(`&category=${router.query.category}`, '')}`}>x</a>
               </div>
               }
               </>
@@ -100,7 +100,7 @@ export default function Component(props) {
             }
             {categories.map((category, i) => {
               return(
-                <a href={`${router.asPath}&category=${category.name.toLowerCase().replace(' ', '-')}`} className='small-title'>{category.name}</a>
+                <a className={`small-title ${category.name.toLowerCase().replace(' ', '-')}`} href={`${router.asPath}&category=${category.name.toLowerCase().replace(' ', '-')}`}>{category.name}</a>
               )
             })}
           </div>
