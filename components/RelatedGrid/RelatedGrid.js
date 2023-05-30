@@ -10,7 +10,7 @@ export default function RelatedGrid({ posts, id }){
     handleResize();
 		function handleResize(){
 			if (window.innerWidth>1800){
-				setAmount(5);
+				setAmount(4);
 			}
       if (window.innerWidth<1800 &&  window.innerWidth>1100){
 				setAmount(4);

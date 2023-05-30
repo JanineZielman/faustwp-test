@@ -4,14 +4,21 @@ import Moment from 'moment';
 
 export default function PostItem({ post }){
 	const colors = ['blue', 'yellow', 'pink'];
+
+  const [tagsList, setTagsList] = useState('')
+  useEffect(() => {
+    for (let i = 0; i < post.tags?.nodes.length; i++) {
+      setTagsList(`&tag=${post.tags.nodes[i].name.toLowerCase().replaceAll(' ', '_')}`);
+    }
+  }, [tagsList])
   
   return (
     <div
-      className={`post-item ${post.categories.nodes[0].name.toLowerCase().replace(' ', '_')} year${Moment(post.date).format("YYYY")}`}
+      className={`post-item`}
       key={post.id ?? ''}
       id={`post-${post.id}`}
     >
-      <Link href={`/posts/${post.slug}`}>
+      <Link href={`/posts/${post.slug}?category=${post.categories.nodes[0].name.toLowerCase().replace(' ', '_')}&year=${Moment(post.date).format("YYYY")}${tagsList}`}>
         <a>
           <div className='category'>{post.categories.nodes[0].name}</div>
           {post.featuredImage ?

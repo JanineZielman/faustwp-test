@@ -123,6 +123,11 @@ Component.query = gql`
             name
           }
         }
+        tags{
+          nodes{
+            name
+          }
+        }
       }
     }
   }
