@@ -23,6 +23,7 @@ const RELATED = gql`
           id
           title
           slug
+          date
           featuredImage{
             node{
               mediaItemUrl
@@ -180,7 +181,7 @@ Component.query = gql`
         name
       }
     }
-    tags{
+    tags (first: 100){
       nodes{
         name
       }

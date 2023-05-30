@@ -264,8 +264,42 @@ main.article .wrap{
   .filter{
     position: fixed;
     width: 23vw;
-    top: 100px;
+    top: 14vh;
   }
+  .title-search{
+    display: flex;
+    align-items: center;
+  }
+  input{
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid black;
+    display: inline-block;
+    width: 100%;
+    margin: 10px auto;
+  }
+  .search-button{
+    display: inline-block;
+    font-size: $captions;
+    font-family: 'IBM Plex Mono', monospace;
+    border: 1px solid black;
+    padding: 2px;
+    margin-left: 10px;
+    width: calc(30% - 10px);
+    min-width: 100px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    &:hover{
+      background-color: black;
+      color: white;
+    }
+  }
+}
+
+.tag-list{
+  max-height: 310px;
+  overflow-y: scroll;
 }
 
 .article{
@@ -317,8 +351,9 @@ main.article .wrap{
     }
     .content{
       img, figure, div, video{
-        width: 100%!important;
+        // width: 100%!important;
         height: auto!important;
+        max-width: 100%;
         margin: auto 0;
       }
     }

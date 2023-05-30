@@ -24,7 +24,6 @@ export default function Component() {
     variables: {category, year, tag, title},
   });
 
-  console.log(data)
 
   const [loading, setLoading] = useState(true);
   
@@ -105,7 +104,7 @@ Component.query = gql`
         name
       }
     }
-    tags{
+    tags (first: 100){
       nodes{
         name
       }
@@ -120,6 +119,7 @@ Component.query = gql`
           id
           title
           slug
+          date
           featuredImage{
             node{
               mediaItemUrl

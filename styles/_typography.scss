@@ -29,6 +29,13 @@ blockquote{
   }
 }
 
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
 .headline{
   font-size: $headline;
   font-family: 'Oswald', sans-serif;

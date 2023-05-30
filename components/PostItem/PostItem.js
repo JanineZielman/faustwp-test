@@ -16,8 +16,6 @@ export default function PostItem({ post }){
     }
   }, [tagsList])
 
-  console.log
-
   
   return (
     <div
@@ -25,7 +23,7 @@ export default function PostItem({ post }){
       key={post.id ?? ''}
       id={`post-${post.id}`}
     >
-      <Link href={`/posts/${post.slug}?category=${post.categories.nodes[0].name.toLowerCase().replace(' ', '_')}&year=${Moment(post.date).format("YYYY")}${tagsList}`}>
+      <Link href={`/posts/${post.slug}?category=${post.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(post.date).format("YYYY")}${tagsList}`}>
         <a>
           <div className='category'>{post.categories.nodes[0].name}</div>
           {post.featuredImage ?

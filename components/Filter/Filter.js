@@ -15,19 +15,30 @@ export default function Filter({ path, categories, category, tags, tag, title, y
 
   const yearsArray = generateYearsBetween(2019);
 
+  function titleSearch() {
+    var filter = document.getElementById("titleSearch").value.toLowerCase();
+    window.location.href = `${path}&title=${filter}`
+  }
+
   return (
     <div className='filter'>
       <div className='filter-cat'>
         <div className='small-title'>Jane Doe</div>
       </div>
       <div className='filter-cat'>
-        <Collapsible trigger="Title" idname={'title'}>
-          ...
-        </Collapsible>
-        {title &&
+        {/* <Collapsible trigger="Title" idname={'title'}>
+
+        </Collapsible> */}
+        <div className="small-title title-cat">Title</div>
+        {title ?
           <div className='small-title'>
             <div className="text">{title}</div> <a href={`${path.replace(`&title=${title.toLowerCase()}`, '')}`}>x</a>
           </div>
+        :
+        <div className="title-search">
+          <input type="text" id="titleSearch" placeholder="Search for titles.." title="Type in a title"/>
+          <div className="search-button" onClick={titleSearch}>Search</div>
+        </div>
         }
       </div>
       <div className='filter-cat'>
@@ -87,11 +98,13 @@ export default function Filter({ path, categories, category, tags, tag, title, y
       </div>
       <div className='filter-cat'>
         <Collapsible trigger="Tags" idname={'tags'}>
-          {tags?.map((tag, i) => {
-            return(
-              <a key={`tag${i}`} className={`small-title ${tag.name.toLowerCase().replace(' ', '-')}`} href={`${path}&tag=${tag.name.toLowerCase().replace(' ', '-')}`}>{tag.name}</a>
-            )
-          })}
+          <div className="tag-list">
+            {tags?.map((tag, i) => {
+              return(
+                <a key={`tag${i}`} className={`small-title ${tag.name.toLowerCase().replace(' ', '-')}`} href={`${path}&tag=${tag.name.toLowerCase().replace(' ', '-')}`}>{tag.name}</a>
+              )
+            })}
+          </div>
         </Collapsible>
         {tag &&
           <>
