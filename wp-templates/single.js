@@ -73,6 +73,8 @@ export default function Component(props) {
     }
   })
 
+  console.log(linkedCollection)
+
   return (
     <>
       <SEO
@@ -112,7 +114,7 @@ export default function Component(props) {
           {intro.embed && <iframe className='big-image' src={intro.embed}/>}
           <div className='main-wrapper'>
               <div className='left-sidebar'>
-                <Filter tag={router.query.tag} tags={tags} categories={categories} title={title} category={router.query.category} year={Moment(date).format("YYYY")} path={router.asPath.replace(/^.+\?/,'/filter?')}/>
+                <Filter tag={router.query.tag} tags={tags} categories={categories} title={router.query.title} category={router.query.category} year={router.query.year} path={router.asPath.replace(/^.+\?/,'/filter?')}/>
               </div>
               <div className='content-wrapper'>
                 <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
@@ -130,10 +132,10 @@ export default function Component(props) {
               </div>
               <div className='right-sidebar'>
                 {linkedItems?.linkedItems &&
-                  <LinkedItems props={linkedItems.linkedItems} title={title} year={Moment(date).format("YYYY")} />
+                  <LinkedItems props={linkedItems.linkedItems}/>
                 }
                 {linkedCollection?.linkedCollection &&
-                  <LinkedItems props={linkedCollection.linkedCollection?.linkedItems.linkedItems} title={linkedCollection.linkedCollection?.title} year={Moment(date).format("YYYY")}/>
+                  <LinkedItems props={linkedCollection.linkedCollection?.linkedItems.linkedItems}/>
                 }
               </div>
           </div>
@@ -223,7 +225,13 @@ Component.query = gql`
             id
             title
             slug
+            date
             categories {
+              nodes {
+                name
+              }
+            }
+            tags {
               nodes {
                 name
               }
@@ -242,7 +250,13 @@ Component.query = gql`
                   id
                   title
                   slug
+                  date
                   categories {
+                    nodes {
+                      name
+                    }
+                  }
+                  tags {
                     nodes {
                       name
                     }

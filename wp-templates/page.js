@@ -100,6 +100,11 @@ Component.query = gql`
             name
           }
         }
+        tags{
+          nodes{
+            name
+          }
+        }
       }
     }
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
