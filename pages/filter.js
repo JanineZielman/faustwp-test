@@ -18,11 +18,13 @@ export default function Component() {
   const category = router.query.category || '';
   const year = parseInt(router.query.year || 0);
   const tag = router.query.tag || [];
-  const subject = router.query.subject || '';
-  console.log(subject)
+  const title = router.query.title || '';
+  
   const { data } = useQuery(Component.query, {
-    variables: {category, year, tag, subject},
+    variables: {category, year, tag, title},
   });
+
+  console.log(data)
 
   const [loading, setLoading] = useState(true);
   
@@ -51,11 +53,11 @@ export default function Component() {
         />
         <main className="article">
         <div className='left-sidebar'>
-          <Filter categories={data.categories.nodes} tags={data.tags.nodes} tag={router.query.tag} category={router.query.category} path={router.asPath} subject={router.query.subject} year={router.query.year}/>
+          <Filter categories={data.categories.nodes} tags={data.tags.nodes} tag={router.query.tag} category={router.query.category} path={router.asPath} title={router.query.title} year={router.query.year}/>
         </div>
         <div className='filtered'>
           <RelatedGrid
-            posts={data.posts.nodes}
+            posts={data.posts.edges}
           />
         </div>
         </main>
@@ -82,7 +84,7 @@ Component.query = gql`
   ${BlogInfoFragment}
   query GetPageData(
     $category: String!
-    $subject: String!
+    $title: String!
     $year: Int!
     $tag: [String!]!
   ) {
@@ -108,24 +110,31 @@ Component.query = gql`
         name
       }
     }
-    posts(where: {categoryName: $category, tagSlugIn: $tag, dateQuery: {year: $year}, search: $subject}, first: 100)  {
-      nodes {
-        id
-        title
-        slug
-        featuredImage{
-          node{
-            mediaItemUrl
+    posts(where: {categoryName: $category, tagSlugIn: $tag, dateQuery: {year: $year}, search: $title}, first: 100)  {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges{
+        node {
+          id
+          title
+          slug
+          featuredImage{
+            node{
+              mediaItemUrl
+            }
+            cursor
           }
-        }
-        categories{
-          nodes{
-            name
+          categories{
+            nodes{
+              name
+            }
           }
-        }
-        tags{
-          nodes{
-            name
+          tags{
+            nodes{
+              name
+            }
           }
         }
       }

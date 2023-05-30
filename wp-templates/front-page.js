@@ -20,7 +20,8 @@ export default function Component() {
     data?.generalSettings;
   const primaryMenu = data?.menu?.menuItems?.nodes ?? [];
   // const footerMenu = data?.footerMenuItems?.nodes ?? [];
-  const posts = data?.posts?.nodes ?? [];
+  const posts = data?.posts?.edges ?? [];
+
 
   return (
     <>
@@ -48,14 +49,14 @@ export default function Component() {
 
         <div
           className="post-highlight-item column2"
-          key={posts[0].id ?? ''}
-          id={`post-${posts[0].id}`}
+          key={posts[0].node.id ?? ''}
+          id={`post-${posts[0].node.id}`}
         >
-          <Link href={`/posts/${posts[0].slug}`}>
+          <Link href={`/posts/${posts[0].node.slug}`}>
             <a>
-              <div className='category'>{posts[0].categories.nodes[0].name}</div>
-              <img src={posts[0].featuredImage?.node.mediaItemUrl}/>
-              <h1 className='title'>{posts[0].title}</h1>
+              <div className='category'>{posts[0].node.categories.nodes[0].name}</div>
+              <img src={posts[0].node.featuredImage?.node.mediaItemUrl}/>
+              <h1 className='title'>{posts[0].node.title}</h1>
             </a>
           </Link>
         </div>
@@ -94,23 +95,25 @@ Component.query = gql`
       }
     }
     posts(first:100)  {
-      nodes {
-        id
-        title
-        slug
-        featuredImage{
-          node{
-            mediaItemUrl
+      edges{
+        node {
+          id
+          title
+          slug
+          featuredImage{
+            node{
+              mediaItemUrl
+            }
           }
-        }
-        categories{
-          nodes{
-            name
+          categories{
+            nodes{
+              name
+            }
           }
-        }
-        tags{
-          nodes{
-            name
+          tags{
+            nodes{
+              name
+            }
           }
         }
       }

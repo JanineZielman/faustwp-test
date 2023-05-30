@@ -18,18 +18,20 @@ const RELATED = gql`
     $tag: [String!]!
   ) {
     posts(where: {tagSlugIn: $tag}, first: 25)  {
-      nodes {
-        id
-        title
-        slug
-        featuredImage{
-          node{
-            mediaItemUrl
+      edges {
+        node {
+          id
+          title
+          slug
+          featuredImage{
+            node{
+              mediaItemUrl
+            }
           }
-        }
-        categories{
-          nodes{
-            name
+          categories{
+            nodes{
+              name
+            }
           }
         }
       }
@@ -109,7 +111,7 @@ export default function Component(props) {
           {intro.embed && <iframe className='big-image' src={intro.embed}/>}
           <div className='main-wrapper'>
               <div className='left-sidebar'>
-                <Filter tag={router.query.tag} tags={tags} categories={categories} subject={linkedCollection.linkedCollection?.title} category={router.query.category} year={Moment(date).format("YYYY")} path={router.asPath.replace(/^.+\?/,'/filter?')}/>
+                <Filter tag={router.query.tag} tags={tags} categories={categories} title={title} category={router.query.category} year={Moment(date).format("YYYY")} path={router.asPath.replace(/^.+\?/,'/filter?')}/>
               </div>
               <div className='content-wrapper'>
                 <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
@@ -127,10 +129,10 @@ export default function Component(props) {
               </div>
               <div className='right-sidebar'>
                 {linkedItems?.linkedItems &&
-                  <LinkedItems props={linkedItems.linkedItems} subject={title} year={Moment(date).format("YYYY")} />
+                  <LinkedItems props={linkedItems.linkedItems} title={title} year={Moment(date).format("YYYY")} />
                 }
                 {linkedCollection?.linkedCollection &&
-                  <LinkedItems props={linkedCollection.linkedCollection?.linkedItems.linkedItems} subject={linkedCollection.linkedCollection?.title} year={Moment(date).format("YYYY")}/>
+                  <LinkedItems props={linkedCollection.linkedCollection?.linkedItems.linkedItems} title={linkedCollection.linkedCollection?.title} year={Moment(date).format("YYYY")}/>
                 }
               </div>
           </div>
@@ -140,7 +142,7 @@ export default function Component(props) {
           </div>
           {data &&
             <RelatedGrid
-              posts={data.posts.nodes}
+              posts={data.posts.edges}
             />
           }
         </div>

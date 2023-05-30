@@ -5,12 +5,19 @@ import Moment from 'moment';
 export default function PostItem({ post }){
 	const colors = ['blue', 'yellow', 'pink'];
 
-  const [tagsList, setTagsList] = useState('')
+  let tags = '';
+  const [tagsList, setTagsList] = useState()
   useEffect(() => {
-    for (let i = 0; i < post.tags?.nodes.length; i++) {
-      setTagsList(`&tag=${post.tags.nodes[i].name.toLowerCase().replaceAll(' ', '_')}`);
+    if(post.tags){
+      for (let i = 0; i < post.tags.nodes.length; i++) {
+        tags += `&tag=${post.tags.nodes[i].name.toLowerCase()}`;
+      }
+      setTagsList(tags);
     }
   }, [tagsList])
+
+  console.log
+
   
   return (
     <div
