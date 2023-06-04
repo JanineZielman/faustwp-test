@@ -68,6 +68,7 @@ export default function Component() {
           <Link href={`/posts/${posts[0].node.slug}?title=${posts[0].node.title}&category=${posts[0].node.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(posts[0].node.date).format("YYYY")}${tagsList}`}>
             <a>
               <div className='category'>{posts[0].node.categories.nodes[0].name}</div>
+              <div className='authors'></div>
               <img src={posts[0].node.featuredImage?.node.mediaItemUrl}/>
               <h1 className='title'>{posts[0].node.title}</h1>
             </a>
