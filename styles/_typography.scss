@@ -113,12 +113,33 @@ button:focus {
   padding: 3px 10px;
   color: $black;
   border-radius: 25px;
-  margin: 0 auto 10px auto;
+  margin-left: 20px;
   line-height: 1.2;
   letter-spacing: 0px;
   font-weight: 500;
   &.left{
     margin-left: 0;
+  }
+}
+
+.authors{
+  font-size: 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase;
+  color: $black;
+  line-height: 1.2;
+  letter-spacing: 0px;
+  font-weight: 500;
+  display: flex;
+  margin: 5px auto 5px 24px;
+  flex-wrap: wrap;
+  div:after{
+    content: ",";
+    margin-right: 5px;
+  }
+  div:last-child:after{
+    content: "";
+    margin-right: 0;
   }
 }
 

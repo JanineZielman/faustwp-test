@@ -4,7 +4,7 @@ import { PostItem } from '../PostItem';
 
 export default function Posts({ posts, id }){
 
-  const [amount, setAmount] = useState(5);
+  const [amount, setAmount] = useState(4);
 	
 	useEffect(() => {
 		function handleResize(){

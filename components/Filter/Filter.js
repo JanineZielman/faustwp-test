@@ -1,6 +1,6 @@
 import { Collapsible } from "../Collapsible";
 
-export default function Filter({ path, categories, category, tags, tag, title, year}) {
+export default function Filter({ path, categories, category, tags, tag, title, year, authors}) {
 
   function generateYearsBetween(startYear = 2019, endYear) {
     const endDate = endYear || new Date().getFullYear();
@@ -23,7 +23,23 @@ export default function Filter({ path, categories, category, tags, tag, title, y
   return (
     <div className='filter'>
       <div className='filter-cat'>
-        <div className='small-title'>Jane Doe</div>
+        {Array.isArray(authors) ?
+            authors.map((item,i) => {
+              return(
+                <div className='small-title' key={`authorsitem${i}`}>
+                  <div className="text">{item}</div> <a href={`${path.replace(`&authors=${item}`, '')}`}>x</a>
+                </div>
+              )
+            })
+          :
+          <>
+          {authors &&
+            <div className='small-title'>
+              <div className="text">{authors}</div> <a href={`${path.replace(`&authors=${authors}`, '')}`}>x</a>
+            </div>
+          }
+          </>
+        }
       </div>
       <div className='filter-cat'>
         {/* <Collapsible trigger="Title" idname={'title'}>

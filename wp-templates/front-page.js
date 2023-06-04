@@ -111,6 +111,7 @@ Component.query = gql`
       edges{
         node {
           id
+          databaseId
           title
           slug
           date

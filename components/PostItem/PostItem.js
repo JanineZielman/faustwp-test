@@ -4,6 +4,7 @@ import Moment from 'moment';
 
 export default function PostItem({ post }){
 	const colors = ['blue', 'yellow', 'pink'];
+  const [authors, setAuthors] = useState([]);
 
   let tags = '';
   const [tagsList, setTagsList] = useState('')
@@ -16,6 +17,24 @@ export default function PostItem({ post }){
     }
   }, [tagsList])
 
+
+  let authorsl = '';
+  const [authorsList, setAuthorsList] = useState('')
+  useEffect(() => {
+    async function fetchAuthors() {
+      const response = await fetch(`https://apriatst.artez.nl/wp-json/wp/v2/posts/${post.databaseId}`);
+      const jsonData = await response.json();
+      setAuthors(jsonData.authors)
+    }
+    fetchAuthors()
+    if(authors){
+      for (let i = 0; i < authors.length; i++) {
+        authorsl += `&authors=${authors[i].display_name.toLowerCase()}`;
+      }
+      setAuthorsList(authorsl);
+    }
+  }, [authors])
+
   
   return (
     <div
@@ -23,9 +42,16 @@ export default function PostItem({ post }){
       key={post.id ?? ''}
       id={`post-${post.id}`}
     >
-      <Link href={`/posts/${post.slug}?title=${post.title}&category=${post.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(post.date).format("YYYY")}${tagsList}`}>
+      <Link href={`/posts/${post.slug}?title=${post.title}&category=${post.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(post.date).format("YYYY")}${tagsList}${authorsList}`}>
         <a>
           <div className='category'>{post.categories.nodes[0].name}</div>
+          <div className='authors'>
+            {authors.map((item, i) => {
+              return(
+                <div>{item.display_name}</div>
+              )
+            })}
+          </div>
           {post.featuredImage ?
             <img src={post.featuredImage?.node.mediaItemUrl}/>
             :

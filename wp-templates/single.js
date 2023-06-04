@@ -21,6 +21,7 @@ const RELATED = gql`
       edges {
         node {
           id
+          databaseId
           title
           slug
           date
@@ -119,7 +120,7 @@ export default function Component(props) {
           {intro.embed && <iframe className='big-image' src={intro.embed}/>}
           <div className='main-wrapper'>
               <div className='left-sidebar'>
-                <Filter tag={router.query.tag} tags={tags} categories={categories} title={router.query.title} category={router.query.category} year={router.query.year} path={router.asPath.replace(/^.+\?/,'/filter?')}/>
+                <Filter authors={router.query.authors} tag={router.query.tag} tags={tags} categories={categories} title={router.query.title} category={router.query.category} year={router.query.year} path={router.asPath.replace(/^.+\?/,'/filter?')}/>
               </div>
               <div className='content-wrapper'>
                 <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
@@ -194,6 +195,7 @@ Component.query = gql`
       }
     }
     post(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
+      databaseId
       title
       content
       date
@@ -228,6 +230,7 @@ Component.query = gql`
         linkedItems {
           ... on Post {
             id
+            databaseId
             title
             slug
             date
@@ -248,11 +251,13 @@ Component.query = gql`
         linkedCollection {
           ... on Post {
             id
+            databaseId
             title
             linkedItems {
               linkedItems {
                 ... on Post {
                   id
+                  databaseId
                   title
                   slug
                   date

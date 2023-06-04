@@ -52,7 +52,7 @@ export default function Component() {
         />
         <main className="article">
         <div className='left-sidebar'>
-          <Filter categories={data.categories.nodes} tags={data.tags.nodes} tag={router.query.tag} category={router.query.category} path={router.asPath} title={router.query.title} year={router.query.year}/>
+          <Filter authors={router.query.authors} categories={data.categories.nodes} tags={data.tags.nodes} tag={router.query.tag} category={router.query.category} path={router.asPath} title={router.query.title} year={router.query.year}/>
         </div>
         <div className='filtered'>
           <RelatedGrid
@@ -117,6 +117,7 @@ Component.query = gql`
       edges{
         node {
           id
+          databaseId
           title
           slug
           date

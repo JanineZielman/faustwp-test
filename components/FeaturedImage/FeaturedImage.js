@@ -37,6 +37,7 @@ FeaturedImage.fragments = {
       featuredImage {
         node {
           id
+          databaseId
           sourceUrl
           altText
           mediaDetails {
