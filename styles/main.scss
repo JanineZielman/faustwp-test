@@ -250,6 +250,7 @@ main.article .wrap{
   width: 18vw;
   padding-right: 2vw;
   font-size: $captions;
+  word-break: break-word;
   .linked-items{
     .linked-item{
       margin-bottom: 0px;

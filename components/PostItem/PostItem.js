@@ -6,7 +6,7 @@ export default function PostItem({ post }){
 	const colors = ['blue', 'yellow', 'pink'];
 
   let tags = '';
-  const [tagsList, setTagsList] = useState()
+  const [tagsList, setTagsList] = useState('')
   useEffect(() => {
     if(post.tags){
       for (let i = 0; i < post.tags.nodes.length; i++) {
@@ -23,7 +23,7 @@ export default function PostItem({ post }){
       key={post.id ?? ''}
       id={`post-${post.id}`}
     >
-      <Link href={`/posts/${post.slug}?category=${post.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(post.date).format("YYYY")}${tagsList}`}>
+      <Link href={`/posts/${post.slug}?title=${post.title}&category=${post.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(post.date).format("YYYY")}${tagsList}`}>
         <a>
           <div className='category'>{post.categories.nodes[0].name}</div>
           {post.featuredImage ?

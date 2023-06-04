@@ -12,6 +12,8 @@ import {
   PostsGrid,
 } from '../components';
 import Link from 'next/link';
+import React, {useEffect, useState} from 'react';
+import Moment from 'moment';
 
 export default function Component() {
   const { data } = useQuery(Component.query);
@@ -21,6 +23,17 @@ export default function Component() {
   const primaryMenu = data?.menu?.menuItems?.nodes ?? [];
   // const footerMenu = data?.footerMenuItems?.nodes ?? [];
   const posts = data?.posts?.edges ?? [];
+
+  let tags = '';
+  const [tagsList, setTagsList] = useState('')
+  useEffect(() => {
+    if(posts[0].node.tags){
+      for (let i = 0; i < posts[0].node.tags.nodes.length; i++) {
+        tags += `&tag=${posts[0].node.tags.nodes[i].name.toLowerCase()}`;
+      }
+      setTagsList(tags);
+    }
+  }, [tagsList])
 
 
   return (
@@ -52,7 +65,7 @@ export default function Component() {
           key={posts[0].node.id ?? ''}
           id={`post-${posts[0].node.id}`}
         >
-          <Link href={`/posts/${posts[0].node.slug}`}>
+          <Link href={`/posts/${posts[0].node.slug}?title=${posts[0].node.title}&category=${posts[0].node.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(posts[0].node.date).format("YYYY")}${tagsList}`}>
             <a>
               <div className='category'>{posts[0].node.categories.nodes[0].name}</div>
               <img src={posts[0].node.featuredImage?.node.mediaItemUrl}/>

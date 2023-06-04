@@ -12,7 +12,7 @@ export default function LinkedItems({ props}) {
         const title = post.title
 
         let tags = '';
-        const [tagsList, setTagsList] = useState()
+        const [tagsList, setTagsList] = useState('')
         useEffect(() => {
           if(post.tags){
             for (let i = 0; i < post.tags.nodes.length; i++) {

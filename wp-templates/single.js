@@ -34,6 +34,11 @@ const RELATED = gql`
               name
             }
           }
+          tags{
+            nodes{
+              name
+            }
+          }
         }
       }
     }
