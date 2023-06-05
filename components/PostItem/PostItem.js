@@ -46,7 +46,7 @@ export default function PostItem({ post }){
         <a>
           <div className='category'>{post.categories.nodes[0].name}</div>
           <div className='authors'>
-            {authors.map((item, i) => {
+            {authors?.map((item, i) => {
               return(
                 <div>{item.display_name}</div>
               )

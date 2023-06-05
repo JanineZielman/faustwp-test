@@ -24,7 +24,7 @@ export default function Filter({ path, categories, category, tags, tag, title, y
     <div className='filter'>
       <div className='filter-cat'>
         {Array.isArray(authors) ?
-            authors.map((item,i) => {
+            authors?.map((item,i) => {
               return(
                 <div className='small-title' key={`authorsitem${i}`}>
                   <div className="text">{item}</div> <a href={`${path.replace(`&authors=${item}`, '')}`}>x</a>

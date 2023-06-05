@@ -232,8 +232,8 @@ main.article .wrap{
     .linked-item{
       width: 30vw;
       height: auto;
-      padding: 14px 0;
-      margin-bottom: 24px;
+      // padding: 14px 0;
+      margin-bottom: 14px;
       img{
         height: 100%;
         width: 100%;
@@ -504,15 +504,18 @@ main.article .wrap{
 }
 
 
-
-
-// filter
-
-// .filtered{
-//   .post-item{
-//     display: none;
-//     &.visible{
-//       display: block;
-//     }
-//   }
-// }
+.person{
+  display: flex;
+  align-items: center;
+  div{
+    width: 100%;
+  }
+  img{
+    width: 25%;
+    height: 25%;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 5%;
+    margin-left: -30%;
+  }
+}

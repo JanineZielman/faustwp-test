@@ -144,6 +144,16 @@ button:focus {
   }
 }
 
+.linked-items{
+  .authors{
+    justify-content: start;
+    margin-top: 10px;
+    font-size: $body;
+    font-family: "shift", serif;
+    text-transform: capitalize;
+  }
+}
+
 .left-sidebar{
   .category{
     display: inline-block;

@@ -111,6 +111,14 @@
     width: 100%;
     margin-left: 0;
   }
+  .person{
+    div{
+      width: 70%;
+    }
+    img{
+      margin-left: 0%;
+    }
+  }
   .article{
     width: 100%;
     .wrap{
@@ -142,5 +150,19 @@
   }
   pre{
     white-space: normal;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .person{
+    flex-direction: column;
+    div{
+      width: 100%;
+    }
+    img{
+      width: 50%;
+      height: 50%;
+      margin-left: 0%;
+    }
   }
 }
