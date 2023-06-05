@@ -46,19 +46,21 @@ export default function Component(props) {
               </div>
               <div className='content-wrapper'>
                 <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
-                <div className='persons'>
-                  {person.person.map((item, i) => {
-                    return(
-                      <div className='person'>
-                        <img src={item.image.mediaItemUrl}/>
-                        <div>
-                          <h2>{item.name}</h2>
-                          <p>{item.text}</p>
+                {person.person &&
+                  <div className='persons'>
+                    {person.person.map((item, i) => {
+                      return(
+                        <div className='person'>
+                          <img src={item.image.mediaItemUrl}/>
+                          <div>
+                            <h2>{item.name}</h2>
+                            <p>{item.text}</p>
+                          </div>
                         </div>
-                      </div>
-                    )
-                  })}
-                </div>
+                      )
+                    })}
+                  </div>
+                }
               </div>
               <div className='right-sidebar'>
                 <div dangerouslySetInnerHTML={{ __html: sidebar.sidebarText ?? '' }} />
