@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
 import Moment from 'moment';
 
-export default function PostItem({ post }){
+export default function PostItem({ post, i }){
 	const colors = ['blue', 'yellow', 'pink'];
   const [authors, setAuthors] = useState([]);
 
@@ -38,9 +38,9 @@ export default function PostItem({ post }){
   
   return (
     <div
-      className={`post-item`}
+      className={`post-item ${post.categories.nodes[0].name.toLowerCase().replaceAll(' ', '-')}`}
       key={post.id ?? ''}
-      id={`post-${post.id}`}
+      id={`post-${i} `}
     >
       <Link href={`/posts/${post.slug}?title=${post.title}&category=${post.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(post.date).format("YYYY")}${tagsList}${authorsList}`}>
         <a>
@@ -52,14 +52,8 @@ export default function PostItem({ post }){
               )
             })}
           </div>
-          {post.featuredImage ?
+          {post.featuredImage &&
             <img src={post.featuredImage?.node.mediaItemUrl}/>
-            :
-            <div className={`placeholder placeholder-${Math.floor(Math.random() * 5)}`}>
-              <div className={`blob blob1 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-              <div className={`blob blob2 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-              <div className={`blob blob3 ${colors[Math.floor(Math.random() * 3)]}`}></div>
-            </div>
           }
           <h1 className='title'>{post.title}</h1>
         </a>

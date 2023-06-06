@@ -34,7 +34,7 @@ export default function Posts({ posts, id }){
             return(
               <>
               {i %amount==0 &&
-                <PostItem post={post.node}/>
+                <PostItem post={post.node} i={i}/>
               }
               </>
             )
@@ -46,7 +46,7 @@ export default function Posts({ posts, id }){
               return(
                 <>
                 {i %amount==1 &&
-                  <PostItem post={post.node}/>
+                  <PostItem post={post.node} i={i}/>
                 }
                 </>
               )
@@ -59,7 +59,7 @@ export default function Posts({ posts, id }){
               return(
                 <>
                 {i %amount==2 &&
-                  <PostItem post={post.node}/>
+                  <PostItem post={post.node} i={i}/>
                 }
                 </>
               )
@@ -72,7 +72,7 @@ export default function Posts({ posts, id }){
               return(
                 <>
                 {i %amount==3 &&
-                  <PostItem post={post.node}/>
+                  <PostItem post={post.node} i={i}/>
                 }
                 </>
               )
@@ -85,7 +85,7 @@ export default function Posts({ posts, id }){
               return(
                 <>
                 {i %amount==4 &&
-                  <PostItem post={post.node}/>
+                  <PostItem post={post.node} i={i}/>
                 }
                 </>
               )
