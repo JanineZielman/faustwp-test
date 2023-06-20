@@ -6,7 +6,6 @@ export default function LinkedItems({ props}) {
   return (
     <div className='linked-items'>
       {props?.map((post, i) => {
-        const [authors, setAuthors] = useState([]);
         const category = post.categories?.nodes[0].name.toLowerCase().replaceAll(' ', '_')
         const year = Moment(post.date).format("YYYY")
         const title = post.title
@@ -24,20 +23,14 @@ export default function LinkedItems({ props}) {
 
         let authorsl = '';
         const [authorsList, setAuthorsList] = useState('')
+      
         useEffect(() => {
-          async function fetchAuthors() {
-            const response = await fetch(`https://apriatst.artez.nl/wp-json/wp/v2/posts/${post.databaseId}`);
-            const jsonData = await response.json();
-            setAuthors(jsonData.authors)
+          var authors = post.authors.authors.replaceAll('\n', '').split(',')
+          for (let i = 0; i < authors.length; i++) {
+            authorsl += `&authors=${authors[i].toLowerCase()}`;
           }
-          fetchAuthors()
-          if(authors){
-            for (let i = 0; i < authors.length; i++) {
-              authorsl += `&authors=${authors[i].display_name.toLowerCase()}`;
-            }
-            setAuthorsList(authorsl);
-          }
-        }, [authors])
+          setAuthorsList(authorsl);
+        }, [])
               
         return(
           <div className="linked-item">
@@ -48,11 +41,7 @@ export default function LinkedItems({ props}) {
                 }
                 <h1 className='title'>{post.title}</h1>
                 <div className='authors'>
-                  {authors?.map((item, i) => {
-                    return(
-                      <div>{item.display_name}</div>
-                    )
-                  })}
+                  <div dangerouslySetInnerHTML={{ __html: post.authors.authors ?? '' }} />
                 </div>
               </a>
             </Link>

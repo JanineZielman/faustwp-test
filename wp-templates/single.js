@@ -25,6 +25,9 @@ const RELATED = gql`
           title
           slug
           date
+          authors {
+            authors
+          }
           featuredImage{
             node{
               mediaItemUrl
@@ -201,6 +204,9 @@ Component.query = gql`
         node {
           name
         }
+      }
+      authors {
+        authors
       }
       categories {
         nodes {

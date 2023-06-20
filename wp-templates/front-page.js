@@ -69,7 +69,9 @@ export default function Component() {
               <Link href={`/posts/${data.page.homePage.highlight.slug}?title=${data.page.homePage.highlight.title}&category=${data.page.homePage.highlight.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(data.page.homePage.highlight.date).format("YYYY")}${tagsList}`}>
                 <a>
                   <div className='category'>{data.page.homePage.highlight.categories.nodes[0].name}</div>
-                  <div className='authors'></div>
+                  <div className='authors'>
+                    <div dangerouslySetInnerHTML={{ __html: data.page.homePage.highlight.authors.authors ?? '' }} />
+                  </div>
                   <img src={data.page.homePage.highlight.featuredImage?.node.mediaItemUrl}/>
                   <h1 className='title'>{data.page.homePage.highlight.title}</h1>
                 </a>
@@ -107,6 +109,9 @@ Component.query = gql`
                 mediaItemUrl
               }
             }
+            authors {
+              authors
+            }
             categories{
               nodes{
                 name
@@ -143,6 +148,9 @@ Component.query = gql`
           title
           slug
           date
+          authors {
+            authors
+          }
           featuredImage{
             node{
               mediaItemUrl
