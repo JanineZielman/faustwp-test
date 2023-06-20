@@ -41,6 +41,7 @@ $button: 12px;
     &.open{
       height: auto!important;
       opacity: 1;
+      overflow: visible;
     }
   }
 }

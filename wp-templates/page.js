@@ -6,8 +6,10 @@ import {
   Footer,
   FeaturedImage,
   SEO,
-  LinkedItems
+  LinkedItems,
+  Collapsible
 } from '../components';
+
 
 export default function Component(props) {
   // Loading state for previews
@@ -19,6 +21,7 @@ export default function Component(props) {
     props?.data?.generalSettings;
   const { title, content, featuredImage, intro, sidebar, person} = props?.data?.page ?? { title: '' };
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
+
 
   return (
     <>
@@ -48,17 +51,32 @@ export default function Component(props) {
                 <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
                 {person.person &&
                   <div className='persons'>
-                    {person.person.map((item, i) => {
-                      return(
-                        <div className='person'>
-                          <img src={item.image.mediaItemUrl}/>
-                          <div>
-                            <h2>{item.name}</h2>
-                            <p>{item.text}</p>
+                    <Collapsible trigger="APRIA journal advisory board members" idname={'journal'}>
+                      {person.person.filter(item => item.board.includes('journal')).map((item, i) => {
+                        return(
+                          <div className='person'>
+                            <img src={item.image.mediaItemUrl}/>
+                            <div>
+                              <h2>{item.name}</h2>
+                              <p>{item.text}</p>
+                            </div>
                           </div>
-                        </div>
-                      )
-                    })}
+                        )
+                      })}
+                    </Collapsible>
+                    <Collapsible trigger="APRIA series advisory board members" idname={'series'}>
+                      {person.person.filter(item => item.board.includes('series')).map((item, i) => {
+                        return(
+                          <div className='person'>
+                            <img src={item.image.mediaItemUrl}/>
+                            <div>
+                              <h2>{item.name}</h2>
+                              <p>{item.text}</p>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </Collapsible>
                   </div>
                 }
               </div>
@@ -143,6 +161,7 @@ Component.query = gql`
           image {
             mediaItemUrl
           }
+          board
         }
       }
     }
