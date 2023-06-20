@@ -35,6 +35,7 @@ export default function Component() {
     }
   }, [tagsList])
 
+  console.log(data.page.homePage.highlight)
 
   return (
     <>
@@ -48,39 +49,36 @@ export default function Component() {
       </div>
       <Main>
         <Container>
-        <div className='flex align-center'>
-        <div className='column1'>
-          <div className="logo-container">
-            <a href="/" className="logo">
-              <svg className="apria_logo" width="100%" height="100%" viewBox="0 0 100 100"><circle cx="50%" cy="50%" r="50"></circle></svg>
-            </a>
-          </div>
-          <p className='title'>
-            APRIA: ArtEZ Platform for Research Interventions of the Arts is an online platform that curates a peer-reviewed journal (APRIA journal) and publishes high-impact essays, image and sound contributions that examine art and interventions of the arts in relation to science and society, and that encourage dialogue around themes that are critical and urgent to the futures that we will live in.
-          </p>
-        </div>
+          <div className='flex align-center'>
+            <div className='column1'>
+              <div className="logo-container">
+                <a href="/" className="logo">
+                  <svg className="apria_logo" width="100%" height="100%" viewBox="0 0 100 100"><circle cx="50%" cy="50%" r="50"></circle></svg>
+                </a>
+              </div>
+              <p className='title'>
+                {data.page.homePage.introText}
+              </p>
+            </div>
 
-        <div
-          className="post-highlight-item column2"
-          key={posts[0].node.id ?? ''}
-          id={`post-${posts[0].node.id}`}
-        >
-          <Link href={`/posts/${posts[0].node.slug}?title=${posts[0].node.title}&category=${posts[0].node.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(posts[0].node.date).format("YYYY")}${tagsList}`}>
-            <a>
-              <div className='category'>{posts[0].node.categories.nodes[0].name}</div>
-              <div className='authors'></div>
-              <img src={posts[0].node.featuredImage?.node.mediaItemUrl}/>
-              <h1 className='title'>{posts[0].node.title}</h1>
-            </a>
-          </Link>
-        </div>
-
-      </div>
-
-
-         <PostsGrid
-          posts={posts}
-        />
+            <div
+              className="post-highlight-item column2"
+              key={data.page.homePage.highlight.id ?? ''}
+              id={`post-${data.page.homePage.highlight.id}`}
+            >
+              <Link href={`/posts/${data.page.homePage.highlight.slug}?title=${data.page.homePage.highlight.title}&category=${data.page.homePage.highlight.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(data.page.homePage.highlight.date).format("YYYY")}${tagsList}`}>
+                <a>
+                  <div className='category'>{data.page.homePage.highlight.categories.nodes[0].name}</div>
+                  <div className='authors'></div>
+                  <img src={data.page.homePage.highlight.featuredImage?.node.mediaItemUrl}/>
+                  <h1 className='title'>{data.page.homePage.highlight.title}</h1>
+                </a>
+              </Link>
+            </div>
+         </div>
+          <PostsGrid
+            posts={posts}
+          />
         </Container>
       </Main>
       {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}
@@ -93,6 +91,35 @@ Component.query = gql`
   query GetPageData {
     generalSettings {
       ...BlogInfoFragment
+    }
+    page(id: "cG9zdDo0MTQ") {
+      homePage {
+        introText
+        highlight {
+          ... on Post {
+            id
+            databaseId
+            title
+            slug
+            date
+            featuredImage{
+              node{
+                mediaItemUrl
+              }
+            }
+            categories{
+              nodes{
+                name
+              }
+            }
+            tags{
+              nodes{
+                name
+              }
+            }
+          }
+        }
+      }
     }
     menu(id: "dGVybToxMQ==") {
       menuItems {

@@ -381,50 +381,6 @@ main.article .wrap{
   }
 }
 
-
-.post-item{
-  .placeholder{
-    width: 80%;
-    height: 15vw;
-    margin: auto;
-    position: relative;
-    overflow: hidden;
-    .blob1{
-      width: 600px;
-      height: 600px;
-      left: -200px;
-      top: -100px;
-    }
-    .blob2{
-      width: 600px;
-      height: 600px;
-      right: 0;
-    }
-    .blob3{
-      width: 800px;
-      height: 800px;
-      left: 20%;
-      bottom: 0;
-    }
-    .blob{
-      position: absolute;
-      z-index: -1;
-      filter: grayscale(0.9);
-      // mix-blend-mode: overlay;
-      &.blue{
-        background: radial-gradient(circle, rgba(191,226,225, 1) 0%, rgba(255,255,255,0) 60%, rgba(255,255,255,0) 90%);
-      }
-      &.yellow{
-        background: radial-gradient(circle, rgba(254,238,166,1) 0%, rgba(255,255,255,0) 60%, rgba(255,255,255,0) 100%);
-      }
-      &.pink{
-        background: radial-gradient(circle, rgba(248,200,215,1) 0%, rgba(255,255,255,0) 60%, rgba(255,255,255,0) 90%);
-      }
-    }
-  }
-}
-
-
 .background-animation{
   position: fixed;
   z-index: -1;
