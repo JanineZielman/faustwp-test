@@ -35,7 +35,6 @@ export default function Component() {
     }
   }, [tagsList])
 
-  console.log(data.page.homePage.highlight)
 
   return (
     <>

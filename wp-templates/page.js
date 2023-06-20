@@ -19,7 +19,7 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
-  const { title, content, featuredImage, intro, sidebar, person} = props?.data?.page ?? { title: '' };
+  const { title, content, featuredImage, intro, sidebar, leftSidebar, person} = props?.data?.page ?? { title: '' };
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
 
 
@@ -46,7 +46,17 @@ export default function Component(props) {
             }
             <div className='main-wrapper'>
               <div className='left-sidebar'>
-              
+                {leftSidebar.relatedItems.map((item, i) => {
+                  return(
+                    <div className='related-item'>
+                      <a href={item.link} target="_blank">
+                        <h1>{item.date}</h1>
+                        <h2>{item.title}</h2>
+                        <p>{item.organiser}</p>
+                      </a>
+                    </div>
+                  )
+                })}
               </div>
               <div className='content-wrapper'>
                 <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
@@ -157,6 +167,15 @@ Component.query = gql`
       }
       sidebar{
         sidebarText
+      }
+      leftSidebar {
+        relatedItems {
+          title
+          organiser
+          link
+          endDate
+          date
+        }
       }
       person {
         person {
