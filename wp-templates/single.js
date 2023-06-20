@@ -82,6 +82,7 @@ export default function Component(props) {
     }
   })
 
+
   return (
     <>
       <SEO
@@ -238,6 +239,9 @@ Component.query = gql`
             title
             slug
             date
+            authors {
+              authors
+            }
             categories {
               nodes {
                 name
@@ -265,6 +269,9 @@ Component.query = gql`
                   title
                   slug
                   date
+                  authors {
+                    authors
+                  }
                   categories {
                     nodes {
                       name

@@ -40,6 +40,7 @@ export default function Component(props) {
             <h1 className='headline'>{title}</h1>
             <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
             {intro.embed && <iframe className='big-image' src={intro.embed}/>}
+            <br/>
             {props.data.posts &&
                <LinkedItems props={props.data.posts.nodes}/>
             }
@@ -123,6 +124,9 @@ Component.query = gql`
         id
         title
         slug
+        authors {
+          authors
+        }
         featuredImage{
           node{
             mediaItemUrl

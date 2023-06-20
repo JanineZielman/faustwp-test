@@ -31,10 +31,11 @@ export default function LinkedItems({ props}) {
           }
           setAuthorsList(authorsl);
         }, [])
+
               
         return(
           <div className="linked-item">
-            <Link href={`/posts/${post.slug}?&category=${category}&year=${year}&title=${title?.toLowerCase()}${tagsList}`}>
+            <Link href={`/posts/${post.slug}?&category=${category}&year=${year}&title=${title?.toLowerCase()}${tagsList}${authorsList}`}>
               <a>
                 {post.featuredImage &&
                   <img src={post.featuredImage?.node.mediaItemUrl}/>

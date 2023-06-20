@@ -121,6 +121,9 @@ Component.query = gql`
           title
           slug
           date
+          authors {
+            authors
+          }
           featuredImage{
             node{
               mediaItemUrl
