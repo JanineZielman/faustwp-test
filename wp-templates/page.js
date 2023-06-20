@@ -46,7 +46,7 @@ export default function Component(props) {
             }
             <div className='main-wrapper'>
               <div className='left-sidebar'>
-                {leftSidebar.relatedItems.map((item, i) => {
+                {leftSidebar?.relatedItems?.map((item, i) => {
                   return(
                     <div className='related-item'>
                       <a href={item.link} target="_blank">
