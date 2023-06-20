@@ -106,6 +106,7 @@ iframe{
   border: none;
   display: block;
   margin-bottom: 24px;
+  max-height: 80vh;
 }
 
 .align-center{
@@ -561,4 +562,8 @@ main.article .wrap{
       }
     }
   }
+}
+
+.post-item.article{
+  margin-top: 0;
 }
