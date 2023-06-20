@@ -526,12 +526,16 @@ main.article .wrap{
     display: none;
   }
   .pp-multiple-authors-boxes-wrapper{
-    width: 98vw;
+    width: 95vw;
     margin-left: -27.5vw;
+    margin-top: 48px;
     ul{
       list-style: none;
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
+      margin-left: 0;
+      padding-left: 0;
       li{
         display: flex;
         flex-direction: column;

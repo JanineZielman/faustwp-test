@@ -151,6 +151,28 @@
   pre{
     white-space: normal;
   }
+
+.article.page{
+  .widget-title{
+    display: none;
+  }
+  .pp-multiple-authors-boxes-wrapper{
+    width: 100%;
+    margin-left: auto;
+    margin-top: 48px;
+    ul{
+      width: 100%;
+      li{
+        width: 45%;
+        margin: 2.5%;
+      }
+    }
+  }
+  .pp-multiple-authors-boxes-wrapper.box-post-id-6680.pp-multiple-authors-layout-inline.multiple-authors-target-widget.box-instance-id-1 .pp-author-boxes-avatar img{
+    width: 100%!important;
+    height: auto!important;
+  }
+}
 }
 
 @media only screen and (max-width: 600px) {

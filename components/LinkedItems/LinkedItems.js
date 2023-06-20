@@ -3,7 +3,6 @@ import Moment from 'moment';
 import React, {useEffect, useState} from 'react';
 
 export default function LinkedItems({ props}) {
-  console.log(props)
   return (
     <div className='linked-items'>
       {props?.map((post, i) => {

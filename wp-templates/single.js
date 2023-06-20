@@ -79,8 +79,6 @@ export default function Component(props) {
     }
   })
 
-  console.log(linkedCollection)
-
   return (
     <>
       <SEO
