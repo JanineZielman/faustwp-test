@@ -520,3 +520,41 @@ main.article .wrap{
     margin-left: -30%;
   }
 }
+
+.article.page{
+  .widget-title{
+    display: none;
+  }
+  .pp-multiple-authors-boxes-wrapper{
+    width: 98vw;
+    margin-left: -27.5vw;
+    ul{
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      li{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 28px;
+        width: 250px;
+        img{
+          border-radius: 50%;
+        }
+        .pp-author-boxes-avatar-details{
+          width: 100%;
+          border-bottom: 1px solid black;
+          text-align: center;
+          padding-bottom: 24px;
+          line-height: 1;
+        }
+        a{
+          text-decoration: none;
+          text-transform: uppercase;
+          font-family: 'Oswald', sans-serif;
+          line-height: 1;
+        }
+      }
+    }
+  }
+}
