@@ -279,10 +279,13 @@ main.article .wrap{
   input{
     background-color: transparent;
     border: none;
-    border-bottom: 1px solid black;
+    // border-bottom: 1px solid black;
     display: inline-block;
     width: 100%;
-    margin: 10px auto;
+    margin: 0px auto 0 auto;
+    &#myInput{
+      margin-bottom: 10px;
+    }
   }
   .search-button{
     display: inline-block;

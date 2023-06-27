@@ -20,9 +20,35 @@ export default function Filter({ path, categories, category, tags, tag, title, y
     window.location.href = `${path}&title=${filter}`
   }
 
+  function authorSearch() {
+    var filter = document.getElementById("authorSearch").value.toLowerCase();
+    window.location.href = `${path}&authors=${filter}`
+  }
+
+  function tagSearch() {
+    var input, filter, tags, a, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    tags = document.getElementById("tag-list");
+    a = tags.getElementsByTagName("a");
+    for (i = 0; i < a.length; i++) {
+        txtValue = a[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            a[i].style.display = "";
+        } else {
+            a[i].style.display = "none";
+        }
+    }
+  }
+
+  
+
   return (
     <div className='filter'>
       <div className='filter-cat'>
+        <div className="small-title title-cat">Author</div>
+        {authors ?
+        <>
         {Array.isArray(authors) ?
             authors?.map((item,i) => {
               return(
@@ -40,11 +66,15 @@ export default function Filter({ path, categories, category, tags, tag, title, y
           }
           </>
         }
+        </>
+        :
+          <div className="title-search">
+            <input type="text" id="authorSearch" placeholder="Search for authors.." title="Type in a author name"/>
+            <div className="search-button" onClick={authorSearch}>Search</div>
+          </div>
+        }
       </div>
       <div className='filter-cat'>
-        {/* <Collapsible trigger="Title" idname={'title'}>
-
-        </Collapsible> */}
         <div className="small-title title-cat">Title</div>
         {title ?
           <div className='small-title'>
@@ -114,7 +144,10 @@ export default function Filter({ path, categories, category, tags, tag, title, y
       </div>
       <div className='filter-cat'>
         <Collapsible trigger="Tags" idname={'tags'}>
-          <div className="tag-list">
+          <div className="title-search">
+          <input type="text" id="myInput" onKeyUp={tagSearch} placeholder="Search for tags.." title="Type in a tag"/>
+        </div>
+          <div className="tag-list" id="tag-list">
             {tags?.map((tag, i) => {
               return(
                 <a key={`tag${i}`} className={`small-title ${tag.name.toLowerCase().replace(' ', '-')}`} href={`${path}&tag=${tag.name.toLowerCase().replace(' ', '-')}`}>{tag.name}</a>

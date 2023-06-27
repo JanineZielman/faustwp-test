@@ -19,6 +19,7 @@ export default function Component() {
   const year = parseInt(router.query.year || 0);
   const tag = router.query.tag || [];
   const title = router.query.title || '';
+
   
   const { data } = useQuery(Component.query, {
     variables: {category, year, tag, title},

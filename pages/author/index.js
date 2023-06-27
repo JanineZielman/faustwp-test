@@ -46,8 +46,6 @@ const Page = () => {
   }, [])
 
 
-  console.log(currentPage)
-
   return (
     <div>
       {authors.map((author, i) => {
