@@ -348,7 +348,7 @@ main.article .wrap{
     }
   }
   .headline{
-    width: 50vw;
+    width: 45vw;
     margin: auto;
     padding-left: 150px;
     box-sizing: border-box;
@@ -356,7 +356,7 @@ main.article .wrap{
     margin-left: 27.5vw;
   }
   .intro{
-    width: 50vw;
+    width: 45vw;
     margin-left: 27.5vw;
     margin-bottom: 24px;
   }
@@ -367,6 +367,10 @@ main.article .wrap{
     .content-wrapper{
       width: 45vw;
       margin: 0 auto;
+      .intro{
+        margin-left: 0;
+        width: 100%;
+      }
     }
     .content{
       img, figure, video{

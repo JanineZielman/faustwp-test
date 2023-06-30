@@ -71,23 +71,14 @@ export default function Component(props) {
   const tags = props.data.tags.nodes;
 
 
-  const regexMdLinks = /(?<=\[footnote)(.*?)(?=\[\/footnote])/gm;
+  const regexMdLinks = /(?<=\])(.*?)(?=\[\/footnote])/gm;
   const footnotes = content?.match(regexMdLinks);
-
-  
-
-  const test = /(?<=] )(.*)(?= \[\/footnote] )/g
-  const footnotes2 = content?.match(test);
-
-
-  console.log(footnotes2)
-
   
   const [newContent, setNewContent] = useState(null);
 
   useEffect(() => {
     for (let i = 0; i < footnotes?.length; i++) { 
-      setNewContent(content.replaceAll(regexMdLinks, i))
+      setNewContent(content.replaceAll(regexMdLinks, '').replaceAll('[/footnote]', '</sup></a>').replaceAll('[footnote', '<a href="#footnotes"><sup>').replaceAll(']', ''))
     }
   }, [newContent])
 
