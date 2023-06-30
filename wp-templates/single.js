@@ -73,14 +73,24 @@ export default function Component(props) {
 
   const regexMdLinks = /(?<=\[footnote)(.*?)(?=\[\/footnote])/gm;
   const footnotes = content?.match(regexMdLinks);
+
   
-  const [newContent, setNewContent] = useState('');
+
+  const test = /(?<=] )(.*)(?= \[\/footnote] )/g
+  const footnotes2 = content?.match(test);
+
+
+  console.log(footnotes2)
+
+  
+  const [newContent, setNewContent] = useState(null);
 
   useEffect(() => {
     for (let i = 0; i < footnotes?.length; i++) { 
-      setNewContent(content.replace(footnotes[i], footnotes[i].split(']')[0]))
+      setNewContent(content.replaceAll(regexMdLinks, i))
     }
-  })
+  }, [newContent])
+
 
 
   return (
@@ -118,14 +128,15 @@ export default function Component(props) {
             }
           </div>
           <h1 className='headline'>{title}</h1>
-          <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
+          
           {intro.embed && <iframe className='big-image' src={intro.embed}/>}
           <div className='main-wrapper'>
               <div className='left-sidebar'>
                 <Filter authors={router.query.authors} tag={router.query.tag} tags={tags} categories={categories} title={router.query.title} category={router.query.category} year={router.query.year} path={router.asPath.replace(/^.+\?/,'/filter?')}/>
               </div>
               <div className='content-wrapper'>
-                <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
+                <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
+                <div className='content' dangerouslySetInnerHTML={{ __html: newContent ?? '' }} />
                 {footnotes && 
                   <Collapsible trigger="Footnotes" idname={'footnotes'}>
                     <ul className='footnotes'>

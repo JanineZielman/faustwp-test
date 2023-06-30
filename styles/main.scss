@@ -57,11 +57,11 @@ iframe{
     position: fixed;
     z-index: 999;
     font-size: 40px;
-    top: 10px;
+    top: 0px;
     line-height: 1;
     &.active{
       font-size: 30px;
-      top: 16px;
+      top: 10px;
       right: 20px;
     }
   }
@@ -74,13 +74,13 @@ iframe{
     top: -200px;
     font-size: 20px;
     transition: top 0.4s ease-in-out;
-    background: transparent linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 72%, #FFFFFF00 100%) 0% 0% no-repeat padding-box;
+    background: transparent linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 20%, #FFFFFF00 100%) 0% 0% no-repeat padding-box;
     .menu{
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       margin-left: auto;
-      padding-top: 14px;
+      padding-top: 0px;
     }
     .menu-link{
       margin-left: 24px;
@@ -194,13 +194,13 @@ svg g path{
     overflow: hidden;
     .title{
       word-break: break-word;
+      opacity: 0.9;
+      line-height: 1.1;
     }
     img{
       height: auto;
-      width: auto;
-      max-width: 80%;
-      max-height: 500px;
-      min-width: 15vw;
+      width: 100%;
+      max-height: 300px;
       object-fit: contain;
     }
     text-align: center;
@@ -223,24 +223,30 @@ main.article .wrap{
   .linked-items{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     align-items: start;
-    width: 96%;
+    width: 100%;
     margin: auto;
     margin-bottom: 48px;
+    box-sizing: border-box;
     .category{
       margin-bottom: 14px;
     }
     .linked-item{
-      width: 30vw;
+      width: 22vw;
+      box-sizing: border-box;
       height: auto;
+      margin: 1.25vw;
       // padding: 14px 0;
       margin-bottom: 14px;
       img{
-        height: 100%;
-        width: 100%;
+        height: 90%;
+        width: 90%;
         object-fit: cover;
-        aspect-ratio: 16/9;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        padding: 1vw;
+        margin: auto;
+        display: block;
       }
     }
   }
@@ -252,7 +258,7 @@ main.article .wrap{
 }
 
 .right-sidebar{
-  width: 18vw;
+  width: 22vw;
   padding-right: 2vw;
   font-size: $captions;
   word-break: break-word;
@@ -359,7 +365,7 @@ main.article .wrap{
       display: flex;
     }
     .content-wrapper{
-      width: 50vw;
+      width: 45vw;
       margin: 0 auto;
     }
     .content{
