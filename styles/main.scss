@@ -23,6 +23,7 @@ iframe{
   width: 100%;
   height: auto;
   aspect-ratio: 16/9;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 
@@ -558,12 +559,10 @@ main.article .wrap{
 //flowchart
 
 .flowchart-wrapper{
-  // border: 1px solid black;
   width: 100%;
   height: 100vh;
   padding: 0;
   margin: 0;
-  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 .flowchart{
