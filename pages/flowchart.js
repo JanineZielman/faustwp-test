@@ -46,7 +46,7 @@ export default function Component() {
           <div className="bg-blob2"></div>
           <div className="bg-blob3"></div>
         </div>
-        <main className="article">
+        <main className="article flowchart-wrapper">
           <center>
             <div className='flowchart'>
               <h1>Where can I develop, enrich and improve my research outside my own course?</h1>

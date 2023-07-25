@@ -557,12 +557,21 @@ main.article .wrap{
 
 //flowchart
 
+.flowchart-wrapper{
+  // border: 1px solid black;
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
 .flowchart{
   max-width: 50vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 70vh;
+  height: 90vh;
   .options{
     margin-top: 48px;
     display: flex;
