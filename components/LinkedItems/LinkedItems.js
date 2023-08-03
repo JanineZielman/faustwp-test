@@ -35,7 +35,7 @@ export default function LinkedItems({ props}) {
               
         return(
           <div className="linked-item">
-            <Link href={`/posts/${post.slug}?&category=${category}&year=${year}&title=${title?.toLowerCase()}${tagsList}${authorsList}`}>
+            <Link href={`/${post.slug}?&category=${category}&year=${year}&title=${title?.toLowerCase()}${tagsList}${authorsList}`}>
               <a>
                 {post.featuredImage &&
                   <img src={post.featuredImage?.node.mediaItemUrl}/>

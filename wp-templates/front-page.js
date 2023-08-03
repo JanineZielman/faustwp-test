@@ -65,7 +65,7 @@ export default function Component() {
               key={data.page.homePage.highlight.id ?? ''}
               id={`post-${data.page.homePage.highlight.id}`}
             >
-              <Link href={`/posts/${data.page.homePage.highlight.slug}?title=${data.page.homePage.highlight.title}&category=${data.page.homePage.highlight.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(data.page.homePage.highlight.date).format("YYYY")}${tagsList}`}>
+              <Link href={`/${data.page.homePage.highlight.slug}?title=${data.page.homePage.highlight.title}&category=${data.page.homePage.highlight.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(data.page.homePage.highlight.date).format("YYYY")}${tagsList}`}>
                 <a>
                   <div className='category'>{data.page.homePage.highlight.categories.nodes[0].name}</div>
                   <div className='authors'>

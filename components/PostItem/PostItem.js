@@ -34,7 +34,7 @@ export default function PostItem({ post, i }){
       key={post.id ?? ''}
       id={`post-${i} `}
     >
-      <Link href={`/posts/${post.slug}?title=${post.title}&category=${post.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(post.date).format("YYYY")}${tagsList}${authorsList}`}>
+      <Link href={`/${post.slug}?title=${post.title}&category=${post.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(post.date).format("YYYY")}${tagsList}${authorsList}`}>
         <a>
           <div className='category'>{post.categories.nodes[0].name}</div>
           <div className='authors'>

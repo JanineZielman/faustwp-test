@@ -76,8 +76,14 @@ Component.variables = (ctx) => {
 };
 
 
-export function getStaticProps(ctx) {
-  return getWordPressProps({ ctx });
+export async function getServerSideProps(){
+  return {
+    props: {
+      paths: [],
+      fallback: 'blocking',
+    }
+  };
+
 }
 
 Component.query = gql`
