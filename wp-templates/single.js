@@ -77,11 +77,14 @@ export default function Component(props) {
   const [newContent, setNewContent] = useState(null);
 
   useEffect(() => {
-    for (let i = 0; i < footnotes?.length; i++) { 
-      setNewContent(content.replaceAll(regexMdLinks, '').replaceAll('[/footnote]', '</sup></a>').replaceAll('[footnote', '<a href="#footnotes"><sup>').replaceAll(']', ''))
+    if (footnotes){
+      for (let i = 0; i < footnotes?.length; i++) { 
+        setNewContent(content.replaceAll(regexMdLinks, '').replaceAll('[/footnote]', '</sup></a>').replaceAll('[footnote', '<a href="#footnotes"><sup>').replaceAll(']', ''))
+      }
+    } else {
+      setNewContent(content)
     }
   }, [newContent])
-
 
 
   return (
