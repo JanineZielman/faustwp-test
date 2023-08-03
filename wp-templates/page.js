@@ -134,6 +134,7 @@ Component.query = gql`
         id
         title
         slug
+        date
         authors {
           authors
         }

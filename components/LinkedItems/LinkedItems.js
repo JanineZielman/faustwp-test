@@ -32,7 +32,8 @@ export default function LinkedItems({ props}) {
           setAuthorsList(authorsl);
         }, [])
 
-              
+        // /${post.slug}?&category=${category}&year=${year}&title=${title?.toLowerCase()}${tagsList}${authorsList}    
+
         return(
           <div className="linked-item">
             <Link href={`/${post.slug}?&category=${category}&year=${year}&title=${title?.toLowerCase()}${tagsList}${authorsList}`}>
