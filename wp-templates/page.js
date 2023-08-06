@@ -42,10 +42,8 @@ export default function Component(props) {
             <h1 className='headline'>{title}</h1>
             <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
             {intro.embed && <iframe className='big-image' src={intro.embed}/>}
-            <br/>
-            {props.data.posts?.nodes?.length > 0 &&
-               <LinkedItems props={props.data.posts.nodes}/>
-            }
+
+
             <div className='main-wrapper'>
               <div className='left-sidebar'>
                 {leftSidebar?.relatedItems?.map((item, i) => {
@@ -88,6 +86,10 @@ export default function Component(props) {
                 <div dangerouslySetInnerHTML={{ __html: sidebar.sidebarText ?? '' }} />
               </div>
             </div>
+            <br/>
+            {props.data.posts?.nodes?.length > 0 &&
+               <LinkedItems props={props.data.posts.nodes}/>
+            }
           </div>
         </main>
       {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}
