@@ -18,7 +18,7 @@ export default function Component() {
   const category = router.query.category || '';
   const year = parseInt(router.query.year || 0);
   const tag = router.query.tag || [];
-  const title = router.query.title || '';
+  const title = router.query.title?.replaceAll('-', ' ') || '';
 
   
   const { data } = useQuery(Component.query, {
