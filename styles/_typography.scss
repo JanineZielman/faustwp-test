@@ -1,6 +1,10 @@
 @import "variables";
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,500;1,500&family=Oswald:wght@500&display=swap');
 
+body{
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
 a{
   color: $black;
   text-decoration: none;
