@@ -19,8 +19,10 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
-  const { title, content, featuredImage, intro, sidebar, leftSidebar, person} = props?.data?.page ?? { title: '' };
+  const { title, content, featuredImage, intro, sidebar, leftSidebar, accordion} = props?.data?.page ?? { title: '' };
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
+
+  console.log(accordion)
 
 
   return (
@@ -41,7 +43,7 @@ export default function Component(props) {
             <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
             {intro.embed && <iframe className='big-image' src={intro.embed}/>}
             <br/>
-            {props.data.posts &&
+            {props.data.posts?.nodes?.length > 0 &&
                <LinkedItems props={props.data.posts.nodes}/>
             }
             <div className='main-wrapper'>
@@ -60,36 +62,27 @@ export default function Component(props) {
               </div>
               <div className='content-wrapper'>
                 <div className='content' dangerouslySetInnerHTML={{ __html: content ?? '' }} />
-                {person.person &&
-                  <div className='persons'>
-                    <Collapsible trigger="APRIA journal advisory board members" idname={'journal'}>
-                      {person.person.filter(item => item.board.includes('journal')).map((item, i) => {
-                        return(
-                          <div className='person'>
-                            <img src={item.image.mediaItemUrl}/>
-                            <div>
-                              <h2>{item.name}</h2>
-                              <p>{item.text}</p>
+                <div className='persons'>
+                  {accordion.accordion?.map((item, i) => {
+                    return(
+                      <Collapsible trigger={item.title} idname={item.title.replaceAll(' ', '-')}>
+                        <div className='content' dangerouslySetInnerHTML={{ __html: item.text ?? '' }} />
+                        {item.person?.map((item, i) => {
+                          return(
+                            <div className='person'>
+                              <img src={item.image.mediaItemUrl}/>
+                              <div>
+                                <h2>{item.name}</h2>
+                                <div className='content' dangerouslySetInnerHTML={{ __html: item.text ?? '' }} />
+                              </div>
                             </div>
-                          </div>
-                        )
-                      })}
-                    </Collapsible>
-                    <Collapsible trigger="APRIA series advisory board members" idname={'series'}>
-                      {person.person.filter(item => item.board.includes('series')).map((item, i) => {
-                        return(
-                          <div className='person'>
-                            <img src={item.image.mediaItemUrl}/>
-                            <div>
-                              <h2>{item.name}</h2>
-                              <p>{item.text}</p>
-                            </div>
-                          </div>
-                        )
-                      })}
-                    </Collapsible>
-                  </div>
-                }
+                          )
+                        })}
+                        
+                      </Collapsible>
+                    )
+                  })}
+                </div>
               </div>
               <div className='right-sidebar'>
                 <div dangerouslySetInnerHTML={{ __html: sidebar.sidebarText ?? '' }} />
@@ -178,14 +171,17 @@ Component.query = gql`
           date
         }
       }
-      person {
-        person {
-          name
+      accordion {
+        accordion {
+          title
           text
-          image {
-            mediaItemUrl
+          person{
+            name
+            text
+            image {
+              mediaItemUrl
+            }
           }
-          board
         }
       }
     }
