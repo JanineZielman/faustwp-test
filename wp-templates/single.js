@@ -71,7 +71,7 @@ export default function Component(props) {
   const tags = props.data.tags.nodes;
 
 
-  const regexMdLinks = /(?<=\])(.*?)(?=\[\/footnote])/gm;
+  const regexMdLinks = /(?:\])(.*?)(?=\[\/footnote])/gm;
   const footnotes = content?.match(regexMdLinks);
   
   const [newContent, setNewContent] = useState(null);
