@@ -104,7 +104,7 @@ const Page = () => {
               </div>
             </div>
             <h1 className='headline'>{author.name}</h1>
-            <div className='intro' dangerouslySetInnerHTML={{ __html: author.acf?.bibliography ?? '' }} />
+            <div className='intro' dangerouslySetInnerHTML={{ __html: author.acf?.bio ?? '' }} />
               <PostsGrid
                 posts={data.posts.edges}
               />
