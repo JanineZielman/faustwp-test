@@ -1,6 +1,6 @@
 import { Collapsible } from "../Collapsible";
 
-export default function Filter({ path, categories, category, tags, tag, title, year, authors}) {
+export default function Filter({ path, categories, category, tags, tag, title, year, authors, authorsList}) {
 
   function generateYearsBetween(startYear = 2019, endYear) {
     const endDate = endYear || new Date().getFullYear();
@@ -20,9 +20,25 @@ export default function Filter({ path, categories, category, tags, tag, title, y
     window.location.href = `${path}&title=${filter}`
   }
 
+  // function authorSearch() {
+  //   var filter = document.getElementById("authorSearch").value.toLowerCase();
+  //   window.location.href = `${path}&authors=${filter}`
+  // }
+
   function authorSearch() {
-    var filter = document.getElementById("authorSearch").value.toLowerCase();
-    window.location.href = `${path}&authors=${filter}`
+    var input, filter, authors, a, i, txtValue;
+    input = document.getElementById("authorInput");
+    filter = input.value.toUpperCase();
+    authors = document.getElementById("author-list");
+    a = authors.getElementsByTagName("a");
+    for (i = 0; i < a.length; i++) {
+        txtValue = a[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            a[i].style.display = "";
+        } else {
+            a[i].style.display = "none";
+        }
+    }
   }
 
   function tagSearch() {
@@ -40,12 +56,42 @@ export default function Filter({ path, categories, category, tags, tag, title, y
         }
     }
   }
-  
 
   return (
     <div className='filter'>
       <div className='filter-cat'>
-        <div className="small-title title-cat">Author</div>
+      <Collapsible trigger="Author" idname={'Author'}>
+          <div className="title-search">
+          <input type="text" id="authorInput" onKeyUp={authorSearch} placeholder="Search for authors.." title="Type in an author"/>
+        </div>
+          <div className="tag-list" id="author-list">
+            {authorsList?.map((author, i) => {
+              return(
+                <a key={`author${i}`} className={`small-title ${tag.name.toLowerCase().replace(' ', '-')}`} href={`${path}&author=${author.toLowerCase().replace(' ', '-')}`}>{author}</a>
+              )
+            })}
+          </div>
+        </Collapsible>
+        {tag &&
+          <>
+          {Array.isArray(tag) ?
+          <>
+            {tag?.map((item, i) => {
+              return(
+                <div className='tag' key={`tagitem${i}`}>
+                  {item} <a href={`${path.replace(`&tag=${item}`, '')}`}>x</a>
+                </div>
+              )
+            })}
+          </>
+          :
+          <div className='tag'>
+            {tag} <a href={`${path.replace(`&tag=${tag}`, '')}`}>x</a>
+          </div>
+          }
+          </>   
+        }
+        {/* <div className="small-title title-cat">Author</div>
         {authors ?
         <>
         {Array.isArray(authors) ?
@@ -71,7 +117,7 @@ export default function Filter({ path, categories, category, tags, tag, title, y
             <input type="text" id="authorSearch" placeholder="Search for authors.." title="Type in a author name"/>
             <div className="search-button" onClick={authorSearch}>Search</div>
           </div>
-        }
+        } */}
       </div>
       <div className='filter-cat'>
         <div className="small-title title-cat">Title</div>

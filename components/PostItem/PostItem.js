@@ -32,8 +32,8 @@ export default function PostItem({ post, i }){
   const [authorsList, setAuthorsList] = useState('')
 
   useEffect(() => {
-    var authors = post.authors.authors.replaceAll('\n', '').split(',')
-    for (let i = 0; i < authors.length; i++) {
+    var authors = post.authors?.authors?.replaceAll('\n', '').split(',')
+    for (let i = 0; i < authors?.length; i++) {
       authorsl += `&authors=${slugify(authors[i])}`;
     }
     setAuthorsList(authorsl);
@@ -51,7 +51,7 @@ export default function PostItem({ post, i }){
         <a>
           <div className='category'>{post.categories.nodes[0].name}</div>
           <div className='authors'>
-            <div dangerouslySetInnerHTML={{ __html: post.authors.authors ?? '' }} />
+            <div dangerouslySetInnerHTML={{ __html: post?.authors?.authors ?? '' }} />
           </div>
           {post.featuredImage &&
             <img src={post.featuredImage?.node.mediaItemUrl}/>

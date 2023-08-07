@@ -38,6 +38,9 @@ const RELATED = gql`
               mediaItemUrl
             }
           }
+          authors {
+            authors
+          }
           categories{
             nodes{
               name

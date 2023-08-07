@@ -34,6 +34,25 @@ export default function Component() {
     }
   },[data])
 
+  const convertStringToHTML = htmlString => {
+    const parser = new DOMParser();
+    const html = parser.parseFromString(htmlString, 'text/html');
+
+    return html.body;
+  }
+
+  let authorsList = []
+
+  useEffect(() => {
+    if (data){
+      const list = convertStringToHTML(data.page.content).getElementsByTagName('a')
+      for (let i = 0; i < list.length; i++) {
+        authorsList.push(list[i].getAttribute('title'))
+      }
+    }
+  },[data])
+
+
 
   return (
     <>
@@ -53,7 +72,7 @@ export default function Component() {
         />
         <main className="article">
         <div className='left-sidebar'>
-          <Filter authors={router.query.authors} categories={data.categories.nodes} tags={data.tags.nodes} tag={router.query.tag} category={router.query.category} path={router.asPath} title={router.query.title} year={router.query.year}/>
+          <Filter authorsList={authorsList} authors={router.query.authors} categories={data.categories.nodes} tags={data.tags.nodes} tag={router.query.tag} category={router.query.category} path={router.asPath} title={router.query.title} year={router.query.year}/>
         </div>
         <div className='filtered'>
           <RelatedGrid
@@ -105,6 +124,9 @@ Component.query = gql`
           uri
         }
       }
+    }
+    page(id: "cG9zdDo2ODk5") {
+      content
     }
     categories{
       nodes{
