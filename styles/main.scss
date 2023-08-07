@@ -532,6 +532,7 @@ main.article .wrap{
         width: 250px;
         img{
           border-radius: 50%;
+          object-fit: cover;
         }
         .pp-author-boxes-avatar-details{
           width: 100%;
