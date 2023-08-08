@@ -62,7 +62,7 @@ export default function Filter({ path, categories, category, tags, tag, title, y
           <div className="tag-list" id="author-list">
             {allAuthors?.map((author, i) => {
               return(
-                <a key={`author${i}`} className={`small-title ${author.toLowerCase().replace(' ', '-')}`} href={`${path}&authors=${author.toLowerCase().replace(' ', '-')}`}>{author}</a>
+                <a key={`author${i}`} className={`small-title ${author.toLowerCase().replaceAll(' ', '-')}`} href={`${path}&authors=${author.toLowerCase().replaceAll(' ', '-')}`}>{author}</a>
               )
             })}
           </div>
@@ -74,14 +74,14 @@ export default function Filter({ path, categories, category, tags, tag, title, y
             {authors?.map((item, i) => {
               return(
                 <div className='small-title' key={`authorsitem${i}`}>
-                  <div className="text">{item}</div> <a href={`${path.replace(`authors=${item}`, '')}`}>x</a>
+                  <div className="text">{item}</div> <a href={`${path.replace(`&authors=${item}`, '')}`}>x</a>
                 </div>
               )
             })}
           </>
           :
             <div className='small-title'>
-              <div className="text">{authors}</div> <a href={`${path.replace(`authors=${authors}`, '')}`}>x</a>
+              <div className="text">{authors}</div> <a href={`${path.replace(`&authors=${authors}`, '')}`}>x</a>
             </div>
           }
           </>   
@@ -91,7 +91,7 @@ export default function Filter({ path, categories, category, tags, tag, title, y
         <div className="small-title title-cat">Title</div>
         {title ?
           <div className='small-title'>
-            <div className="text">{title.replaceAll('-', ' ')}</div> <a href={`${path.replace(`title=${title}`, '')}`}>x</a>
+            <div className="text">{title.replaceAll('-', ' ')}</div> <a href={`${path.replace(`&title=${title}`, '')}`}>x</a>
           </div>
         :
         <div className="title-search">
