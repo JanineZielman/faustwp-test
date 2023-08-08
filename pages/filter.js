@@ -18,13 +18,18 @@ export default function Component() {
   const category = router.query.category || '';
   const year = parseInt(router.query.year || 0);
   const tag = router.query.tag || [];
-  const title = router.query.title?.replaceAll('-', ' ') || '';
+  const title = router.query.title || '';
+  const authors = router.query.authors || '';
 
-  
+  function stringReplace(sentence) {
+    return sentence.replace(/[-]/g, " ");
+  }
+
+  const search = stringReplace(title + "," + authors);
+
   const { data } = useQuery(Component.query, {
-    variables: {category, year, tag, title},
+    variables: {category, year, tag, search},
   });
-
 
   const [loading, setLoading] = useState(true);
   
@@ -41,13 +46,13 @@ export default function Component() {
     return html.body;
   }
 
-  let authorsList = []
+  const [allAuthors, setAllAuthors] = useState([])
 
   useEffect(() => {
     if (data){
       const list = convertStringToHTML(data.page.content).getElementsByTagName('a')
       for (let i = 0; i < list.length; i++) {
-        authorsList.push(list[i].getAttribute('title'))
+        allAuthors.push(list[i].getAttribute('title'))
       }
     }
   },[data])
@@ -72,7 +77,7 @@ export default function Component() {
         />
         <main className="article">
         <div className='left-sidebar'>
-          <Filter authorsList={authorsList} authors={router.query.authors} categories={data.categories.nodes} tags={data.tags.nodes} tag={router.query.tag} category={router.query.category} path={router.asPath} title={router.query.title} year={router.query.year}/>
+          <Filter allAuthors={allAuthors} authors={router.query.authors} categories={data.categories.nodes} tags={data.tags.nodes} tag={router.query.tag} category={router.query.category} path={router.asPath} title={router.query.title} year={router.query.year}/>
         </div>
         <div className='filtered'>
           <RelatedGrid
@@ -109,7 +114,7 @@ Component.query = gql`
   ${BlogInfoFragment}
   query GetPageData(
     $category: String!
-    $title: String!
+    $search: String!
     $year: Int!
     $tag: [String!]!
   ) {
@@ -138,7 +143,7 @@ Component.query = gql`
         name
       }
     }
-    posts(where: {categoryName: $category, tagSlugIn: $tag, dateQuery: {year: $year}, search: $title}, first: 100)  {
+    posts(where: {categoryName: $category, tagSlugIn: $tag, dateQuery: {year: $year}, search: $search}, first: 100)  {
       pageInfo {
         hasNextPage
         endCursor

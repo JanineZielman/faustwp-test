@@ -1,6 +1,6 @@
 import { Collapsible } from "../Collapsible";
 
-export default function Filter({ path, categories, category, tags, tag, title, year, authors, authorsList}) {
+export default function Filter({ path, categories, category, tags, tag, title, year, authors, allAuthors}) {
 
   function generateYearsBetween(startYear = 2019, endYear) {
     const endDate = endYear || new Date().getFullYear();
@@ -19,11 +19,6 @@ export default function Filter({ path, categories, category, tags, tag, title, y
     var filter = document.getElementById("titleSearch").value.toLowerCase();
     window.location.href = `${path}&title=${filter}`
   }
-
-  // function authorSearch() {
-  //   var filter = document.getElementById("authorSearch").value.toLowerCase();
-  //   window.location.href = `${path}&authors=${filter}`
-  // }
 
   function authorSearch() {
     var input, filter, authors, a, i, txtValue;
@@ -65,59 +60,32 @@ export default function Filter({ path, categories, category, tags, tag, title, y
           <input type="text" id="authorInput" onKeyUp={authorSearch} placeholder="Search for authors.." title="Type in an author"/>
         </div>
           <div className="tag-list" id="author-list">
-            {authorsList?.map((author, i) => {
+            {allAuthors?.map((author, i) => {
               return(
-                <a key={`author${i}`} className={`small-title ${tag.name.toLowerCase().replace(' ', '-')}`} href={`${path}&author=${author.toLowerCase().replace(' ', '-')}`}>{author}</a>
+                <a key={`author${i}`} className={`small-title ${author.toLowerCase().replace(' ', '-')}`} href={`${path}&authors=${author.toLowerCase().replace(' ', '-')}`}>{author}</a>
               )
             })}
           </div>
         </Collapsible>
-        {tag &&
+        {authors &&
           <>
-          {Array.isArray(tag) ?
+          {Array.isArray(authors) ?
           <>
-            {tag?.map((item, i) => {
-              return(
-                <div className='tag' key={`tagitem${i}`}>
-                  {item} <a href={`${path.replace(`&tag=${item}`, '')}`}>x</a>
-                </div>
-              )
-            })}
-          </>
-          :
-          <div className='tag'>
-            {tag} <a href={`${path.replace(`&tag=${tag}`, '')}`}>x</a>
-          </div>
-          }
-          </>   
-        }
-        {/* <div className="small-title title-cat">Author</div>
-        {authors ?
-        <>
-        {Array.isArray(authors) ?
-            authors?.map((item,i) => {
+            {authors?.map((item, i) => {
               return(
                 <div className='small-title' key={`authorsitem${i}`}>
                   <div className="text">{item}</div> <a href={`${path.replace(`authors=${item}`, '')}`}>x</a>
                 </div>
               )
-            })
+            })}
+          </>
           :
-          <>
-          {authors &&
             <div className='small-title'>
               <div className="text">{authors}</div> <a href={`${path.replace(`authors=${authors}`, '')}`}>x</a>
             </div>
           }
-          </>
+          </>   
         }
-        </>
-        :
-          <div className="title-search">
-            <input type="text" id="authorSearch" placeholder="Search for authors.." title="Type in a author name"/>
-            <div className="search-button" onClick={authorSearch}>Search</div>
-          </div>
-        } */}
       </div>
       <div className='filter-cat'>
         <div className="small-title title-cat">Title</div>
