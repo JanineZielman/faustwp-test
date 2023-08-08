@@ -22,9 +22,6 @@ export default function Component(props) {
   const { title, content, featuredImage, intro, sidebar, leftSidebar, accordion} = props?.data?.page ?? { title: '' };
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
 
-  console.log(accordion)
-
-
   return (
     <>
       <SEO

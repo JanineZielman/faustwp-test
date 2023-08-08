@@ -15,14 +15,15 @@ import Link from 'next/link';
 import React, {useEffect, useState} from 'react';
 import Moment from 'moment';
 
-export default function Component() {
-  const { data } = useQuery(Component.query);
+export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
-    data?.generalSettings;
-  const primaryMenu = data?.menu?.menuItems?.nodes ?? [];
+  props?.data?.generalSettings;
+  const posts = props.data?.posts?.edges ?? [];
+  const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
+
   // const footerMenu = data?.footerMenuItems?.nodes ?? [];
-  const posts = data?.posts?.edges ?? [];
+
 
   let tags = '';
   const [tagsList, setTagsList] = useState('')
@@ -56,23 +57,23 @@ export default function Component() {
                 </a>
               </div>
               <p className='title'>
-                {data.page.homePage.introText}
+                {props.data.page.homePage.introText}
               </p>
             </div>
 
             <div
               className="post-highlight-item column2"
-              key={data.page.homePage.highlight.id ?? ''}
-              id={`post-${data.page.homePage.highlight.id}`}
+              key={props.data.page.homePage.highlight.id ?? ''}
+              id={`post-${props.data.page.homePage.highlight.id}`}
             >
-              <Link href={`/${data.page.homePage.highlight.slug}?title=${data.page.homePage.highlight.title}&category=${data.page.homePage.highlight.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(data.page.homePage.highlight.date).format("YYYY")}${tagsList}`}>
+              <Link href={`/${props.data.page.homePage.highlight.slug}?title=${props.data.page.homePage.highlight.title}&category=${props.data.page.homePage.highlight.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(props.data.page.homePage.highlight.date).format("YYYY")}${tagsList}`}>
                 <a>
-                  <div className='category'>{data.page.homePage.highlight.categories.nodes[0].name}</div>
+                  <div className='category'>{props.data.page.homePage.highlight.categories.nodes[0].name}</div>
                   <div className='authors'>
-                    <div dangerouslySetInnerHTML={{ __html: data.page.homePage.highlight.authors.authors ?? '' }} />
+                    <div dangerouslySetInnerHTML={{ __html: props.data.page.homePage.highlight.authors.authors ?? '' }} />
                   </div>
-                  <img src={data.page.homePage.highlight.featuredImage?.node.mediaItemUrl}/>
-                  <h1 className='title'>{data.page.homePage.highlight.title}</h1>
+                  <img src={props.data.page.homePage.highlight.featuredImage?.node.mediaItemUrl}/>
+                  <h1 className='title'>{props.data.page.homePage.highlight.title}</h1>
                 </a>
               </Link>
             </div>
