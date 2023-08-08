@@ -525,6 +525,8 @@ main.article .wrap{
       li{
         display: grid;
         grid-template-rows: 1fr auto;
+        align-items: center;
+        justify-content: center;
         margin: 28px;
         img{
           border-radius: 50%;

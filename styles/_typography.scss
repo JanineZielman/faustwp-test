@@ -1,5 +1,12 @@
 @import "variables";
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,500;1,500&family=Oswald:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,500;1,500');
+
+@font-face {
+  font-family: "Oswald";
+  font-weight: 500;
+  src:
+    url("Oswald-VariableFont_wght.woff2") format("woff2");
+}
 
 body{
   -webkit-font-smoothing: subpixel-antialiased;
