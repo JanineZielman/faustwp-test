@@ -11,7 +11,6 @@ import {
   SEO,
   PostsGrid,
 } from '../components';
-import Link from 'next/link';
 import React, {useEffect, useState} from 'react';
 import Moment from 'moment';
 
@@ -66,16 +65,14 @@ export default function Component(props) {
               key={props.data.page.homePage.highlight.id ?? ''}
               id={`post-${props.data.page.homePage.highlight.id}`}
             >
-              <Link href={`/${props.data.page.homePage.highlight.slug}?title=${props.data.page.homePage.highlight.title}&category=${props.data.page.homePage.highlight.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(props.data.page.homePage.highlight.date).format("YYYY")}${tagsList}`}>
-                <a>
+              <a href={`/${props.data.page.homePage.highlight.slug}?title=${props.data.page.homePage.highlight.title}&category=${props.data.page.homePage.highlight.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(props.data.page.homePage.highlight.date).format("YYYY")}${tagsList}`}>
                   <div className='category'>{props.data.page.homePage.highlight.categories.nodes[0].name}</div>
                   <div className='authors'>
                     <div dangerouslySetInnerHTML={{ __html: props.data.page.homePage.highlight.authors.authors ?? '' }} />
                   </div>
                   <img src={props.data.page.homePage.highlight.featuredImage?.node.mediaItemUrl}/>
                   <h1 className='title'>{props.data.page.homePage.highlight.title}</h1>
-                </a>
-              </Link>
+              </a>
             </div>
          </div>
           <PostsGrid

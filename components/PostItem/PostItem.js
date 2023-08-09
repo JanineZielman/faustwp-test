@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import Link from 'next/link';
 import Moment from 'moment';
 
 export default function PostItem({ post, i }){
@@ -47,18 +46,16 @@ export default function PostItem({ post, i }){
       key={post.id ?? ''}
       id={`post-${i} `}
     >
-      <Link href={`/${post.slug}?title=${slugify(post.title)}&category=${slugify(post.categories.nodes[0].name)}&year=${Moment(post.date).format("YYYY")}${tagsList}${authorsList}`}>
-        <a>
-          <div className='category'>{post.categories.nodes[0].name}</div>
-          <div className='authors'>
-            <div dangerouslySetInnerHTML={{ __html: post?.authors?.authors ?? '' }} />
-          </div>
-          {post.featuredImage &&
-            <img src={post.featuredImage?.node.mediaItemUrl}/>
-          }
-          <h1 className='title'>{post.title}</h1>
-        </a>
-      </Link>
+      <a href={`/${post.slug}?title=${slugify(post.title)}&category=${slugify(post.categories.nodes[0].name)}&year=${Moment(post.date).format("YYYY")}${tagsList}${authorsList}`}>
+        <div className='category'>{post.categories.nodes[0].name}</div>
+        <div className='authors'>
+          <div dangerouslySetInnerHTML={{ __html: post?.authors?.authors ?? '' }} />
+        </div>
+        {post.featuredImage &&
+          <img src={post.featuredImage?.node.mediaItemUrl}/>
+        }
+        <h1 className='title'>{post.title}</h1>
+      </a>
     </div>
   );
 }

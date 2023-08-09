@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import Link from 'next/link';
 import { PostItem } from '../PostItem';
 
 export default function Posts({ posts, id }){

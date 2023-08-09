@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import Moment from 'moment';
 import React, {useEffect, useState} from 'react';
 
@@ -46,17 +45,15 @@ export default function LinkedItems({ props}) {
 
         return(
           <div className="linked-item">
-            <Link href={`/${post.slug}?&category=${category}&year=${year}&title=${slugify(title)}${tagsList}${authorsList}`}>
-              <a>
-                {post.featuredImage &&
-                  <img src={post.featuredImage?.node.mediaItemUrl}/>
-                }
-                <h1 className='title'>{post.title}</h1>
-                <div className='authors'>
-                  <div dangerouslySetInnerHTML={{ __html: post.authors.authors ?? '' }} />
-                </div>
-              </a>
-            </Link>
+            <a href={`/${post.slug}?&category=${category}&year=${year}&title=${slugify(title)}${tagsList}${authorsList}`}>
+              {post.featuredImage &&
+                <img src={post.featuredImage?.node.mediaItemUrl}/>
+              }
+              <h1 className='title'>{post.title}</h1>
+              <div className='authors'>
+                <div dangerouslySetInnerHTML={{ __html: post.authors.authors ?? '' }} />
+              </div>
+            </a>
           </div>
         )
       })}

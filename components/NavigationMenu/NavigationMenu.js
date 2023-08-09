@@ -1,4 +1,3 @@
-import Link from 'next/link';
 
 export default function NavigationMenu({ menuItems, className }) {
   if (!menuItems) {
@@ -20,7 +19,7 @@ export default function NavigationMenu({ menuItems, className }) {
 
           return (
             <div key={id} className='menu-link'>
-              <Link href={uri ?? '/'}>{label ?? ''}</Link>
+              <a href={uri ?? '/'}>{label ?? ''}</a>
             </div>
           );
         })}

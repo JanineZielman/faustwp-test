@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Link from 'next/link';
 import { Container, NavigationMenu } from '../../components';
 
 export default function Header({
