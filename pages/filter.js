@@ -138,9 +138,13 @@ Component.query = gql`
         name
       }
     }
-    tags (first: 100){
+    tags (first: 500){
       nodes{
         name
+        count
+      }
+      pageInfo {
+        endCursor
       }
     }
     posts(where: {categoryName: $category, tagSlugIn: $tag, dateQuery: {year: $year}, search: $search}, first: 100)  {
