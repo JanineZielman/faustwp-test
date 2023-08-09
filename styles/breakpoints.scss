@@ -2,7 +2,7 @@
 @import "typography";
 
 
-@media only screen and (max-width: 1800px){
+@media only screen and (min-width: 1400px){
   .grid{
     display: flex;
     flex-wrap: wrap;
@@ -18,9 +18,26 @@
       width: 14vw;
     }
   }
+  .article.page{
+    .pp-multiple-authors-boxes-wrapper{
+      ul{
+        list-style: none;
+        column-count: 5;
+        li{
+          width: calc(100% - 48px);
+          img{
+            margin-bottom: -10px;
+          }
+          .pp-author-boxes-avatar-details{
+            padding-top: 24px;
+          }
+        }
+      }
+    }
+  }
 }
 
-@media only screen and (max-width: 1400px){
+@media only screen and (min-width: 1100px) and (max-width: 1400px){
   .navbar{
     .primary-navigation{
       .menu{
@@ -29,12 +46,46 @@
       }
     }
   }
+  .article.page{
+    .pp-multiple-authors-boxes-wrapper{
+      ul{
+        list-style: none;
+        column-count: 3;
+        li{
+          width: 80%;
+          img{
+            margin-bottom: -10px;
+          }
+          .pp-author-boxes-avatar-details{
+            padding-top: 24px;
+          }
+        }
+      }
+    }
+  }
 }
 
-@media only screen and (max-width: 1100px) {
+@media only screen and (min-width: 960px) and (max-width: 1100px) {
   .grid{
     .row{
       width: 45vw;
+    }
+  }
+  .article.page{
+    .pp-multiple-authors-boxes-wrapper{
+      ul{
+        list-style: none;
+        column-count: 3;
+        li{
+          width: 80%;
+          img{
+            margin-bottom: -10px;
+          }
+          .pp-author-boxes-avatar-details{
+            padding-top: 24px;
+          }
+        }
+      }
     }
   }
 }
@@ -171,6 +222,26 @@
   .pp-multiple-authors-boxes-wrapper.box-post-id-6680.pp-multiple-authors-layout-inline.multiple-authors-target-widget.box-instance-id-1 .pp-author-boxes-avatar img{
     width: 100%!important;
     height: auto!important;
+  }
+}
+.article.page{
+  .pp-multiple-authors-boxes-wrapper{
+    width: 100%;
+    margin-left: auto;
+    margin-top: 48px;
+    ul{
+      list-style: none;
+      column-count: 2;
+      li{
+        width: 80%;
+        img{
+          margin-bottom: -10px;
+        }
+        .pp-author-boxes-avatar-details{
+          padding-top: 24px;
+        }
+      }
+    }
   }
 }
 }
