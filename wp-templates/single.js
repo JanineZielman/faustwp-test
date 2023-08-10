@@ -91,7 +91,7 @@ export default function Component(props) {
   
 
   const linkedColandCur = linkedCollection?.linkedCollection?.linkedItems?.linkedItems.concat(linkedCuratedBy?.linkedCuratedBy ? linkedCuratedBy?.linkedCuratedBy?.linkedItems?.linkedItems : linkedCollection?.linkedCollection?.linkedItems?.linkedItems)
-  const uniquelinkedColandCur = [...new Map(linkedColandCur.map(v => [v?.id, v])).values()]
+  const uniquelinkedColandCur = [...new Map(linkedColandCur?.map(v => [v?.id, v])).values()]
 
 
   return (
