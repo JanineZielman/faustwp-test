@@ -16,6 +16,7 @@ export default function Component(props) {
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
   const { name, posts } = props.data.nodeByUri;
+  const footerMenu = props.data?.footer?.footer?.column ?? [];
 
   return (
     <>
@@ -41,7 +42,7 @@ export default function Component(props) {
           </Container>
         </>
       </Main>
-      {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}
+      <Footer title={siteTitle} menuItems={footerMenu} />
     </>
   );
 }
@@ -52,6 +53,13 @@ Component.query = gql`
   query GetTagPage(
     $uri: String!
   ) {
+    footer: page(id: "footer", idType: URI) {
+      footer {
+        column {
+          text
+        }
+      }
+    }
     nodeByUri(uri: $uri) {
       ... on Tag {
         name

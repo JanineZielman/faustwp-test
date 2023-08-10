@@ -7,7 +7,8 @@ import {
   SEO,
   LinkedItems,
   RelatedGrid,
-  Filter
+  Filter,
+  Footer,
 } from '../components';
 import React, {useEffect, useState} from 'react';
 import { useRouter } from 'next/router';
@@ -20,6 +21,7 @@ export default function Component() {
   const tag = router.query.tag || [];
   const title = router.query.title || '';
   const authors = router.query.authors || '';
+  const footerMenu = props.data?.footer?.footer?.column ?? [];
 
   function stringReplace(sentence) {
     return sentence.replace(/[-]/g, " ");
@@ -85,7 +87,7 @@ export default function Component() {
           />
         </div>
         </main>
-        {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}
+        <Footer title={siteTitle} menuItems={footerMenu} />
         </>
       }
     </>
@@ -130,7 +132,14 @@ Component.query = gql`
         }
       }
     }
-    page(id: "cG9zdDo2ODk5") {
+    footer: page(id: "footer", idType: URI) {
+      footer {
+        column {
+          text
+        }
+      }
+    }
+    page: page(id: "cG9zdDo2ODk5") {
       content
     }
     categories{

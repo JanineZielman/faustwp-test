@@ -23,7 +23,6 @@ export default function Component(props) {
   const footerMenu = props.data?.footer?.footer?.column ?? [];
 
 
-
   let tags = '';
   const [tagsList, setTagsList] = useState('')
   useEffect(() => {
@@ -34,8 +33,6 @@ export default function Component(props) {
       setTagsList(tags);
     }
   }, [tagsList])
-
-  console.log(footerMenu)
 
 
   return (

@@ -7,7 +7,8 @@ import {
   Collapsible,
   LinkedItems,
   RelatedGrid,
-  Filter
+  Filter,
+  Footer
 } from '../components';
 import Moment from 'moment';
 import React, {useEffect, useState} from 'react';
@@ -65,10 +66,11 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
-  const { title, content, featuredImage, date, author, articleTop, intro, linkedItems, linkedCollection} = props.data.post;
+  const { title, content, featuredImage, date, author, articleTop, intro, linkedItems, linkedCollection, linkedCuratedBy} = props.data.post;
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
   const categories = props.data.categories.nodes;
   const tags = props.data.tags.nodes;
+  const footerMenu = props.data?.footer?.footer?.column ?? [];
 
 
   const regexMdLinks = /(?:\])(.*?)(?=\[\/footnote])/gm;
@@ -85,6 +87,11 @@ export default function Component(props) {
       setNewContent(content)
     }
   }, [newContent])
+
+  
+
+  const linkedColandCur = linkedCollection?.linkedCollection?.linkedItems?.linkedItems.concat(linkedCuratedBy?.linkedCuratedBy ? linkedCuratedBy?.linkedCuratedBy?.linkedItems?.linkedItems : linkedCollection?.linkedCollection?.linkedItems?.linkedItems)
+  const uniquelinkedColandCur = [...new Map(linkedColandCur.map(v => [v?.id, v])).values()]
 
 
   return (
@@ -111,7 +118,9 @@ export default function Component(props) {
             {linkedCollection.linkedCollection &&
               <div className='date'>
                 <div className='field'>Published in</div>
-                <div className='data'>{linkedCollection.linkedCollection?.title}</div>
+                <div className='data'>
+                  <a href={`${linkedCollection.linkedCollection?.slug}?`}>{linkedCollection.linkedCollection?.title}</a>
+                </div>
               </div>
             }
             {articleTop.doi &&
@@ -147,8 +156,8 @@ export default function Component(props) {
                 {linkedItems?.linkedItems &&
                   <LinkedItems props={linkedItems.linkedItems}/>
                 }
-                {linkedCollection?.linkedCollection &&
-                  <LinkedItems props={linkedCollection.linkedCollection?.linkedItems.linkedItems}/>
+                {uniquelinkedColandCur &&
+                  <LinkedItems props={uniquelinkedColandCur}/>
                 }
               </div>
           </div>
@@ -163,7 +172,7 @@ export default function Component(props) {
           }
         </div>
       </main>
-      {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}
+      <Footer title={siteTitle} menuItems={footerMenu} />
     </>
   );
 }
@@ -199,6 +208,13 @@ Component.query = gql`
     tags (first: 100){
       nodes{
         name
+      }
+    }
+    footer: page(id: "footer", idType: URI) {
+      footer {
+        column {
+          text
+        }
       }
     }
     post(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
@@ -266,6 +282,41 @@ Component.query = gql`
             id
             databaseId
             title
+            slug
+            linkedItems {
+              linkedItems {
+                ... on Post {
+                  id
+                  databaseId
+                  title
+                  slug
+                  date
+                  authors {
+                    authors
+                  }
+                  categories {
+                    nodes {
+                      name
+                    }
+                  }
+                  tags {
+                    nodes {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      linkedCuratedBy {
+        linkedCuratedBy {
+          ... on Post {
+            id
+            databaseId
+            title
+            slug
             linkedItems {
               linkedItems {
                 ... on Post {

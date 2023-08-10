@@ -21,6 +21,7 @@ export default function Component(props) {
     props?.data?.generalSettings;
   const { title, content, featuredImage, intro, sidebar, leftSidebar, accordion} = props?.data?.page ?? { title: '' };
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
+  const footerMenu = props.data?.footer?.footer?.column ?? [];
 
   return (
     <>
@@ -89,7 +90,7 @@ export default function Component(props) {
             }
           </div>
         </main>
-      {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}
+      <Footer title={siteTitle} menuItems={footerMenu} />
     </>
   );
 }
@@ -147,7 +148,14 @@ Component.query = gql`
         }
       }
     }
-    page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
+    footer: page(id: "footer", idType: URI) {
+      footer {
+        column {
+          text
+        }
+      }
+    }
+    page: page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
       content
       ...FeaturedImageFragment
