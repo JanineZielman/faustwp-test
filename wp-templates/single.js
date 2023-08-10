@@ -88,10 +88,17 @@ export default function Component(props) {
     }
   }, [newContent])
 
-  
+  const [linkedColandCur, setLinkedColandCur] = useState(null);
+  const [uniquelinkedColandCur, setUniquelinkedColandCur] = useState(null);
 
-  const linkedColandCur = linkedCollection?.linkedCollection?.linkedItems?.linkedItems.concat(linkedCuratedBy?.linkedCuratedBy ? linkedCuratedBy?.linkedCuratedBy?.linkedItems?.linkedItems : linkedCollection?.linkedCollection?.linkedItems?.linkedItems)
-  const uniquelinkedColandCur = [...new Map(linkedColandCur?.map(v => [v?.id, v])).values()]
+  useEffect(() => {
+    
+    setLinkedColandCur(linkedCollection?.linkedCollection?.linkedItems?.linkedItems.concat(linkedCuratedBy?.linkedCuratedBy ? linkedCuratedBy?.linkedCuratedBy?.linkedItems?.linkedItems : linkedCollection?.linkedCollection?.linkedItems?.linkedItems))
+    
+    if (linkedColandCur){
+      setUniquelinkedColandCur([...new Map(linkedColandCur.map(v => [v.id, v])).values()])
+    }
+  }, [linkedColandCur])
 
 
   return (
