@@ -1,17 +1,16 @@
-import classNames from 'classnames/bind';
 import { Container, NavigationMenu } from '../../components';
-import styles from './Footer.module.scss';
 
-let cx = classNames.bind(styles);
 
 export default function Footer({ title, menuItems }) {
-  const year = new Date().getFullYear();
-
+  console.log(menuItems)
   return (
-    <footer className={cx('component')}>
+    <footer className="footer">
       <Container>
-        <NavigationMenu menuItems={menuItems} />
-        <p className={cx('copyright')}>{`${title} © ${year}. Powered by WordPress.`}</p>
+        {menuItems.map((item, i) => {
+          return(
+            <div dangerouslySetInnerHTML={{ __html: item.text ?? '' }} />
+          )
+        })}
       </Container>
     </footer>
   );

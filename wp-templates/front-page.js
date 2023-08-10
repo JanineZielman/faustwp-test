@@ -20,8 +20,8 @@ export default function Component(props) {
   props?.data?.generalSettings;
   const posts = props.data?.posts?.edges ?? [];
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
+  const footerMenu = props.data?.footer?.footer?.column ?? [];
 
-  // const footerMenu = data?.footerMenuItems?.nodes ?? [];
 
 
   let tags = '';
@@ -34,6 +34,8 @@ export default function Component(props) {
       setTagsList(tags);
     }
   }, [tagsList])
+
+  console.log(footerMenu)
 
 
   return (
@@ -80,7 +82,7 @@ export default function Component(props) {
           />
         </Container>
       </Main>
-      {/* <Footer title={siteTitle} menuItems={footerMenu} /> */}
+      <Footer title={siteTitle} menuItems={footerMenu} />
     </>
   );
 }
@@ -91,7 +93,7 @@ Component.query = gql`
     generalSettings {
       ...BlogInfoFragment
     }
-    page(id: "cG9zdDo0MTQ") {
+    page: page(id: "cG9zdDo0MTQ") {
       homePage {
         introText
         highlight {
@@ -129,6 +131,13 @@ Component.query = gql`
           label
           url
           uri
+        }
+      }
+    }
+    footer: page(id: "footer", idType: URI) {
+      footer {
+        column {
+          text
         }
       }
     }

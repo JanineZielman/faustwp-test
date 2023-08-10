@@ -3,9 +3,24 @@ import { PostItem } from '../PostItem';
 
 export default function Posts({ posts, id }){
 
-  const [amount, setAmount] = useState(4);
+  const [amount, setAmount] = useState();
 	
 	useEffect(() => {
+    if (window.innerWidth>1800){
+      setAmount(5);
+    }
+    if (window.innerWidth<1800 &&  window.innerWidth>1400){
+      setAmount(4);
+    }
+    if (window.innerWidth<1400 &&  window.innerWidth>1100){
+      setAmount(3);
+    }
+    if (window.innerWidth<1100 && window.innerWidth>900){
+      setAmount(2);
+    }
+    if (window.innerWidth<900){
+      setAmount(1);
+    }
 		function handleResize(){
 			if (window.innerWidth>1800){
 				setAmount(5);
@@ -13,6 +28,9 @@ export default function Posts({ posts, id }){
       if (window.innerWidth<1800 &&  window.innerWidth>1100){
 				setAmount(4);
 			}
+      if (window.innerWidth<1400 &&  window.innerWidth>1100){
+        setAmount(3);
+      }
       if (window.innerWidth<1100 && window.innerWidth>900){
 				setAmount(2);
 			}
