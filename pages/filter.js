@@ -21,7 +21,6 @@ export default function Component() {
   const tag = router.query.tag || [];
   const title = router.query.title || '';
   const authors = router.query.authors || '';
-  const footerMenu = props.data?.footer?.footer?.column ?? [];
 
   function stringReplace(sentence) {
     return sentence.replace(/[-]/g, " ");
@@ -32,6 +31,8 @@ export default function Component() {
   const { data } = useQuery(Component.query, {
     variables: {category, year, tag, search},
   });
+
+  const footerMenu = data?.footer?.footer?.column ?? [];
 
   const [loading, setLoading] = useState(true);
   
@@ -87,7 +88,7 @@ export default function Component() {
           />
         </div>
         </main>
-        <Footer title={siteTitle} menuItems={footerMenu} />
+        <Footer menuItems={footerMenu} />
         </>
       }
     </>
