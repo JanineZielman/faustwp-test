@@ -8,7 +8,8 @@ import {
   LinkedItems,
   RelatedGrid,
   Filter,
-  Footer
+  Footer,
+  Loader
 } from '../components';
 import Moment from 'moment';
 import React, {useEffect, useState} from 'react';
@@ -53,7 +54,7 @@ const RELATED = gql`
 export default function Component(props) {
   // Loading state for previews
   if (props.loading) {
-    return <>Loading...</>;
+    return <Loader/>;
   }
 
   const router = useRouter();

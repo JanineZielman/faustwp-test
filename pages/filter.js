@@ -1,14 +1,13 @@
-import { getWordPressProps, WordPressTemplate } from '@faustwp/core';
 import { useQuery, gql } from '@apollo/client';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import {
   Header,
   FeaturedImage,
   SEO,
-  LinkedItems,
   RelatedGrid,
   Filter,
   Footer,
+  Loader
 } from '../components';
 import React, {useEffect, useState} from 'react';
 import { useRouter } from 'next/router';
@@ -65,7 +64,7 @@ export default function Component() {
   return (
     <>
       {loading ?
-        <>loading...</>
+       <Loader/>
       :
         <>
         <SEO

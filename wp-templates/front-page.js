@@ -1,20 +1,19 @@
-import { useQuery, gql } from '@apollo/client';
-import * as MENUS from '../constants/menus';
+import { gql } from '@apollo/client';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import {
   Header,
   Footer,
   Main,
   Container,
-  NavigationMenu,
-  Hero,
   SEO,
   PostsGrid,
+  Loader
 } from '../components';
 import React, {useEffect, useState} from 'react';
 import Moment from 'moment';
 
 export default function Component(props) {
+
 
   const { title: siteTitle, description: siteDescription } =
   props?.data?.generalSettings;
@@ -35,52 +34,68 @@ export default function Component(props) {
     }
   }, [tagsList])
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (props.data){
+      setLoading(false);
+    }
+  },[props.data])
+
+  console.log(loading)
+
 
   return (
     <>
-      <SEO title={siteTitle} description={siteDescription} imageUrl={featuredImage?.mediaItemUrl} />
-      <div  className={'front-page'}>
-        <Header
-          title={siteTitle}
-          description={siteDescription}
-          menuItems={primaryMenu}
-        />
-      </div>
-      <Main>
-        <Container>
-          <div className='flex align-center'>
-            <div className='column1'>
-              <div className="logo-container">
-                <a href="/" className="logo">
-                  <svg className="apria_logo" width="100%" height="100%" viewBox="0 0 100 100"><circle cx="50%" cy="50%" r="50"></circle></svg>
-                </a>
-              </div>
-              <p className='title'>
-                {props.data.page.homePage.introText}
-              </p>
-            </div>
-
-            <div
-              className="post-highlight-item column2"
-              key={props.data.page.homePage.highlight.id ?? ''}
-              id={`post-${props.data.page.homePage.highlight.id}`}
-            >
-              <a href={`/${props.data.page.homePage.highlight.slug}?title=${props.data.page.homePage.highlight.title}&category=${props.data.page.homePage.highlight.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(props.data.page.homePage.highlight.date).format("YYYY")}${tagsList}`}>
-                  <div className='category'>{props.data.page.homePage.highlight.categories.nodes[0].name}</div>
-                  <div className='authors'>
-                    <div dangerouslySetInnerHTML={{ __html: props.data.page.homePage.highlight.authors.authors ?? '' }} />
+      {loading ?
+          <Loader/>
+        :
+        <>
+          <SEO title={siteTitle} description={siteDescription} imageUrl={featuredImage?.mediaItemUrl} />
+          <div  className={'front-page'}>
+            <Header
+              title={siteTitle}
+              description={siteDescription}
+              menuItems={primaryMenu}
+            />
+          </div>
+          <Main>
+            <Container>
+              <div className='flex align-center'>
+                <div className='column1'>
+                  <div className="logo-container">
+                    <a href="/" className="logo">
+                      <svg className="apria_logo" width="100%" height="100%" viewBox="0 0 100 100"><circle cx="50%" cy="50%" r="50"></circle></svg>
+                    </a>
                   </div>
-                  <img src={props.data.page.homePage.highlight.featuredImage?.node.mediaItemUrl}/>
-                  <h1 className='title'>{props.data.page.homePage.highlight.title}</h1>
-              </a>
+                  <p className='title'>
+                    {props.data.page.homePage.introText}
+                  </p>
+                </div>
+
+                <div
+                  className="post-highlight-item column2"
+                  key={props.data.page.homePage.highlight.id ?? ''}
+                  id={`post-${props.data.page.homePage.highlight.id}`}
+                >
+                  <a href={`/${props.data.page.homePage.highlight.slug}?title=${props.data.page.homePage.highlight.title}&category=${props.data.page.homePage.highlight.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(props.data.page.homePage.highlight.date).format("YYYY")}${tagsList}`}>
+                      <div className='category'>{props.data.page.homePage.highlight.categories.nodes[0].name}</div>
+                      <div className='authors'>
+                        <div dangerouslySetInnerHTML={{ __html: props.data.page.homePage.highlight.authors.authors ?? '' }} />
+                      </div>
+                      <img src={props.data.page.homePage.highlight.featuredImage?.node.mediaItemUrl}/>
+                      <h1 className='title'>{props.data.page.homePage.highlight.title}</h1>
+                  </a>
+                </div>
             </div>
-         </div>
-          <PostsGrid
-            posts={posts}
-          />
-        </Container>
-      </Main>
-      <Footer title={siteTitle} menuItems={footerMenu} />
+              <PostsGrid
+                posts={posts}
+              />
+            </Container>
+          </Main>
+          <Footer title={siteTitle} menuItems={footerMenu} />
+        </>
+      }
     </>
   );
 }
@@ -149,7 +164,7 @@ Component.query = gql`
         name
       }
     }
-    posts(where: {tagSlugIn: "collection"},first:100)  {
+    posts(where: {tagSlugIn: "collection"}, first:100)  {
       edges{
         node {
           id

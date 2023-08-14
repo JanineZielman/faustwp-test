@@ -7,7 +7,8 @@ import {
   SEO,
   LinkedItems,
   RelatedGrid,
-  Filter
+  Filter,
+  Loader
 } from '../components';
 import React, {useEffect, useState} from 'react';
 import { useRouter } from 'next/router';
@@ -38,7 +39,7 @@ export default function Component() {
   return (
     <>
       {loading ?
-        <>loading...</>
+        <Loader/>
       :
         <>
         <div className='background-animation'>
