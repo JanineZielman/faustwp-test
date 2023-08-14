@@ -139,7 +139,7 @@ export default function Component(props) {
             }
           </div>
           <h1 className='headline'>{title}</h1>
-          
+          {/* {intro.bigImage && <iframe className='big-image' src={intro.embed}/>} */}
           {intro.embed && <iframe className='big-image' src={intro.embed}/>}
           <div className='main-wrapper'>
               <div className='left-sidebar'>
