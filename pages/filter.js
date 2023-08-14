@@ -68,11 +68,10 @@ export default function Component() {
         <>loading...</>
       :
         <>
-        {/* <SEO
-          title={siteTitle}
-          description={siteDescription}
-          imageUrl={featuredImage?.node?.sourceUrl}
-        /> */}
+        <SEO
+          title={data.generalSettings.siteTitle}
+          description={data.generalSettings.siteDescription}
+        />
         <Header
           title={data.generalSettings.siteTitle}
           description={data.generalSettings.siteDescription}

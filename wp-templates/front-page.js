@@ -21,6 +21,7 @@ export default function Component(props) {
   const posts = props.data?.posts?.edges ?? [];
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
   const footerMenu = props.data?.footer?.footer?.column ?? [];
+  const featuredImage = props.data?.page?.featuredImage?.node ?? [];
 
 
   let tags = '';
@@ -37,7 +38,7 @@ export default function Component(props) {
 
   return (
     <>
-      <SEO title={siteTitle} description={siteDescription} />
+      <SEO title={siteTitle} description={siteDescription} imageUrl={featuredImage?.mediaItemUrl} />
       <div  className={'front-page'}>
         <Header
           title={siteTitle}
@@ -91,6 +92,11 @@ Component.query = gql`
       ...BlogInfoFragment
     }
     page: page(id: "cG9zdDo0MTQ") {
+      featuredImage{
+        node{
+          mediaItemUrl
+        }
+      }
       homePage {
         introText
         highlight {

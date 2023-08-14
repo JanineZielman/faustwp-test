@@ -104,13 +104,13 @@ export default function Component(props) {
   return (
     <>
       <SEO
-        title={siteTitle}
-        description={siteDescription}
+        title={`APRIA | ${title}`}
+        description={intro.intro ? intro.intro.replace(/<[^>]+>/g, '') : siteDescription}
         imageUrl={featuredImage?.node?.sourceUrl}
       />
       <Header
-        title={siteTitle}
-        description={siteDescription}
+        title={`APRIA | ${title}`}
+        description={intro.intro ? intro.intro.replace(/<[^>]+>/g, '') : siteDescription}
         menuItems={primaryMenu}
       />
       <main className="article">

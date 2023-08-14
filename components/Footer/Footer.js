@@ -2,7 +2,6 @@ import { Container, NavigationMenu } from '../../components';
 
 
 export default function Footer({ title, menuItems }) {
-  console.log(menuItems)
   return (
     <footer className="footer">
       <Container>
