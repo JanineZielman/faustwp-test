@@ -188,7 +188,7 @@ export default function Component(props) {
 Component.variables = ({ databaseId}, ctx) => {
   return {
     databaseId,
-    asPreview: ctx?.asPreview,
+    asPreview: false,
   };
 };
 

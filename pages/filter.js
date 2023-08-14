@@ -96,7 +96,7 @@ export default function Component() {
 
 Component.variables = (ctx) => {
   return {
-    asPreview: ctx?.asPreview,
+    asPreview: false,
   };
 };
 

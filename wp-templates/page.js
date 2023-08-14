@@ -102,7 +102,7 @@ Component.variables = ({ databaseId, slug }, ctx) => {
     slug,
     headerLocation: MENUS.PRIMARY_LOCATION,
     footerLocation: MENUS.FOOTER_LOCATION,
-    asPreview: ctx?.asPreview,
+    asPreview: false,
   };
 };
 
