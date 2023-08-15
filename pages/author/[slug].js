@@ -44,6 +44,7 @@ const RELATED = gql`
           categories{
             nodes{
               name
+              slug
             }
           }
           tags{

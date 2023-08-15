@@ -140,6 +140,7 @@ Component.query = gql`
         categories{
           nodes{
             name
+            slug
           }
         }
         tags{

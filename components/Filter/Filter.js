@@ -52,6 +52,7 @@ export default function Filter({ path, categories, category, tags, tag, title, y
     }
   }
 
+
   return (
     <div className='filter'>
       <div className='filter-cat'>
@@ -101,31 +102,27 @@ export default function Filter({ path, categories, category, tags, tag, title, y
         }
       </div>
       <div className='filter-cat'>
-        <Collapsible trigger="Category" idname={'category'}>
-          {categories.map((category, i) => {
-            return(
-              <a key={`category${i}`} className={`small-title ${category.name.toLowerCase().replace(' ', '-')}`} href={`${path}&category=${category.name.toLowerCase().replace(' ', '-')}`}>{category.name}</a>
-            )
-          })}
-        </Collapsible>
-        {category &&
+        {category ?
           <>
-          {Array.isArray(category) ?
-          <>
-            {category?.map((item, i) => {
+            <Collapsible trigger="Category" idname={'category'}>
+              {categories.map((category, i) => {
+                return(
+                  <a key={`category${i}`} className={`small-title disabled ${category.slug}`}>{category.name}</a>
+                )
+              })}
+            </Collapsible>
+            <div className='category left'>
+              {category} <a href={`${path.replace(`&category=${category}`, '')}`}>x</a>
+            </div>
+          </>
+        :  
+          <Collapsible trigger="Category" idname={'category'}>
+            {categories.map((category, i) => {
               return(
-                <div key={`categoryItem${i}`} className='category left'>
-                  {item} <a href={`${path.replace(`&category=${item}`, '')}`}>x</a>
-                </div>
+                <a key={`category${i}`} className={`small-title ${category.slug}`} href={`${path}&category=${category.slug}`}>{category.name}</a>
               )
             })}
-          </>
-          :
-          <div className='category left'>
-            {category} <a href={`${path.replace(`&category=${category}`, '')}`}>x</a>
-          </div>
-          }
-          </>   
+          </Collapsible>
         }
       </div>
       <div className='filter-cat'>
@@ -187,6 +184,10 @@ export default function Filter({ path, categories, category, tags, tag, title, y
           }
           </>   
         }
+      </div>
+      <br/>
+      <div className='small-title'>
+        <a href="/filter?">Clear all</a>
       </div>
     </div>
   );

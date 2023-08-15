@@ -42,8 +42,6 @@ export default function Component(props) {
     }
   },[props.data])
 
-  console.log(loading)
-
 
   return (
     <>
@@ -78,7 +76,7 @@ export default function Component(props) {
                   key={props.data.page.homePage.highlight.id ?? ''}
                   id={`post-${props.data.page.homePage.highlight.id}`}
                 >
-                  <a href={`/${props.data.page.homePage.highlight.slug}?title=${props.data.page.homePage.highlight.title}&category=${props.data.page.homePage.highlight.categories.nodes[0].name.toLowerCase().replace(' ', '-')}&year=${Moment(props.data.page.homePage.highlight.date).format("YYYY")}${tagsList}`}>
+                  <a href={`/${props.data.page.homePage.highlight.slug}?title=${props.data.page.homePage.highlight.title}&category=${props.data.page.homePage.highlight.categories.nodes[0].slug}&year=${Moment(props.data.page.homePage.highlight.date).format("YYYY")}${tagsList}`}>
                       <div className='category'>{props.data.page.homePage.highlight.categories.nodes[0].name}</div>
                       <div className='authors'>
                         <div dangerouslySetInnerHTML={{ __html: props.data.page.homePage.highlight.authors.authors ?? '' }} />
@@ -132,6 +130,7 @@ Component.query = gql`
             categories{
               nodes{
                 name
+                slug
               }
             }
             tags{
@@ -162,6 +161,7 @@ Component.query = gql`
     categories{
       nodes{
         name
+        slug
       }
     }
     posts(where: {tagSlugIn: "collection"}, first:100)  {
@@ -183,6 +183,7 @@ Component.query = gql`
           categories{
             nodes{
               name
+              slug
             }
           }
           tags{

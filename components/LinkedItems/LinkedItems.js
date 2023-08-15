@@ -16,7 +16,7 @@ export default function LinkedItems({ props}) {
   return (
     <div className='linked-items'>
       {props?.map((post, i) => {
-        const category = slugify(post.categories?.nodes[0].name)
+        const category = slugify(post.categories?.nodes[0].slug)
         const year = Moment(post.date).format("YYYY")
         const title = post.title
 

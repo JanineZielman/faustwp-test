@@ -42,11 +42,11 @@ export default function PostItem({ post, i }){
   
   return (
     <div
-      className={`post-item ${slugify(post.categories.nodes[0].name)}`}
+      className={`post-item ${slugify(post.categories.nodes[0].slug)}`}
       key={post.id ?? ''}
       id={`post-${i} `}
     >
-      <a href={`/${post.slug}?title=${slugify(post.title)}&category=${slugify(post.categories.nodes[0].name)}&year=${Moment(post.date).format("YYYY")}${tagsList}${authorsList}`}>
+      <a href={`/${post.slug}?title=${slugify(post.title)}&category=${slugify(post.categories.nodes[0].slug)}&year=${Moment(post.date).format("YYYY")}${tagsList}${authorsList}`}>
         <div className='category'>{post.categories.nodes[0].name}</div>
         <div className='authors'>
           <div dangerouslySetInnerHTML={{ __html: post?.authors?.authors ?? '' }} />
