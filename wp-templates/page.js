@@ -67,7 +67,7 @@ export default function Component(props) {
                         {item.person?.map((item, i) => {
                           return(
                             <div className='person'>
-                              <img src={item.image.mediaItemUrl}/>
+                              {item.image?.mediaItemUrl && <img src={item.image?.mediaItemUrl}/>}
                               <div>
                                 <h2>{item.name}</h2>
                                 <div className='content' dangerouslySetInnerHTML={{ __html: item.text ?? '' }} />
