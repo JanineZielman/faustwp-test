@@ -125,6 +125,23 @@
       }
     }
   }
+  .flowchart{
+    .slick-slider{
+      .slick-list{
+        .slick-track{
+          .slick-slide{
+            h1{
+              width: 95%;
+              font-size: $subtitle;
+            }
+            p{
+              font-size: $body;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 960px) {
@@ -147,6 +164,23 @@
   iframe{
     height: 100%;
     aspect-ratio: 9/16;
+  }
+  .flowchart{
+    .slick-slider{
+      .slick-list{
+        .slick-track{
+          .slick-slide{
+            h1{
+              width: 95%;
+              font-size: $subtitle;
+            }
+            p{
+              font-size: $body;
+            }
+          }
+        }
+      }
+    }
   }
   .column1{
     .logo-container{
