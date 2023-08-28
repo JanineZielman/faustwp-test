@@ -77,18 +77,20 @@ export default function Component(props) {
 
   const regexMdLinks = /(?:\])(.*?)(?=\[\/footnote])/gm;
   const footnotes = content?.match(regexMdLinks);
+
   
   const [newContent, setNewContent] = useState(null);
 
+
   useEffect(() => {
     if (footnotes){
-      for (let i = 0; i < footnotes?.length; i++) { 
-        setNewContent(content.replaceAll(regexMdLinks, '').replaceAll('[/footnote]', '</sup></a>').replaceAll('[footnote', '<a href="#footnotes"><sup>').replaceAll(']', ''))
-      }
+      // setNewContent(content.replaceAll(regexMdLinks, '').replaceAll('[/footnote]', '</sup></a>').replaceAll('[footnote', '<a href="#footnotes"><sup>').replaceAll(']', ''))
+      setNewContent(content.replaceAll(regexMdLinks, '').replaceAll('[/footnote]', '</sup></a>').replaceAll('[footnote', '<a href="#footnotes"><sup>').replaceAll(']', ''))
     } else {
       setNewContent(content)
     }
-  }, [newContent])
+  }, [])
+
 
   const [linkedColandCur, setLinkedColandCur] = useState(null);
   const [uniquelinkedColandCur, setUniquelinkedColandCur] = useState(null);

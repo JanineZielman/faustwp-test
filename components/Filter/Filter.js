@@ -52,9 +52,6 @@ export default function Filter({ path, categories, category, tags, tag, title, y
     }
   }
 
-  console.log(title)
-
-
   return (
     <div className='filter'>
       <div className='filter-cat'>

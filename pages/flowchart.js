@@ -1,31 +1,31 @@
-import { getWordPressProps, WordPressTemplate } from '@faustwp/core';
 import { useQuery, gql } from '@apollo/client';
-import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import {
-  Header,
-  FeaturedImage,
-  SEO,
-  LinkedItems,
-  RelatedGrid,
-  Filter,
   Loader
 } from '../components';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
+import Slider from "react-slick";
 import { useRouter } from 'next/router';
 
 export default function Component() {
-
   const router = useRouter();
-  const category = router.query.category || '';
-  const year = parseInt(router.query.year || 0);
-  const tag = router.query.tag || [];
-  const title = router.query.title || '';
+  const { data } = useQuery(Component.query);
+  const [activeSlide, setActiveSlide] = useState(0)
+  const sliderRef = useRef(null)
+  const settings = {
+    dots: true,
+    arrows: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    beforeChange: (current, next) => setActiveSlide(next)
+  };
 
-  
-  const { data } = useQuery(Component.query, {
-    variables: {category, year, tag, title},
-  });
-
+  const { asPath } = useRouter();
+  const [hash, setHash] = useState();
+  useEffect(()=>{
+    setHash(asPath.split('#')[1]);
+   }, [ asPath ]);
 
   const [loading, setLoading] = useState(true);
   
@@ -34,6 +34,22 @@ export default function Component() {
       setLoading(false);
     }
   },[data])
+
+
+  function interceptClickEvent(e) {
+    if (e.target.tagName === 'A') {
+      // e.preventDefault
+      sliderRef.current.slickGoTo(e.target.href?.charAt(e.target.href.length - 1));
+    }
+}
+
+  
+  useEffect(() => {
+    document.addEventListener('click', interceptClickEvent);
+    if (sliderRef.current){
+      sliderRef.current.slickGoTo(hash)
+    }
+  })
 
 
   return (
@@ -50,15 +66,15 @@ export default function Component() {
         <main className="article flowchart-wrapper">
           <center>
             <div className='flowchart'>
-              <h1>Where can I develop, enrich and improve my research outside my own course?</h1>
-              <div className='options'>
-                <div>
-                  <p>Find <a href="#">opportunities</a> to develop, enrich and improve your research outside your own course.</p>
-                </div>
-                <div>
-                  <p>Are you looking for <a href="#">inspiration</a>,  <a href="#">coaching</a>, or do you want to <a href="#">share your research?</a></p>
-                </div>
-              </div>
+              <Slider {...settings} ref={sliderRef}>
+                {data.page.flowchart.flowchart.map((item, i) => {
+                  return(
+                    <div className='slider-wrapper'>
+                      <div className={`slider${i}`} dangerouslySetInnerHTML={{ __html: item.content ?? '' }}/>
+                    </div>
+                  )
+                })}
+              </Slider>
             </div>
           </center>
         </main>
@@ -67,14 +83,6 @@ export default function Component() {
     </>
   );
 }
-
-
-Component.variables = (ctx) => {
-  return {
-    asPreview: false,
-  };
-};
-
 
 export async function getServerSideProps(){
   return {
@@ -87,68 +95,13 @@ export async function getServerSideProps(){
 }
 
 Component.query = gql`
-  ${BlogInfoFragment}
-  query GetPageData(
-    $category: String!
-    $title: String!
-    $year: Int!
-    $tag: [String!]!
-  ) {
-    generalSettings {
-      ...BlogInfoFragment
-    }
-    menu(id: "dGVybToxMQ==") {
-      menuItems {
-        nodes {
-          label
-          url
-          uri
-        }
-      }
-    }
-    categories{
-      nodes{
-        name
-        slug
-      }
-    }
-    tags (first: 100){
-      nodes{
-        name
-      }
-    }
-    posts(where: {categoryName: $category, tagSlugIn: $tag, dateQuery: {year: $year}, search: $title}, first: 100)  {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      edges{
-        node {
-          id
-          databaseId
-          title
-          slug
-          date
-          authors {
-            authors
-          }
-          featuredImage{
-            node{
-              mediaItemUrl
-            }
-            cursor
-          }
-          categories{
-            nodes{
-              name
-              slug
-            }
-          }
-          tags{
-            nodes{
-              name
-            }
-          }
+  query GetPageData {
+    page(id: "flowchart", idType: URI) {
+      title
+      flowchart{
+        flowchart{
+          content
+          link
         }
       }
     }

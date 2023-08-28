@@ -15,4 +15,9 @@ module.exports = withFaust({
     locales: ['en'],
     defaultLocale: 'en',
   },
+  async redirects() {
+    return [
+      { source: "/wp-content/:path*", destination: "https://apriatst.artez.nl/wp-content/:path*", permanent: true },
+    ]
+  },
 });
