@@ -61,6 +61,7 @@ export default function Component() {
       :
         <>
         <main className="article flowchart-wrapper">
+          <div className='bg-pink'></div>
           <div className='background-animation'>
             <div className="bg-blob1"></div>
             <div className="bg-blob2"></div>
