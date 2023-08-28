@@ -10,7 +10,6 @@ export default function Component() {
 
   const { data } = useQuery(Component.query);
   
-  const router = useRouter();
   const [activeSlide, setActiveSlide] = useState(0)
   const sliderRef = useRef(null)
   const settings = {
