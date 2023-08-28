@@ -7,8 +7,10 @@ import Slider from "react-slick";
 import { useRouter } from 'next/router';
 
 export default function Component() {
-  const router = useRouter();
+
   const { data } = useQuery(Component.query);
+  
+  const router = useRouter();
   const [activeSlide, setActiveSlide] = useState(0)
   const sliderRef = useRef(null)
   const settings = {
@@ -97,11 +99,9 @@ export async function getServerSideProps(){
 Component.query = gql`
   query GetPageData {
     page(id: "flowchart", idType: URI) {
-      title
       flowchart{
         flowchart{
           content
-          link
         }
       }
     }
