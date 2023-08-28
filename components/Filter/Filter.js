@@ -52,6 +52,8 @@ export default function Filter({ path, categories, category, tags, tag, title, y
     }
   }
 
+  console.log(title)
+
 
   return (
     <div className='filter'>
@@ -92,7 +94,7 @@ export default function Filter({ path, categories, category, tags, tag, title, y
         <div className="small-title title-cat">Title</div>
         {title ?
           <div className='small-title'>
-            <div className="text">{title.replaceAll('-', ' ')}</div> <a href={`${path.replace(`&title=${title}`, '')}`}>x</a>
+            <div className="text">{title.replaceAll('-', ' ')}</div> <a href={`${path.replace(`title=${title}`, '&')}`}>x</a>
           </div>
         :
         <div className="title-search">
