@@ -18,6 +18,8 @@ export default function Component(props) {
     return <Loader/>;
   }
 
+  console.log(props)
+
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
   const { title, content, featuredImage, intro, sidebar, leftSidebar, accordion} = props?.data?.page ?? { title: '' };
@@ -40,6 +42,7 @@ export default function Component(props) {
           <div className="wrap">
             <h1 className='headline'>{title}</h1>
             <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
+            {intro.bigImage && <img className='big-image' src={intro.bigImage.sourceUrl}/>}
             {intro.embed && <iframe className='big-image' src={intro.embed}/>}
 
 
