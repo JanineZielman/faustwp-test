@@ -142,13 +142,13 @@ export default function Component(props) {
             }
           </div>
           <h1 className='headline'>{title}</h1>
-          {intro.bigImage && <img className='big-image' src={intro.bigImage.sourceUrl}/>}
-          {intro.embed && <iframe className='big-image' src={intro.embed}/>}
           <div className='main-wrapper'>
               <div className='left-sidebar'>
                 <Filter authors={router.query.authors} tag={router.query.tag} tags={tags} categories={categories} title={router.query.title} category={router.query.category} year={router.query.year} path={router.asPath.replace(/^.+\?/,'/filter?')}/>
               </div>
               <div className='content-wrapper'>
+                {intro.bigImage && <img className='big-image' src={intro.bigImage.sourceUrl}/>}
+                {intro.embed && <iframe className='big-image' src={intro.embed}/>}
                 <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
                 <div className='content' dangerouslySetInnerHTML={{ __html: newContent ?? '' }} />
                 {footnotes && 
