@@ -60,12 +60,12 @@ export default function Component() {
         <Loader/>
       :
         <>
-        <div className='background-animation'>
-          <div className="bg-blob1"></div>
-          <div className="bg-blob2"></div>
-          <div className="bg-blob3"></div>
-        </div>
         <main className="article flowchart-wrapper">
+          <div className='background-animation'>
+            <div className="bg-blob1"></div>
+            <div className="bg-blob2"></div>
+            <div className="bg-blob3"></div>
+          </div>
           <center>
             <div className='flowchart'>
               <Slider {...settings} ref={sliderRef}>
