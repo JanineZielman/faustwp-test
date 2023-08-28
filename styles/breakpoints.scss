@@ -90,6 +90,10 @@
       width: 45vw;
     }
   }
+  iframe{
+    height: 100%;
+    aspect-ratio: 9/16;
+  }
   .footer{
     div{
       div:nth-child(1){
@@ -139,6 +143,10 @@
       }
     }
 
+  }
+  iframe{
+    height: 100%;
+    aspect-ratio: 9/16;
   }
   .column1{
     .logo-container{

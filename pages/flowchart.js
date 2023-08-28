@@ -19,6 +19,7 @@ export default function Component() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    adaptiveHeight: true,
     beforeChange: (current, next) => setActiveSlide(next)
   };
 
