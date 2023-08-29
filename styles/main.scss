@@ -778,18 +778,18 @@ main.flowchart-wrapper{
     transform: scale(2) translate(0, 0);
   }
   38% {
-    transform: scale(2.5) translate( 20%, 30%) rotate(20deg);
+    transform: scale(2.3) translate( 0%, 10%) rotate(180deg);
   }
   40% {
-    transform: scale(2) translate( 40%, 10%) rotate(40deg);
+    transform: scale(2.5) translate( -30%, 20%) rotate(0deg);
   }
   78% {
-    transform: scale(2.5) translate(20%, -10%) rotate(60deg);
+    transform: scale(2.3) translate(10%, 30%) rotate(-180deg);
   }
   80% {
-    transform: scale(2) translate(0%, 10%) rotate(80deg);
+    transform: scale(2) translate(60%, 20%) rotate(0deg);
   }
   100% {
-    transform: scale(2.5) translate(20%, 30%)  rotate(100deg);
+    transform: scale(1.8) translate(10%, 10%)  rotate(180deg);
   }
 }
