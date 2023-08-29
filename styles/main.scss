@@ -619,7 +619,7 @@ main.flowchart-wrapper{
     }
     .bg-blob2{
       background: radial-gradient(circle, rgba(254,238,166,1) 0%, rgba(255,255,255,0) 70%, rgba(255,255,255,0) 100%);
-      animation: move2 20s ease-in-out infinite alternate;
+      animation: move2 20s ease-in-out infinite alternate-reverse;
       filter: saturate(2.5);
       top: -30%;
       left: 50%;
