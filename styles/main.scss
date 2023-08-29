@@ -608,14 +608,45 @@ main.flowchart-wrapper{
   margin: 0;
   margin-top: 0;
   .background-animation{
-    // filter: brightness(0.9);
-    // .bg-blob1{
-    //   background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 60%, rgba(255,255,255,0) 90%);
-    // }
+    .bg-blob1{
+      background: radial-gradient(circle, rgba(248,200,215,1) 0%, rgba(255,255,255,0) 70%, rgba(255,255,255,0) 90%);
+      animation: move2 10s ease infinite reverse;
+      filter: saturate(1.5);
+    }
+    .bg-blob2{
+      background: radial-gradient(circle, rgba(254,238,166,1) 0%, rgba(255,255,255,0) 70%, rgba(255,255,255,0) 100%);
+      animation: move2 10s ease infinite alternate-reverse;
+      filter: saturate(1.5);
+    }
+    .bg-blob3{
+      background: radial-gradient(circle, rgba(191,226,225, 1) 0%, rgba(255,255,255,0) 70%, rgba(255,255,255,0) 90%);
+      animation: move2 10s ease infinite reverse;
+      filter: saturate(1.5);
+    }
+  }
+  @keyframes move2 {
+    0% {
+      transform: scale(1) translate(10px, -30px);
+    }
+    38% {
+      transform: scale(1.8, 1) translate(60%, 30%) rotate(160deg);
+    }
+    40% {
+      transform: scale(10.8, 1) translate(60%, 30%) rotate(160deg);
+    }
+    78% {
+      transform: scale(3.3) translate(0%, 50%) rotate(-20deg);
+    }
+    80% {
+      transform: scale(8.3) translate(0%, 50%) rotate(-20deg);
+    }
+    100% {
+      transform: scale(1) translate(10px, -30px);
+    }
   }
   .bg-pink{
-    // filter: brightness(0.9);
-    background-color: rgba(253, 228, 234, 0.7);
+    filter: brightness(0.9);
+    background-color: rgba(253, 228, 234, 1);
     width: 100%;
     height: 100%;
     position: fixed;
@@ -656,11 +687,18 @@ main.flowchart-wrapper{
             color: black;
             a{
               color: black;
+              &:hover{
+                opacity: 0.7;
+              }
             }
           }
           a{
             text-decoration: underline;
             color: rgb(255, 255, 255);
+            transition: color 0.4s ease;
+            &:hover{
+              color: black;
+            }
           }
         }
       }
