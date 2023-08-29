@@ -611,37 +611,39 @@ main.flowchart-wrapper{
   .background-animation{
     .bg-blob1{
       // background: radial-gradient(circle, rgba(248,200,215,1) 0%, rgba(255,255,255,0) 70%, rgba(255,255,255,0) 90%);
-      background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 90%);
+      background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0) 90%);
       animation: move2 30s ease-in-out infinite alternate;
-      top: -10%;
+      top: -50%;
       left: 10%;
-      // mix-blend-mode: difference;
+      filter: saturate(2.5);
+      mix-blend-mode: difference;
     }
     .bg-blob2{
       background: radial-gradient(circle, rgba(254,238,166,1) 0%, rgba(255,255,255,0) 70%, rgba(255,255,255,0) 100%);
       animation: move2 30s ease-in-out infinite alternate-reverse;
-      filter: saturate(2.5);
-      top: -30%;
-      left: 50%;
-      // mix-blend-mode: difference;
+      filter: saturate(1.5);
+      top: 50%;
+      left: 10%;
+      mix-blend-mode:  difference;
     }
     .bg-blob3{
       background: radial-gradient(circle, rgba(191,226,225, 1) 0%, rgba(255,255,255,0) 70%, rgba(255,255,255,0) 90%);
       animation: move2 30s ease-in-out infinite alternate;
       filter: saturate(2.5);
-      top: 30%;
+      top: -40%;
       left: 20%;
-      // mix-blend-mode: difference;
+      mix-blend-mode: difference;
     }
   }
   .bg-pink{
-    background-color: rgba(253, 228, 234, 1);
+    background-color: white;
+    // background-color: rgba(253, 228, 234, 1);
     width: 100%;
     height: 100%;
     position: fixed;
     z-index: -1;
     // filter: contrast(20.6);
-    filter: brightness(0.9);
+    // filter: brightness(0.9);
     // mix-blend-mode: difference;
   }
 }
@@ -676,9 +678,9 @@ main.flowchart-wrapper{
             max-width: 1100px;
             font-size: $large-body;
             text-align: left;
-            color: black;
+            color: #333;
             a{
-              color: black;
+              color: #333;
               &:hover{
                 opacity: 0.7;
               }
@@ -689,7 +691,7 @@ main.flowchart-wrapper{
             color: rgb(255, 255, 255);
             transition: color 0.4s ease;
             &:hover{
-              color: black;
+              color: #333;
             }
           }
         }
@@ -773,21 +775,21 @@ main.flowchart-wrapper{
 
 @keyframes move2 {
   0% {
-    transform: scale(1) translate(0, 0);
+    transform: scale(2) translate(0, 0);
   }
   38% {
-    transform: scale(0.5) translate( 20%, 30%) rotate(20deg);
+    transform: scale(2.5) translate( 20%, 30%) rotate(20deg);
   }
   40% {
-    transform: scale(1) translate( 40%, 10%);
+    transform: scale(2) translate( 40%, 10%) rotate(40deg);
   }
   78% {
-    transform: scale(1.5) translate(20%, -10%);
+    transform: scale(2.5) translate(20%, -10%) rotate(60deg);
   }
   80% {
-    transform: scale(1) translate(0%, 10%) rotate(20deg);
+    transform: scale(2) translate(0%, 10%) rotate(80deg);
   }
   100% {
-    transform: scale(0.5) translate(20%, 30%);
+    transform: scale(2.5) translate(20%, 30%)  rotate(100deg);
   }
 }
