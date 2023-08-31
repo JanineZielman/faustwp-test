@@ -126,7 +126,7 @@ Component.query = gql`
         }
       }
     }
-    posts(where: {categoryName: $slug, tag: "collection"}) {
+    posts(first: 100,where: {categoryName: $slug, tag: "collection"}) {
       nodes {
         id
         title
