@@ -17,7 +17,7 @@ export default function Filter({ path, categories, category, tags, tag, title, y
 
   function titleSearch() {
     var filter = document.getElementById("titleSearch").value.toLowerCase();
-    window.location.href = `${path}&title=${filter}`
+    window.location.href = `${path}&title=${filter.replaceAll(' ', '-')}`
   }
 
   function authorSearch() {
