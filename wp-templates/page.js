@@ -18,8 +18,6 @@ export default function Component(props) {
     return <Loader/>;
   }
 
-  console.log(props)
-
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
   const { title, content, featuredImage, intro, sidebar, leftSidebar, accordion} = props?.data?.page ?? { title: '' };
