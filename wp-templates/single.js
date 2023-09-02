@@ -68,7 +68,7 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
-  const { title, content, featuredImage, date, author, articleTop, intro, linkedItems, linkedCollection, linkedCuratedBy} = props.data.post;
+  const { title, content, featuredImage, date, author, articleTop, intro, linkedItems, linkedCollection, linkedCuratedBy, accordion} = props.data.post;
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
   const categories = props.data.categories.nodes;
   const tags = props.data.tags.nodes;
@@ -152,6 +152,27 @@ export default function Component(props) {
                 {intro.embed && <iframe className='big-image' src={intro.embed}/>}
                 <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
                 <div className='content' dangerouslySetInnerHTML={{ __html: newContent ?? '' }} />
+                <div className='footnotes'>
+                  {accordion.accordion?.map((item, i) => {
+                    return(
+                      <Collapsible trigger={item.title} idname={item.title.replaceAll(' ', '-')}>
+                        <div className='content' dangerouslySetInnerHTML={{ __html: item.text ?? '' }} />
+                        {item.person?.map((item, i) => {
+                          return(
+                            <div className='person'>
+                              {item.image?.mediaItemUrl && <img src={item.image?.mediaItemUrl}/>}
+                              <div>
+                                <h2>{item.name}</h2>
+                                <div className='content' dangerouslySetInnerHTML={{ __html: item.text ?? '' }} />
+                              </div>
+                            </div>
+                          )
+                        })}
+                        
+                      </Collapsible>
+                    )
+                  })}
+                </div>
                 {footnotes && 
                   <Collapsible trigger="Footnotes" idname={'footnotes'}>
                     <ul className='footnotes'>
@@ -357,6 +378,19 @@ Component.query = gql`
                   }
                 }
               }
+            }
+          }
+        }
+      }
+      accordion {
+        accordion {
+          title
+          text
+          person{
+            name
+            text
+            image {
+              mediaItemUrl
             }
           }
         }
