@@ -161,9 +161,11 @@
     }
 
   }
-  iframe{
-    height: 100%;
-    aspect-ratio: 9/16;
+  iframe.big-image{
+    height: 100vh;
+    width: 100%;
+    aspect-ratio: auto;
+    max-height: 100vh;
   }
   .flowchart{
     .slick-slider{
@@ -175,7 +177,7 @@
               font-size: $subtitle;
             }
             p{
-              font-size: 14px;
+              font-size: 13px;
             }
           }
         }
