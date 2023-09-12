@@ -23,6 +23,9 @@ export default function Header({
             </a>
             <a href="/" className="logo-link"></a>
           </div>
+          <a className='filter-nav-button' href="/filter?">
+            <img src="/search.svg"/>
+          </a>
           <div
             type="button"
             className={`nav-toggle ${isNavShown ? 'active' : ''} `}

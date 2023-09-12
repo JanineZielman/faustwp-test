@@ -35,6 +35,15 @@ iframe{
   }
 }
 
+.filter-nav-button{
+  position: fixed;
+  top: 16px;
+  right: 60px;
+  img{
+    width: 24px;
+  }
+}
+
 .navbar{
   display: flex;
   justify-content: flex-end;
@@ -118,6 +127,10 @@ iframe{
   margin-bottom: 48px;
   max-height: 80vh;
   object-fit: cover;
+  img{
+    width: 100%;
+    height: auto;
+  }
 }
 
 .content-wrapper .big-image{
@@ -292,7 +305,7 @@ main.article .wrap{
   padding-left: 2vw;
   margin-top: 24px;
   .filter{
-    position: fixed;
+    position: absolute;
     width: 23vw;
     top: 14vh;
   }

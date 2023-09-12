@@ -83,7 +83,6 @@ export default function Component(props) {
   const [newContent, setNewContent] = useState(null);
 
 
-
   useEffect(() => {
     if (footnotes){
       setNewContent(content.replaceAll('[/footnote]', '</sup>').replaceAll('[footnote', '<sup id="sup" onclick="location.href=`#footnotes`" >').replaceAll(']', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'));
@@ -148,7 +147,12 @@ export default function Component(props) {
                 <Filter authors={router.query.authors} tag={router.query.tag} tags={tags} categories={categories} title={router.query.title} category={router.query.category} year={router.query.year} path={router.asPath.replace(/^.+\?/,'/filter?')}/>
               </div>
               <div className='content-wrapper'>
-                {intro.bigImage && <img className='big-image' src={intro.bigImage.sourceUrl}/>}
+                {intro.bigImage && 
+                  <div className='big-image'>
+                    <img src={intro.bigImage.sourceUrl}/>
+                    {intro.bigImage.caption &&<div className='captions'>{intro.bigImage.caption}</div>}
+                  </div>
+                }
                 {intro.embed && <iframe className='big-image' src={intro.embed}/>}
                 <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
                 <div className='content' dangerouslySetInnerHTML={{ __html: newContent ?? '' }} />
@@ -285,6 +289,7 @@ Component.query = gql`
         embed
         bigImage {
           sourceUrl
+          caption
         }
       }
       linkedItems {

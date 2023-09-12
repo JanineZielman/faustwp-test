@@ -40,7 +40,12 @@ export default function Component(props) {
           <div className="wrap">
             <h1 className='headline'>{title}</h1>
             <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
-            {intro.bigImage && <img className='big-image' src={intro.bigImage.sourceUrl}/>}
+            {intro.bigImage && 
+              <div className='big-image'>
+                <img src={intro.bigImage.sourceUrl}/>
+                {intro.bigImage.caption &&<div className='captions'>{intro.bigImage.caption}</div>}
+              </div>
+            }
             {intro.embed && <iframe className='big-image' src={intro.embed}/>}
 
 
