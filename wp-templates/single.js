@@ -75,7 +75,7 @@ export default function Component(props) {
   const footerMenu = props.data?.footer?.footer?.column ?? [];
 
 
-  const regexMdLinks = /(?:\])(.*?)(?=\[\/footnote])/gm;
+  const regexMdLinks = /(?:\[footnote)(.*?)(?=\[\/footnote\])/gm;
 
 
   const footnotes = content?.match(regexMdLinks);
@@ -182,7 +182,7 @@ export default function Component(props) {
                     <ul className='footnotes'>
                       {footnotes.map((item, i) => {
                         return(
-                          <li dangerouslySetInnerHTML={{ __html: item.replaceAll(/[0-9]/g, '').replaceAll(']', '').replaceAll('about:blank', '#') ?? '' }}/>
+                          <li dangerouslySetInnerHTML={{ __html: item.replaceAll(/(?:\[footnote)(.*?)(?=\])/gm, '').replace(']', '').replaceAll('about:blank', '#') ?? '' }}/>
                         )
                       })}
                     </ul>
