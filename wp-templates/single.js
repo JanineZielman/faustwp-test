@@ -182,7 +182,7 @@ export default function Component(props) {
                     <ul className='footnotes'>
                       {footnotes.map((item, i) => {
                         return(
-                          <li dangerouslySetInnerHTML={{ __html: item.replaceAll(/(?:\[footnote)(.*?)(?=\])/gm, '').replace(']', '').replaceAll('about:blank', '#') ?? '' }}/>
+                          <li dangerouslySetInnerHTML={{ __html: item.replaceAll(/(?:\[footnote)(.*?)(?=\])/gm, '').replace(']', '').replaceAll('about:blank', '#').replaceAll('apria.artez.nl', 'apria2.vercel.app') ?? '' }}/>
                         )
                       })}
                     </ul>
