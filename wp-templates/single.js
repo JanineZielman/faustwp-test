@@ -85,9 +85,9 @@ export default function Component(props) {
 
   useEffect(() => {
     if (footnotes){
-      setNewContent(content.replaceAll('[/footnote]', '</sup>').replaceAll('[footnote', '<sup id="sup" onclick="location.href=`#footnotes`" >').replaceAll(']', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'));
+      setNewContent(content.replaceAll('[/footnote]', '</sup>').replaceAll('[footnote', '<sup id="sup" onclick="location.href=`#footnotes`" >').replaceAll(']', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;').replaceAll('apria.artez.nl', 'apria2.vercel.app'));
     } else {
-      setNewContent(content)
+      setNewContent(content.replaceAll('apria.artez.nl', 'apria2.vercel.app'))
     }
   }, [])
 
