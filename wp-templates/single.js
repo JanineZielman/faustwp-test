@@ -98,9 +98,10 @@ export default function Component(props) {
   const [uniquelinkedColandCur, setUniquelinkedColandCur] = useState(null);
 
   useEffect(() => {
-    
     setLinkedColandCur(linkedCollection?.linkedCollection?.linkedItems?.linkedItems.concat(linkedCuratedBy?.linkedCuratedBy ? linkedCuratedBy?.linkedCuratedBy?.linkedItems?.linkedItems : linkedCollection?.linkedCollection?.linkedItems?.linkedItems))
-    
+  }, [])
+
+  useEffect(() => {
     if (linkedColandCur){
       setUniquelinkedColandCur([...new Map(linkedColandCur.map(v => [v.id, v])).values()])
     }
