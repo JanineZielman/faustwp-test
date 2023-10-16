@@ -5,6 +5,7 @@ import { FaustProvider } from '@faustwp/core';
 import '@faustwp/core/dist/css/toolbar.css';
 import '../styles/main.scss';
 import '../styles/breakpoints.scss';
+import Script from 'next/script';
 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -27,6 +28,7 @@ export default function MyApp({ Component, pageProps }) {
           <link rel="stylesheet" type="text/css" charSet="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" /> 
           <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
           <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossOrigin="anonymous" referrerPolicy="no-referrer"></script>
+          <Script src="/script.js"/>
       </head>
       <Component {...pageProps} key={router.asPath} />
       <script src="/java.js"></script>
