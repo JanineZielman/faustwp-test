@@ -85,11 +85,11 @@ export default function Component(props) {
 
   useEffect(() => {
     if (footnotes){
-      // setNewContent(content.replaceAll('[/footnote]', '</sup>').replaceAll('[footnote', '<sup id="sup" onclick="location.href=`#footnotes`" >').replaceAll(']', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;').replaceAll('apria.artez.nl', 'apria2.vercel.app'));
+      // setNewContent(content.replaceAll('[/footnote]', '</sup>').replaceAll('[footnote', '<sup id="sup" onclick="location.href=`#footnotes`" >').replaceAll(']', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'));
       var count = 0;
-      setNewContent(content.replaceAll(/(?:\[footnote)(.*?)(?:\[\/footnote\])/g, function(){count+=1;return '<sup id="sup" onclick="location.href=`#footnotes`" >' + count + '</sup>'}).replaceAll('apria.artez.nl', 'apria2.vercel.app'))
+      setNewContent(content.replaceAll(/(?:\[footnote)(.*?)(?:\[\/footnote\])/g, function(){count+=1;return '<sup id="sup" onclick="location.href=`#footnotes`" >' + count + '</sup>'}))
     } else {
-      setNewContent(content.replaceAll('apria.artez.nl', 'apria2.vercel.app'))
+      setNewContent(content)
     }
   }, [])
 
@@ -185,7 +185,7 @@ export default function Component(props) {
                     <ul className='footnotes'>
                       {footnotes.map((item, i) => {
                         return(
-                          <li dangerouslySetInnerHTML={{ __html: item.replaceAll(/(?:\[footnote)(.*?)(?=\])/gm, '').replace(']', '').replaceAll('about:blank', '#').replaceAll('apria.artez.nl', 'apria2.vercel.app') ?? '' }}/>
+                          <li dangerouslySetInnerHTML={{ __html: item.replaceAll(/(?:\[footnote)(.*?)(?=\])/gm, '').replace(']', '').replaceAll('about:blank', '#') ?? '' }}/>
                         )
                       })}
                     </ul>
