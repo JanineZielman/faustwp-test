@@ -17,7 +17,7 @@ module.exports = withFaust({
   },
   async redirects() {
     return [
-      { source: "/wp-content/:path*", destination: "https://apriatst.artez.nl/wp-content/:path*", permanent: true },
+      { source: "/wp-content/:path*", destination: "https://apria-cms.artez.nl/wp-content/:path*", permanent: true },
     ]
   },
 });

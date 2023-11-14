@@ -71,7 +71,7 @@ const Page = () => {
 
   useEffect(() => {
     async function fetchAuthors() {
-      const response = await fetch(`https://apriatst.artez.nl/wp-json/wp/v2/ppma_author?slug=${slug}`);
+      const response = await fetch(`https://apria-cms.artez.nl/wp-json/wp/v2/ppma_author?slug=${slug}`);
       const jsonData = await response.json();
       setAuthor(jsonData[0])
     }

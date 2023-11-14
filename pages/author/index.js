@@ -8,7 +8,7 @@ const Page = () => {
 
 
   const fetchData = () => {
-    fetch( 'https://apriatst.artez.nl/wp-json/wp/v2/ppma_author?per_page=25' )
+    fetch( 'https://apria-cms.artez.nl/wp-json/wp/v2/ppma_author?per_page=25' )
       .then( res => {
         setTotalPages(res.headers.get( 'x-wp-totalpages' ));
         setCurrentPage(currentPage + 1)
@@ -24,7 +24,7 @@ const Page = () => {
   const loadMore = () => {
     setCurrentPage(currentPage + 1)
     fetch(
-      `https://apriatst.artez.nl/wp-json/wp/v2/ppma_author?per_page=25&page=${
+      `https://apria-cms.artez.nl/wp-json/wp/v2/ppma_author?per_page=25&page=${
         currentPage
       }`
     )
