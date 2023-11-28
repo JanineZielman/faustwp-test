@@ -68,7 +68,7 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
-  const { title, content, featuredImage, date, author, articleTop, intro, linkedItems, linkedCollection, linkedCuratedBy, accordion} = props.data.post;
+  const { title, content, featuredImage, date, articleTop, intro, bibliography, linkedItems, linkedCollection, linkedCuratedBy, accordion} = props.data.post;
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
   const categories = props.data.categories.nodes;
   const tags = props.data.tags.nodes;
@@ -180,6 +180,11 @@ export default function Component(props) {
                     )
                   })}
                 </div>
+                {bibliography && 
+                  <Collapsible trigger="Bibliography" idname={'bibliography'}>
+                    <p dangerouslySetInnerHTML={{ __html: bibliography.bibliography}}></p>
+                  </Collapsible>
+                }
                 {footnotes && 
                   <Collapsible trigger="Footnotes" idname={'footnotes'}>
                     <ul className='footnotes'>
@@ -270,6 +275,9 @@ Component.query = gql`
       }
       authors {
         authors
+      }
+      bibliography{
+        bibliography
       }
       categories {
         nodes {
