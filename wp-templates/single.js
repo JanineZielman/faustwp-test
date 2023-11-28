@@ -180,7 +180,7 @@ export default function Component(props) {
                     )
                   })}
                 </div>
-                {bibliography && 
+                {bibliography.bibliography && 
                   <Collapsible trigger="Bibliography" idname={'bibliography'}>
                     <p dangerouslySetInnerHTML={{ __html: bibliography.bibliography}}></p>
                   </Collapsible>
