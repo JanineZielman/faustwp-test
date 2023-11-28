@@ -83,6 +83,18 @@ export default function Component(props) {
   const [newContent, setNewContent] = useState(null);
 
 
+  const [authors, setAuthors] = useState([]);
+
+  useEffect(() => {
+    async function fetchAuthors() {
+      const response = await fetch(`https://apria-cms.artez.nl/wp-json/wp/v2/ppma_author?slug=${router.query.authors}`);
+      const jsonData = await response.json();
+      setAuthors(jsonData)
+    }
+    fetchAuthors()
+    
+  }, [])
+
   useEffect(() => {
     if (footnotes){
       // setNewContent(content.replaceAll('[/footnote]', '</sup>').replaceAll('[footnote', '<sup id="sup" onclick="location.href=`#footnotes`" >').replaceAll(']', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'));
@@ -159,30 +171,42 @@ export default function Component(props) {
                 {intro.embed && <iframe className='big-image' src={intro.embed}/>}
                 <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
                 <div className='content' dangerouslySetInnerHTML={{ __html: newContent ?? '' }} />
-                <div className='footnotes'>
-                  {accordion.accordion?.map((item, i) => {
-                    return(
-                      <Collapsible trigger={item.title} idname={item.title.replaceAll(' ', '-')}>
-                        <div className='content' dangerouslySetInnerHTML={{ __html: item.text ?? '' }} />
-                        {item.person?.map((item, i) => {
-                          return(
-                            <div className='person'>
-                              {item.image?.mediaItemUrl && <img src={item.image?.mediaItemUrl}/>}
-                              <div>
-                                <h2>{item.name}</h2>
-                                <div className='content' dangerouslySetInnerHTML={{ __html: item.text ?? '' }} />
-                              </div>
-                            </div>
-                          )
-                        })}
-                        
-                      </Collapsible>
-                    )
-                  })}
-                </div>
                 {bibliography.bibliography && 
                   <Collapsible trigger="Bibliography" idname={'bibliography'}>
                     <p dangerouslySetInnerHTML={{ __html: bibliography.bibliography}}></p>
+                  </Collapsible>
+                }
+                {accordion.accordion?.map((item, i) => {
+                  return(
+                    <Collapsible trigger={item.title} idname={item.title.replaceAll(' ', '-')}>
+                      <div className='content' dangerouslySetInnerHTML={{ __html: item.text ?? '' }} />
+                      {item.person?.map((item, i) => {
+                        return(
+                          <div className='person'>
+                            {item.image?.mediaItemUrl && <img src={item.image?.mediaItemUrl}/>}
+                            <div>
+                              <h2>{item.name}</h2>
+                              <div className='content' dangerouslySetInnerHTML={{ __html: item.text ?? '' }} />
+                            </div>
+                          </div>
+                        )
+                      })}
+                      
+                    </Collapsible>
+                  )
+                })}
+                {authors && 
+                  <Collapsible trigger="Authors" idname={'authors'}>
+                    <div className='authors-bio'>
+                      {authors.map((item, i) => {
+                        return(
+                          <div className='author-bio'>
+                            <h3 dangerouslySetInnerHTML={{ __html: item.name}} ></h3>
+                            <p dangerouslySetInnerHTML={{ __html: item.acf.bio}}/>
+                          </div>
+                        )
+                      })}
+                    </div>
                   </Collapsible>
                 }
                 {footnotes && 
