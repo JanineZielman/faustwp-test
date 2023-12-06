@@ -195,7 +195,7 @@ export default function Component(props) {
                     </Collapsible>
                   )
                 })}
-                {authors && 
+                {authors.length > 0 && 
                   <Collapsible trigger="Authors" idname={'authors'}>
                     <div className='authors-bio'>
                       {authors.map((item, i) => {
