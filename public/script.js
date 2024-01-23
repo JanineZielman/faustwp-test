@@ -15,6 +15,10 @@ function showOverlay() {
     const player = document.getElementById('anna_sound');
 
     player.play();
+    player.addEventListener('ended', function() {
+        closeOverlay();
+        document.getElementById('Endnotes-trigger').style.display = "block";
+    })
 };
 
 function hideOverlay2 () {  
