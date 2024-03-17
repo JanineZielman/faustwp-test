@@ -19,7 +19,6 @@ export default function SEO({ title, description, imageUrl, url }) {
   return (
     <>
       <Head>
-        <meta name="google-site-verification" content="TFQLQJADtvgwc49Btb11JFm5mEvNaZNjdFIHXgj6ESw" />
         <meta property="og:type" content="website" />
         <meta property="twitter:card" content="summary_large_image" />
 
