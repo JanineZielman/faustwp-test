@@ -20,7 +20,6 @@ export default function MyApp({ Component, pageProps }) {
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000"/>
           <meta name="msapplication-TileColor" content="#fde4ea"/>
           <meta name="theme-color" content="#ffffff"/>
-          <meta name="google-site-verification" content="TFQLQJADtvgwc49Btb11JFm5mEvNaZNjdFIHXgj6ESw" />
           <script src="/planck.min.js"></script>
           <script src="/d3.min.js"></script>
           <script src="/balancetext.min.js"></script>
