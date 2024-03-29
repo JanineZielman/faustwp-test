@@ -817,3 +817,36 @@ pre{
   width: 100%;
   white-space: normal;
 }
+
+
+
+
+.form{
+  width: 100%;
+  label{
+    font-size: $captions;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  textarea{
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    border: none;
+    border-bottom: 1px solid black;
+    height: 500px;
+    font-size: $body;
+  }
+  input{
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid black;
+    font-size: $subtitle;
+  }
+  button{
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 8px 30px;
+    border-radius: 25px;
+  }
+}
