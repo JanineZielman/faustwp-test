@@ -30,6 +30,14 @@ export default function MyApp({ Component, pageProps }) {
           <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossOrigin="anonymous" referrerPolicy="no-referrer"></script>
           <Script src="/script.js"/>
           <meta name="google-site-verification" content="TFQLQJADtvgwc49Btb11JFm5mEvNaZNjdFIHXgj6ESw" />
+          <script
+            id="mcjs"
+            dangerouslySetInnerHTML={{
+              __html: `
+                !function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/900faf96fb1c9ed5b73a7586b/9a19aa1ac2a8d1232e4ed20ce.js");
+              `,
+            }}
+          />
       </head>
       <Component {...pageProps} key={router.asPath} />
       <script src="/java.js"></script>
