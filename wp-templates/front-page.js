@@ -164,7 +164,7 @@ Component.query = gql`
         slug
       }
     }
-    posts(where: {tagSlugIn: "collection"}, first:100)  {
+    posts(where: {tagSlugIn: ["collection", "homepage"]}, first:100)  {
       edges{
         node {
           id
