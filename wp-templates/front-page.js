@@ -164,7 +164,13 @@ Component.query = gql`
         slug
       }
     }
-    posts(where: {tagSlugIn: ["collection", "current"]}, first:200)  {
+    posts(
+      where: {
+        tagSlugIn: ["collection", "current"],
+        categoryNotIn: [846]
+      },
+      first: 200
+    )  {
       edges{
         node {
           id
