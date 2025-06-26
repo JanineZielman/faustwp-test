@@ -12,14 +12,23 @@ import {
   Loader
 } from '../components';
 import Moment from 'moment';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 const RELATED = gql`
   query GetRelated (
     $tag: [String!]!
+    $categoryIn: [ID]
+    $categoryNotIn: [ID]
   ) {
-    posts(where: {tagSlugIn: $tag}, first: 25)  {
+    posts(
+      where: {
+        tagSlugIn: $tag
+        categoryIn: $categoryIn
+        categoryNotIn: $categoryNotIn
+      },
+      first: 25
+    ) {
       edges {
         node {
           id
@@ -30,19 +39,19 @@ const RELATED = gql`
           authors {
             authors
           }
-          featuredImage{
-            node{
+          featuredImage {
+            node {
               mediaItemUrl
             }
           }
-          categories{
-            nodes{
+          categories {
+            nodes {
               name
               slug
             }
           }
-          tags{
-            nodes{
+          tags {
+            nodes {
               name
             }
           }
@@ -55,14 +64,32 @@ const RELATED = gql`
 export default function Component(props) {
   // Loading state for previews
   if (props.loading) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   const router = useRouter();
   const tag = router.query.tag || [];
 
+  const allCategories = props.data.categories.nodes;
+  const selectedCategorySlug = router.query.category || null;
+
+  const selectedCategory = allCategories.find(
+    (cat) => cat.slug === selectedCategorySlug
+  );
+
+  const CATEGORY_846_ID = 846;
+  const CATEGORY_846_SLUG = 'out-of-theory'; // 🔁 REPLACE this with actual slug for ID 846
+
+  const isCategory846 = selectedCategory?.slug === CATEGORY_846_SLUG;
+
+  const queryVariables = {
+    tag,
+    categoryIn: isCategory846 ? [CATEGORY_846_ID] : [],
+    categoryNotIn: isCategory846 ? [] : [CATEGORY_846_ID],
+  };
+
   const { data } = useQuery(RELATED, {
-    variables: {tag},
+    variables: queryVariables,
   });
 
 
