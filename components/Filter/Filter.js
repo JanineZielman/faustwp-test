@@ -1,192 +1,213 @@
+import { useRouter } from "next/router";
+import { useState, useMemo } from "react";
 import { Collapsible } from "../Collapsible";
 
-export default function Filter({ path, categories, category, tags, tag, title, year, authors, allAuthors}) {
+export default function Filter({
+  path,
+  categories,
+  category,
+  tags,
+  tag,
+  title,
+  year,
+  authors,
+  allAuthors
+}) {
+  const router = useRouter();
 
-  function generateYearsBetween(startYear = 2019, endYear) {
-    const endDate = endYear || new Date().getFullYear();
-    let years = [];
-  
-    for (var i = startYear; i <= endDate; i++) {
-      years.push(startYear);
-      startYear++;
-    }
-    return years;
+  const [authorFilter, setAuthorFilter] = useState("");
+  const [tagFilter, setTagFilter] = useState("");
+
+  // Filtered lists (computed only when filter changes)
+  const filteredAuthors = useMemo(() => {
+    return allAuthors?.filter(a =>
+      a.toLowerCase().includes(authorFilter.toLowerCase())
+    );
+  }, [allAuthors, authorFilter]);
+
+  const filteredTags = useMemo(() => {
+    return tags?.filter(t =>
+      t.name.toLowerCase().includes(tagFilter.toLowerCase())
+    );
+  }, [tags, tagFilter]);
+
+  const yearsArray = useMemo(() => {
+    const arr = [];
+    const end = new Date().getFullYear();
+    for (let y = 2019; y <= end; y++) arr.push(y);
+    return arr;
+  }, []);
+
+  function updateQuery(newParams) {
+    router.push(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, ...newParams }
+      },
+      undefined,
+      { shallow: true }
+    );
   }
 
-  const yearsArray = generateYearsBetween(2019);
-
-  function titleSearch() {
-    var filter = document.getElementById("titleSearch").value.toLowerCase();
-    window.location.href = `${path}&title=${filter.replaceAll(' ', '-')}`
-  }
-
-  function authorSearch() {
-    var input, filter, authors, a, i, txtValue;
-    input = document.getElementById("authorInput");
-    filter = input.value.toUpperCase();
-    authors = document.getElementById("author-list");
-    a = authors.getElementsByTagName("a");
-    for (i = 0; i < a.length; i++) {
-        txtValue = a[i].innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            a[i].style.display = "";
-        } else {
-            a[i].style.display = "none";
-        }
+  function removeQuery(key, value) {
+    const q = { ...router.query };
+    if (Array.isArray(q[key])) {
+      q[key] = q[key].filter(v => v !== value);
+    } else {
+      delete q[key];
     }
-  }
-
-  function tagSearch() {
-    var input, filter, tags, a, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    tags = document.getElementById("tag-list");
-    a = tags.getElementsByTagName("a");
-    for (i = 0; i < a.length; i++) {
-        txtValue = a[i].innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            a[i].style.display = "";
-        } else {
-            a[i].style.display = "none";
-        }
-    }
+    router.push({ pathname: router.pathname, query: q }, undefined, { shallow: true });
   }
 
   return (
-    <div className='filter'>
-      <div className='filter-cat'>
-      <Collapsible trigger="Author" idname={'Author'}>
-          <div className="title-search">
-          <input type="text" id="authorInput" onKeyUp={authorSearch} placeholder="Search for authors.." title="Type in an author"/>
-        </div>
-          <div className="tag-list" id="author-list">
-            {allAuthors?.map((author, i) => {
-              return(
-                <a key={`author${i}`} className={`small-title ${author.toLowerCase().replaceAll(' ', '-')}`} href={`${path}&authors=${author.toLowerCase().replaceAll(' ', '-')}`}>{author}</a>
-              )
-            })}
+    <div className="filter">
+      {/* AUTHORS */}
+      <div className="filter-cat">
+        <Collapsible trigger="Author" idname="Author">
+          <input
+            type="text"
+            value={authorFilter}
+            onChange={e => setAuthorFilter(e.target.value)}
+            placeholder="Search authors..."
+            className="title-search-input"
+          />
+
+          <div className="tag-list">
+            {filteredAuthors?.map((author, i) => (
+              <a
+                key={i}
+                className="small-title"
+                onClick={() =>
+                  updateQuery({ authors: author.toLowerCase().replaceAll(" ", "-") })
+                }
+              >
+                {author}
+              </a>
+            ))}
           </div>
         </Collapsible>
+
+        {/* Selected Authors */}
         {authors &&
-          <>
-          {Array.isArray(authors) ?
-          <>
-            {authors?.map((item, i) => {
-              return(
-                <div className='small-title' key={`authorsitem${i}`}>
-                  <div className="text">{item}</div> <a href={`${path.replace(`&authors=${item}`, '')}`}>x</a>
-                </div>
-              )
-            })}
-          </>
-          :
-            <div className='small-title'>
-              <div className="text">{authors}</div> <a href={`${path.replace(`&authors=${authors}`, '')}`}>x</a>
+          (Array.isArray(authors) ? authors : [authors]).map((a, i) => (
+            <div className="small-title" key={i}>
+              <div className="text">{a}</div>
+              <a onClick={() => removeQuery("authors", a)}>x</a>
             </div>
-          }
-          </>   
-        }
+          ))}
       </div>
-      <div className='filter-cat'>
+
+      {/* TITLE */}
+      <div className="filter-cat">
         <div className="small-title title-cat">Title</div>
-        {title ?
-          <div className='small-title'>
-            <div className="text">{title.replaceAll('-', ' ')}</div> <a href={`${path.replace(`title=${title}`, '&')}`}>x</a>
+
+        {title ? (
+          <div className="small-title">
+            <div className="text">{title.replaceAll("-", " ")}</div>
+            <a onClick={() => removeQuery("title", title)}>x</a>
           </div>
-        :
-        <div className="title-search">
-          <input type="text" id="titleSearch" placeholder="Search for titles.." title="Type in a title"/>
-          <div className="search-button" onClick={titleSearch}>Search</div>
-        </div>
-        }
-      </div>
-      <div className='filter-cat'>
-        {category ?
-          <>
-            <Collapsible trigger="Category" idname={'category'}>
-              {categories.map((category, i) => {
-                return(
-                  <a key={`category${i}`} className={`small-title disabled ${category.slug}`}>{category.name}</a>
-                )
-              })}
-            </Collapsible>
-            <div className='category left'>
-              {category} <a href={`${path.replace(`&category=${category}`, '')}`}>x</a>
-            </div>
-          </>
-        :  
-          <Collapsible trigger="Category" idname={'category'}>
-            {categories.map((category, i) => {
-              return(
-                <a key={`category${i}`} className={`small-title ${category.slug}`} href={`${path}&category=${category.slug}`}>{category.name}</a>
-              )
-            })}
-          </Collapsible>
-        }
-      </div>
-      <div className='filter-cat'>
-        <Collapsible trigger="Year" idname={'year'}>
-          {yearsArray.map((year, i) => {
-            return(
-              <a key={`year${i}`} className={`small-title year${year}`} href={`${path}&year=${year}`}>{year}</a>
-            )
-          })}
-        </Collapsible>
-    
-        {Array.isArray(year) ?
-            year.map((item,i) => {
-              return(
-                <div className='small-title' key={`yearitem${i}`}>
-                  <div className="text">{item}</div> <a href={`${path.replace(`&year=${item}`, '')}`}>x</a>
-                </div>
-              )
-            })
-          :
-          <>
-          {year &&
-            <div className='small-title'>
-              <div className="text">{year}</div> <a href={`${path.replace(`&year=${year}`, '')}`}>x</a>
-            </div>
-          }
-          </>
-        }
-      </div>
-      <div className='filter-cat'>
-        <Collapsible trigger="Tags" idname={'tags'}>
+        ) : (
           <div className="title-search">
-          <input type="text" id="myInput" onKeyUp={tagSearch} placeholder="Search for tags.." title="Type in a tag"/>
-        </div>
-          <div className="tag-list" id="tag-list">
-            {tags?.map((tag, i) => {
-              return(
-                <a key={`tag${i}`} className={`small-title ${tag.name.toLowerCase().replace(' ', '-')}`} href={`${path}&tag=${tag.name.toLowerCase().replace(' ', '-')}`}>{tag.name}</a>
-              )
-            })}
+            <input
+              type="text"
+              placeholder="Search titles..."
+              onKeyDown={e =>
+                e.key === "Enter" &&
+                updateQuery({ title: e.target.value.replaceAll(" ", "-") })
+              }
+            />
+            <div
+              className="search-button"
+              onClick={() => {
+                const val = document.querySelector("#titleSearch").value;
+                updateQuery({ title: val.replaceAll(" ", "-") });
+              }}
+            >
+              Search
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* CATEGORY */}
+      <div className="filter-cat">
+        <Collapsible trigger="Category" idname="category">
+          {categories.map((cat, i) => (
+            <a
+              key={i}
+              className={`small-title ${cat.slug}`}
+              onClick={() => updateQuery({ category: cat.slug })}
+            >
+              {cat.name}
+            </a>
+          ))}
+        </Collapsible>
+
+        {category && (
+          <div className="category left">
+            {category}
+            <a onClick={() => removeQuery("category", category)}>x</a>
+          </div>
+        )}
+      </div>
+
+      {/* YEAR */}
+      <div className="filter-cat">
+        <Collapsible trigger="Year" idname="year">
+          {yearsArray.map((y, i) => (
+            <a key={i} className="small-title" onClick={() => updateQuery({ year: y })}>
+              {y}
+            </a>
+          ))}
+        </Collapsible>
+
+        {year &&
+          (Array.isArray(year) ? year : [year]).map((y, i) => (
+            <div className="small-title" key={i}>
+              <div className="text">{y}</div>
+              <a onClick={() => removeQuery("year", y)}>x</a>
+            </div>
+          ))}
+      </div>
+
+      {/* TAGS */}
+      <div className="filter-cat">
+        <Collapsible trigger="Tags" idname="tags">
+          <input
+            type="text"
+            placeholder="Search tags..."
+            value={tagFilter}
+            onChange={e => setTagFilter(e.target.value)}
+            className="title-search-input"
+          />
+
+          <div className="tag-list">
+            {filteredTags?.map((t, i) => (
+              <a
+                key={i}
+                className="small-title"
+                onClick={() => updateQuery({ tag: t.name.toLowerCase() })}
+              >
+                {t.name}
+              </a>
+            ))}
           </div>
         </Collapsible>
+
         {tag &&
-          <>
-          {Array.isArray(tag) ?
-          <>
-            {tag?.map((item, i) => {
-              return(
-                <div className='tag' key={`tagitem${i}`}>
-                  {item} <a href={`${path.replace(`&tag=${item}`, '')}`}>x</a>
-                </div>
-              )
-            })}
-          </>
-          :
-          <div className='tag'>
-            {tag} <a href={`${path.replace(`&tag=${tag}`, '')}`}>x</a>
-          </div>
-          }
-          </>   
-        }
+          (Array.isArray(tag) ? tag : [tag]).map((t, i) => (
+            <div className="tag" key={i}>
+              {t} <a onClick={() => removeQuery("tag", t)}>x</a>
+            </div>
+          ))}
       </div>
-      <br/>
-      <div className='small-title'>
-        <a href="/filter?">Clear all</a>
+
+      <br />
+
+      <div className="small-title">
+        <a onClick={() => router.push("/filter", undefined, { shallow: true })}>
+          Clear all
+        </a>
       </div>
     </div>
   );

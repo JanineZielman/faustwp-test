@@ -1,111 +1,47 @@
-import React, {useEffect, useState} from 'react';
-import PostItem from '../PostItem/PostItem';
+import React, { useEffect, useState } from "react";
+import PostItem from "../PostItem/PostItem";
 
-export default function RelatedGrid({ posts, id }){
+export default function RelatedGrid({ posts, id }) {
+  const [amount, setAmount] = useState(4);
 
-  const [amount, setAmount] = useState(5);
-	
-	useEffect(() => {
-    handleResize();
-		function handleResize(){
-			if (window.innerWidth>1800){
-				setAmount(4);
-			}
-      if (window.innerWidth<1800 &&  window.innerWidth>1100){
-				setAmount(4);
-			}
-      if (window.innerWidth<1100 && window.innerWidth>900){
-				setAmount(2);
-			}
-      if (window.innerWidth<900){
-				setAmount(1);
-			}
-		}
-		window.addEventListener('resize', handleResize)
-  }, [])
+  useEffect(() => {
+    function calculateAmount() {
+      const w = window.innerWidth;
 
-	
+      if (w > 1800) return 4;
+      if (w > 1100) return 4;   // 1100–1800 = 4 items as in your code
+      if (w > 900) return 2;
+      return 1;
+    }
+
+    // Set amount on initial load
+    setAmount(calculateAmount());
+
+    // On resize
+    function handleResize() {
+      setAmount(calculateAmount());
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Create rows dynamically
+  const rows = Array.from({ length: amount }, (_, rowIndex) => (
+    <div className="row" key={rowIndex}>
+      {posts.map((post, i) =>
+        i % amount === rowIndex ? (
+          <PostItem key={i} post={post.node} i={i} />
+        ) : null
+      )}
+    </div>
+  ));
+
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <section {...(id && { id })}>
       <div className="grid related-grid">
-        <div className='row'>
-          {posts.map((post, i) => {
-            return(
-              <>
-              {i %amount==0 &&
-                <PostItem post={post.node} i={i}/>
-              }
-              </>
-            )
-          })}
-        </div>
-        {amount >= 2 &&
-          <div className='row'>
-            {posts.map((post, i) => {
-              return(
-                <>
-                {i %amount==1 &&
-                  <PostItem post={post.node} i={i}/>
-                }
-                </>
-              )
-            })}
-          </div>
-        }
-        {amount >= 3 &&
-          <div className='row'>
-            {posts.map((post, i) => {
-              return(
-                <>
-                {i %amount==2 &&
-                  <PostItem post={post.node} i={i}/>
-                }
-                </>
-              )
-            })}
-          </div>
-        }
-        {amount >= 4 &&
-          <div className='row'>
-            {posts.map((post, i) => {
-              return(
-                <>
-                {i %amount==3 &&
-                  <PostItem post={post.node} i={i}/>
-                }
-                </>
-              )
-            })}
-          </div>
-        }
-        {amount >= 5 &&
-          <div className='row'>
-            {posts.map((post, i) => {
-              return(
-                <>
-                {i %amount==4 &&
-                  <PostItem post={post.node} i={i}/>
-                }
-                </>
-              )
-            })}
-          </div>
-        }
-        {amount >= 6 &&
-          <div className='row'>
-            {posts.map((post, i) => {
-              return(
-                <>
-                {i %amount==5 &&
-                  <PostItem post={post.node} i={i}/>
-                }
-                </>
-              )
-            })}
-          </div>
-        }
-        {posts && posts?.length < 1 && <p>No posts found.</p>}
+        {rows}
+        {posts?.length < 1 && <p>No posts found.</p>}
       </div>
     </section>
   );
