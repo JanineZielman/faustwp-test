@@ -17,6 +17,8 @@ const RelatedGrid = dynamic(
   { loading: () => <div className="loading">Loading…</div> }
 );
 
+const POSTS_PER_PAGE = 10;
+
 export default function Component() {
   const router = useRouter();
 
@@ -31,11 +33,11 @@ export default function Component() {
   const search = useMemo(() => `${title},${authorsQuery}`.replace(/-/g, ' '), [title, authorsQuery]);
 
   // Apollo client-side query
-  const { data, loading: queryLoading } = useQuery(Component.query, {
-    variables: { category, year, tag, search },
+  const { data, loading: queryLoading, fetchMore } = useQuery(Component.query, {
+    variables: { category, year, tag, search, first: POSTS_PER_PAGE },
+    notifyOnNetworkStatusChange: true,
   });
 
-  // Loading state
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (!queryLoading) setLoading(false);
@@ -50,12 +52,39 @@ export default function Component() {
       const links = html.getElementsByTagName('a');
       const authorsList = Array.from(links)
         .map(el => el.getAttribute('title'))
-        .filter(Boolean); // remove nulls
+        .filter(Boolean);
       setAllAuthors(authorsList);
     }
   }, [data]);
 
   const footerMenu = data?.footer?.footer?.column ?? [];
+
+  // Infinite scroll: fetch more posts when near bottom
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
+        data?.posts?.pageInfo?.hasNextPage
+      ) {
+        fetchMore({
+          variables: { after: data.posts.pageInfo.endCursor },
+          updateQuery: (prevResult, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prevResult;
+            return {
+              ...prevResult,
+              posts: {
+                ...fetchMoreResult.posts,
+                edges: [...prevResult.posts.edges, ...fetchMoreResult.posts.edges],
+              },
+            };
+          },
+        });
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [data, fetchMore]);
 
   if (loading) return <Loader />;
 
@@ -86,6 +115,9 @@ export default function Component() {
         </div>
         <div className='filtered'>
           <RelatedGrid posts={data.posts.edges} />
+          {data.posts.pageInfo.hasNextPage && (
+            <div className="loading-more">Loading more posts…</div>
+          )}
         </div>
       </main>
       <Footer menuItems={footerMenu} />
@@ -93,7 +125,7 @@ export default function Component() {
   );
 }
 
-// Apollo query
+// Apollo query with pagination
 Component.query = gql`
   ${BlogInfoFragment}
   query GetPageData(
@@ -101,6 +133,8 @@ Component.query = gql`
     $search: String!
     $year: Int!
     $tag: [String!]!
+    $first: Int!
+    $after: String
   ) {
     generalSettings {
       ...BlogInfoFragment
@@ -139,7 +173,11 @@ Component.query = gql`
         endCursor
       }
     }
-    posts(where: {categoryName: $category, tagSlugIn: $tag, dateQuery: {year: $year}, search: $search}, first: 100)  {
+    posts(
+      where: {categoryName: $category, tagSlugIn: $tag, dateQuery: {year: $year}, search: $search}
+      first: $first
+      after: $after
+    )  {
       pageInfo {
         hasNextPage
         endCursor
