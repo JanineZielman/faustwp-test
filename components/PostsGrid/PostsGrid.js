@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { PostItem } from "../PostItem";
+import dynamic from "next/dynamic";
+
+// Lazy-load PostItem (named export)
+const PostItem = dynamic(
+  () => import("../PostItem").then((mod) => mod.PostItem),
+  { loading: () => <div className="loading">Loading…</div> }
+);
 
 export default function Posts({ posts, id }) {
   const [amount, setAmount] = useState(4);
@@ -18,7 +24,7 @@ export default function Posts({ posts, id }) {
     // Set on initial load
     setAmount(calculateAmount());
 
-    // Listen for resize
+    // Update on resize
     function handleResize() {
       setAmount(calculateAmount());
     }
@@ -27,14 +33,12 @@ export default function Posts({ posts, id }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Create rows dynamically based on amount
+  // Generate rows dynamically
   const rows = Array.from({ length: amount }, (_, rowIndex) => (
     <div className="row" key={rowIndex}>
-      {posts.map((post, i) => {
-        return i % amount === rowIndex ? (
-          <PostItem key={i} post={post.node} i={i} />
-        ) : null;
-      })}
+      {posts.map((post, i) =>
+        i % amount === rowIndex ? <PostItem key={i} post={post.node} i={i} /> : null
+      )}
     </div>
   ));
 
