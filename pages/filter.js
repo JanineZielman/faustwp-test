@@ -1,116 +1,99 @@
+import React, { useEffect, useState, useMemo } from 'react';
 import { useQuery, gql } from '@apollo/client';
+import { useRouter } from 'next/router';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
+import dynamic from 'next/dynamic';
 import {
   Header,
-  FeaturedImage,
-  SEO,
-  RelatedGrid,
   Filter,
+  SEO,
   Footer,
   Loader
 } from '../components';
-import React, {useEffect, useState} from 'react';
-import { useRouter } from 'next/router';
+
+// Lazy-load RelatedGrid
+const RelatedGrid = dynamic(
+  () => import('../components/RelatedGrid').then(mod => mod.RelatedGrid),
+  { loading: () => <div className="loading">Loading…</div> }
+);
 
 export default function Component() {
-
   const router = useRouter();
+
+  // Query params
   const category = router.query.category || '';
   const year = parseInt(router.query.year || 0);
-  const tag = router.query.tag || [];
+  const tag = Array.isArray(router.query.tag) ? router.query.tag : router.query.tag ? [router.query.tag] : [];
   const title = router.query.title || '';
-  const authors = router.query.authors || '';
+  const authorsQuery = router.query.authors || '';
 
-  function stringReplace(sentence) {
-    return sentence.replace(/[-]/g, " ");
-  }
+  // Convert title/authors for search
+  const search = useMemo(() => `${title},${authorsQuery}`.replace(/-/g, ' '), [title, authorsQuery]);
 
-  const search = stringReplace(title + "," + authors);
-
-  const { data } = useQuery(Component.query, {
-    variables: {category, year, tag, search},
+  // Apollo client-side query
+  const { data, loading: queryLoading } = useQuery(Component.query, {
+    variables: { category, year, tag, search },
   });
+
+  // Loading state
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    if (!queryLoading) setLoading(false);
+  }, [queryLoading]);
+
+  // Extract all authors from page content safely
+  const [allAuthors, setAllAuthors] = useState([]);
+  useEffect(() => {
+    if (data?.page?.content) {
+      const parser = new DOMParser();
+      const html = parser.parseFromString(data.page.content, 'text/html');
+      const links = html.getElementsByTagName('a');
+      const authorsList = Array.from(links)
+        .map(el => el.getAttribute('title'))
+        .filter(Boolean); // remove nulls
+      setAllAuthors(authorsList);
+    }
+  }, [data]);
 
   const footerMenu = data?.footer?.footer?.column ?? [];
 
-  const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    if (data){
-      setLoading(false);
-    }
-  },[data])
-
-  const convertStringToHTML = htmlString => {
-    const parser = new DOMParser();
-    const html = parser.parseFromString(htmlString, 'text/html');
-
-    return html.body;
-  }
-
-  const [allAuthors, setAllAuthors] = useState([])
-
-  useEffect(() => {
-    if (data){
-      const list = convertStringToHTML(data.page.content).getElementsByTagName('a')
-      for (let i = 0; i < list.length; i++) {
-        allAuthors.push(list[i].getAttribute('title'))
-      }
-    }
-  },[data])
-
-
+  if (loading) return <Loader />;
 
   return (
     <>
-      {loading ?
-       <Loader/>
-      :
-        <>
-        <SEO
-          title={data.generalSettings.siteTitle}
-          description={data.generalSettings.siteDescription}
-        />
-        <Header
-          title={data.generalSettings.siteTitle}
-          description={data.generalSettings.siteDescription}
-          menuItems={data?.menu?.menuItems?.nodes}
-        />
-        <main className="article">
+      <SEO
+        title={data.generalSettings.siteTitle}
+        description={data.generalSettings.siteDescription}
+      />
+      <Header
+        title={data.generalSettings.siteTitle}
+        description={data.generalSettings.siteDescription}
+        menuItems={data?.menu?.menuItems?.nodes}
+      />
+      <main className="article">
         <div className='left-sidebar'>
-          <Filter allAuthors={allAuthors} authors={router.query.authors} categories={data.categories.nodes} tags={data.tags.nodes} tag={router.query.tag} category={router.query.category} path={router.asPath} title={router.query.title} year={router.query.year}/>
-        </div>
-        <div className='filtered'>
-          <RelatedGrid
-            posts={data.posts.edges}
+          <Filter
+            allAuthors={allAuthors}
+            authors={authorsQuery}
+            categories={data.categories.nodes}
+            tags={data.tags.nodes}
+            tag={tag}
+            category={category}
+            path={router.asPath}
+            title={title}
+            year={year}
           />
         </div>
-        </main>
-        <Footer menuItems={footerMenu} />
-        </>
-      }
+        <div className='filtered'>
+          <RelatedGrid posts={data.posts.edges} />
+        </div>
+      </main>
+      <Footer menuItems={footerMenu} />
     </>
   );
 }
 
-
-Component.variables = (ctx) => {
-  return {
-    asPreview: false,
-  };
-};
-
-
-export async function getServerSideProps(){
-  return {
-    props: {
-      paths: [],
-      fallback: 'blocking',
-    }
-  };
-
-}
-
+// Apollo query
 Component.query = gql`
   ${BlogInfoFragment}
   query GetPageData(
