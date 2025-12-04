@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import Moment from 'moment';
 import dynamic from 'next/dynamic';
@@ -27,47 +27,84 @@ export default function Component() {
 
   const [loading, setLoading] = useState(true);
 
-  // Always call hooks first
+  // Highlight always computed safely
   const highlight = data?.page?.homePage?.highlight ?? null;
 
   const highlightTags = useMemo(() => {
     if (!highlight?.tags?.nodes) return '';
-    return highlight.tags.nodes.map(t => `&tag=${t.name.toLowerCase()}`).join('');
+    return highlight.tags.nodes
+      .map(t => `&tag=${t.name.toLowerCase()}`)
+      .join('');
   }, [highlight]);
 
   useEffect(() => {
     if (!queryLoading) setLoading(false);
   }, [queryLoading]);
 
+  // Prevent duplicate fetches
+  const lastCursorRef = useRef(null);
+  const isFetchingRef = useRef(false);
+
   // Infinite scroll
   useEffect(() => {
+    if (!data) return;
+
     const handleScroll = () => {
-      if (
-        !data?.posts?.pageInfo?.hasNextPage ||
-        window.innerHeight + window.scrollY < document.body.offsetHeight - 500
-      ) return;
+      if (isFetchingRef.current) return;
+
+      const { hasNextPage, endCursor } = data.posts.pageInfo;
+
+      if (!hasNextPage) return;
+
+      const nearBottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 600;
+
+      if (!nearBottom) return;
+
+      // Prevent re-fetching the same cursor
+      if (lastCursorRef.current === endCursor) return;
+      lastCursorRef.current = endCursor;
+
+      isFetchingRef.current = true;
 
       fetchMore({
-        variables: { first: POSTS_PER_PAGE, after: data.posts.pageInfo.endCursor },
+        variables: { first: POSTS_PER_PAGE, after: endCursor },
         updateQuery: (prev, { fetchMoreResult }) => {
+          isFetchingRef.current = false;
           if (!fetchMoreResult) return prev;
+
+          const merged = [
+            ...prev.posts.edges,
+            ...fetchMoreResult.posts.edges
+          ];
+
+          // Remove duplicates by node.id
+          const unique = merged.filter(
+            (post, index, arr) =>
+              index === arr.findIndex(p => p.node.id === post.node.id)
+          );
+
           return {
             ...prev,
             posts: {
               ...fetchMoreResult.posts,
-              edges: [...prev.posts.edges, ...fetchMoreResult.posts.edges],
+              edges: unique,
             },
           };
         },
+      }).finally(() => {
+        isFetchingRef.current = false;
       });
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+
   }, [data, fetchMore]);
 
   if (loading) return <Loader />;
 
+  // Extract data
   const siteTitle = data.generalSettings?.title ?? '';
   const siteDescription = data.generalSettings?.description ?? '';
   const posts = data.posts?.edges ?? [];
@@ -82,15 +119,19 @@ export default function Component() {
         description={siteDescription}
         imageUrl={featuredImage?.mediaItemUrl}
       />
-      <div className={'front-page'}>
+
+      <div className='front-page'>
         <Header
           title={siteTitle}
           description={siteDescription}
           menuItems={primaryMenu}
         />
       </div>
+
       <Main>
         <Container>
+
+          {/* ========== INTRO + HIGHLIGHT ========== */}
           <div className='flex align-center'>
             <div className='column1'>
               <div className="logo-container">
@@ -123,12 +164,16 @@ export default function Component() {
             )}
           </div>
 
+          {/* ========== POSTS GRID ========== */}
           <PostsGrid posts={posts} />
+
           {data.posts?.pageInfo?.hasNextPage && (
             <div className="loading-more">Loading more posts…</div>
           )}
+
         </Container>
       </Main>
+
       <Footer title={siteTitle} menuItems={footerMenu} />
     </>
   );
