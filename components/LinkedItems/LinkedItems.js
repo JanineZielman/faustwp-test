@@ -1,7 +1,7 @@
 import Moment from 'moment';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
-export default function LinkedItems({ props}) {
+export default function LinkedItems({ props }) {
   function slugify(str) {
     return String(str)
       .normalize('NFKD') // split accented characters into their base characters and diacritical marks
@@ -23,7 +23,7 @@ export default function LinkedItems({ props}) {
         let tags = '';
         const [tagsList, setTagsList] = useState('')
         useEffect(() => {
-          if(post.tags){
+          if (post.tags) {
             for (let i = 0; i < post.tags.nodes.length; i++) {
               tags += `&tag=${slugify(post.tags.nodes[i].name)}`;
             }
@@ -33,21 +33,21 @@ export default function LinkedItems({ props}) {
 
         let authorsl = '';
         const [authorsList, setAuthorsList] = useState('')
-      
+
         useEffect(() => {
-          var authors = post.authors.authors.replaceAll('\n', '').split(',')
-          for (let i = 0; i < authors.length; i++) {
+          var authors = post.authors?.authors?.replaceAll('\n', '').split(',')
+          for (let i = 0; i < authors?.length; i++) {
             authorsl += `&authors=${slugify(authors[i])}`;
           }
           setAuthorsList(authorsl);
         }, [])
-    
 
-        return(
+
+        return (
           <div className="linked-item">
             <a href={`/${post.slug}?&category=${category}&year=${year}&title=${slugify(title)}${tagsList}${authorsList}`}>
               {post.featuredImage &&
-                <img src={post.featuredImage?.node.mediaItemUrl}/>
+                <img src={post.featuredImage?.node.mediaItemUrl} />
               }
               <h1 className='title'>{post.title}</h1>
               <div className='authors'>

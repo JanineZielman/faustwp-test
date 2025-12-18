@@ -95,7 +95,7 @@ export default function Component(props) {
 
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
-  const { title, content, featuredImage, date, articleTop, intro, bibliography, linkedItems, linkedCollection, linkedCuratedBy, accordion} = props.data.post;
+  const { title, content, featuredImage, date, articleTop, intro, bibliography, linkedItems, linkedCollection, linkedCuratedBy, accordion } = props.data.post;
   const primaryMenu = props.data?.menu?.menuItems?.nodes ?? [];
   const categories = props.data.categories.nodes;
   const tags = props.data.tags.nodes;
@@ -106,7 +106,7 @@ export default function Component(props) {
 
 
   const footnotes = content?.match(regexMdLinks);
-  
+
   const [newContent, setNewContent] = useState(null);
 
 
@@ -119,14 +119,14 @@ export default function Component(props) {
       setAuthors(jsonData)
     }
     fetchAuthors()
-    
+
   }, [])
 
   useEffect(() => {
-    if (footnotes){
+    if (footnotes) {
       // setNewContent(content.replaceAll('[/footnote]', '</sup>').replaceAll('[footnote', '<sup id="sup" onclick="location.href=`#footnotes`" >').replaceAll(']', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'));
       var count = 0;
-      setNewContent(content.replaceAll(/(?:\[footnote)(.*?)(?:\[\/footnote\])/g, function(){count+=1;return '<sup id="sup" onclick="location.href=`#footnotes`" >' + count + '</sup>'}))
+      setNewContent(content.replaceAll(/(?:\[footnote)(.*?)(?:\[\/footnote\])/g, function () { count += 1; return '<sup id="sup" onclick="location.href=`#footnotes`" >' + count + '</sup>' }))
     } else {
       setNewContent(content)
     }
@@ -141,7 +141,7 @@ export default function Component(props) {
   }, [])
 
   useEffect(() => {
-    if (linkedColandCur){
+    if (linkedColandCur) {
       setUniquelinkedColandCur([...new Map(linkedColandCur.map(v => [v.id, v])).values()])
     }
   }, [linkedColandCur])
@@ -185,81 +185,81 @@ export default function Component(props) {
           </div>
           <h1 className='headline'>{title}</h1>
           <div className='main-wrapper'>
-              <div className='left-sidebar'>
-                <Filter authors={router.query.authors} tag={router.query.tag} tags={tags} categories={categories} title={router.query.title} category={router.query.category} year={router.query.year} path={router.asPath.replace(/^.+\?/,'/filter?')}/>
-              </div>
-              <div className='content-wrapper'>
-                {intro.bigImage && 
-                  <div className='big-image'>
-                    <img src={intro.bigImage.sourceUrl}/>
-                    {intro.bigImage.caption &&<div className='captions'>{intro.bigImage.caption}</div>}
+            <div className='left-sidebar'>
+              <Filter authors={router.query.authors} tag={router.query.tag} tags={tags} categories={categories} title={router.query.title} category={router.query.category} year={router.query.year} path={router.asPath.replace(/^.+\?/, '/filter?')} />
+            </div>
+            <div className='content-wrapper'>
+              {intro.bigImage &&
+                <div className='big-image'>
+                  <img src={intro.bigImage.sourceUrl} />
+                  {intro.bigImage.caption && <div className='captions'>{intro.bigImage.caption}</div>}
+                </div>
+              }
+              {intro.embed && <iframe className='big-image' src={intro.embed} />}
+              <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
+              <div className='content' dangerouslySetInnerHTML={{ __html: newContent ?? '' }} />
+              {bibliography.bibliography &&
+                <Collapsible trigger="Bibliography" idname={'bibliography'}>
+                  <p dangerouslySetInnerHTML={{ __html: bibliography.bibliography }}></p>
+                </Collapsible>
+              }
+              {accordion.accordion?.map((item, i) => {
+                return (
+                  <Collapsible trigger={item.title} idname={item.title.replaceAll(' ', '-')}>
+                    <div className='content' dangerouslySetInnerHTML={{ __html: item.text ?? '' }} />
+                    {item.person?.map((item, i) => {
+                      return (
+                        <div className='person'>
+                          {item.image?.mediaItemUrl && <img src={item.image?.mediaItemUrl} />}
+                          <div>
+                            <h2>{item.name}</h2>
+                            <div className='content' dangerouslySetInnerHTML={{ __html: item.text ?? '' }} />
+                          </div>
+                        </div>
+                      )
+                    })}
+
+                  </Collapsible>
+                )
+              })}
+              {authors.length > 0 &&
+                <Collapsible trigger="Authors" idname={'authors'}>
+                  <div className='authors-bio'>
+                    {authors.map((item, i) => {
+                      return (
+                        <div className='author-bio'>
+                          <h3 dangerouslySetInnerHTML={{ __html: item.name }} ></h3>
+                          <p dangerouslySetInnerHTML={{ __html: item.acf.bio }} />
+                        </div>
+                      )
+                    })}
                   </div>
-                }
-                {intro.embed && <iframe className='big-image' src={intro.embed}/>}
-                <div className='intro' dangerouslySetInnerHTML={{ __html: intro.intro ?? '' }} />
-                <div className='content' dangerouslySetInnerHTML={{ __html: newContent ?? '' }} />
-                {bibliography.bibliography && 
-                  <Collapsible trigger="Bibliography" idname={'bibliography'}>
-                    <p dangerouslySetInnerHTML={{ __html: bibliography.bibliography}}></p>
-                  </Collapsible>
-                }
-                {accordion.accordion?.map((item, i) => {
-                  return(
-                    <Collapsible trigger={item.title} idname={item.title.replaceAll(' ', '-')}>
-                      <div className='content' dangerouslySetInnerHTML={{ __html: item.text ?? '' }} />
-                      {item.person?.map((item, i) => {
-                        return(
-                          <div className='person'>
-                            {item.image?.mediaItemUrl && <img src={item.image?.mediaItemUrl}/>}
-                            <div>
-                              <h2>{item.name}</h2>
-                              <div className='content' dangerouslySetInnerHTML={{ __html: item.text ?? '' }} />
-                            </div>
-                          </div>
-                        )
-                      })}
-                      
-                    </Collapsible>
-                  )
-                })}
-                {authors.length > 0 && 
-                  <Collapsible trigger="Authors" idname={'authors'}>
-                    <div className='authors-bio'>
-                      {authors.map((item, i) => {
-                        return(
-                          <div className='author-bio'>
-                            <h3 dangerouslySetInnerHTML={{ __html: item.name}} ></h3>
-                            <p dangerouslySetInnerHTML={{ __html: item.acf.bio}}/>
-                          </div>
-                        )
-                      })}
-                    </div>
-                  </Collapsible>
-                }
-                {footnotes && 
-                  <Collapsible trigger="Footnotes" idname={'footnotes'}>
-                    <ul className='footnotes'>
-                      {footnotes.map((item, i) => {
-                        return(
-                          <li dangerouslySetInnerHTML={{ __html: item.replaceAll(/(?:\[footnote)(.*?)(?=\])/gm, '').replace(']', '').replaceAll('about:blank', '#') ?? '' }}/>
-                        )
-                      })}
-                    </ul>
-                  </Collapsible>
-                }
-              </div>
-              <div className='right-sidebar'>
-                {linkedItems?.linkedItems &&
-                  <LinkedItems props={linkedItems.linkedItems}/>
-                }
-                {uniquelinkedColandCur &&
-                  <LinkedItems props={uniquelinkedColandCur}/>
-                }
-              </div>
+                </Collapsible>
+              }
+              {footnotes &&
+                <Collapsible trigger="Footnotes" idname={'footnotes'}>
+                  <ul className='footnotes'>
+                    {footnotes.map((item, i) => {
+                      return (
+                        <li dangerouslySetInnerHTML={{ __html: item.replaceAll(/(?:\[footnote)(.*?)(?=\])/gm, '').replace(']', '').replaceAll('about:blank', '#') ?? '' }} />
+                      )
+                    })}
+                  </ul>
+                </Collapsible>
+              }
+            </div>
+            <div className='right-sidebar'>
+              {linkedItems?.linkedItems &&
+                <LinkedItems props={linkedItems.linkedItems} />
+              }
+              {uniquelinkedColandCur &&
+                <LinkedItems props={uniquelinkedColandCur} />
+              }
+            </div>
           </div>
-          <br/><br/>
+          <br /><br />
           <div className='related-grid'>
-            <h2 className='title related'>Related content</h2> 
+            <h2 className='title related'>Related content</h2>
           </div>
           {data &&
             <RelatedGrid
@@ -273,7 +273,7 @@ export default function Component(props) {
   );
 }
 
-Component.variables = ({ databaseId}, ctx) => {
+Component.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
     asPreview: false,
